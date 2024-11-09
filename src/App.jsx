@@ -1,5 +1,7 @@
 import './App.css'
 
+import Game from './components/game';
+
 function App() {
 
   return (
@@ -7,6 +9,8 @@ function App() {
         <h1 className="text-3xl font-bold underline">
       Hello world somos los mejores!
         </h1>
+
+        <Game />
     </>
   )
 }
