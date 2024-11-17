@@ -4,6 +4,7 @@ import { createBrowserRouter } from 'react-router-dom'
 import { RouterProvider } from 'react-router-dom'
 import Root from './components/root'
 import './index.css'
+import  initGame  from './service/initGame'
 
 const router = createBrowserRouter([
   {
@@ -14,12 +15,8 @@ const router = createBrowserRouter([
 
 createRoot(document.getElementById('root')).render(
   <StrictMode>
-
-<RouterProvider router={router} />
- 
-
- </StrictMode>
-
-  
- 
+    <RouterProvider router={router} />
+  </StrictMode>
 );
+
+
