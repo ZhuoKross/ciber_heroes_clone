@@ -1,5 +1,6 @@
 import context from "./kaplayContext"
 import { displayDialogue } from "../utils/utils";
+import { AnswerDisplayDialogue } from "../utils/answer"
 
 
 export default async function initGame(canvas) {
@@ -13,6 +14,18 @@ export default async function initGame(canvas) {
 
 
     try {
+        await k.loadSprite("enemies_One", "/assets/0_Fallen_Angels_Idle_001-sheet.png",{
+           sliceX: 9,
+           sliceY: 0, 
+           anims:{
+            "idle": {
+                    from: 1,
+                    to: 0,
+                    loop: true,
+                    speed: 3
+                },
+           }
+        })
 
         // SPRITE FOR THE CHARACTER EXAMPLE
         await k.loadSprite("character", "/assets/spriteSheet_character_ciber_heroes.png", {
@@ -78,20 +91,88 @@ export default async function initGame(canvas) {
 
 
     //k.setGravity(600);
-    k.scene("prueba", ()=>{
-      k.add([
-        k.rect(
-            20,20
-        ),
-        k.area(),
-        k.outline(2),
-        k.pos(
-            100, 50
-        ),
-        k.setBackground(k.Color.fromHex("523212")),
-        k.body({isStatic: true})
-      ])
-    })
+    k.scene("prueba", async () => {
+        // Load the GIF as a sprite
+        await k.loadSprite("background_test", "/assets/background_test.gif", {
+            sliceX: 1,
+            sliceY: 1,
+        });
+    
+        // Add the GIF as the background
+        k.add([
+            k.sprite("background_test"),
+            k.pos(0, 0),
+            k.scale(0.88),
+            "background",
+        ]);
+    
+        
+        AnswerDisplayDialogue(
+            "Pregunta numero uno: Que es phishing?",
+            ["tipo de ciberataque que engaña a las personas y hacer que compartan datos confidenciales", "Pescar", "Es cuando ingresas mal una clave en algun lugar"],
+            (selectedOptions) => {
+                console.log("Opciones seleccionadas:", selectedOptions);
+                player.isOnDialogue = false;
+            }
+        );
+        // Add a ground platform
+        k.add([
+            k.rect(10000, 250),
+            k.area(),
+            k.outline(2),
+            k.pos(0, 700),
+            k.body({ isStatic: true }),
+        ]);
+    
+        //Define and add the player
+         const player = k.make([
+             k.sprite("character"),
+             { anim: "idle" },
+             k.area({
+                 shape: new k.Rect(new k.vec2(0), 20, 20),
+             }),
+             k.body(),
+             k.anchor("center"),
+             k.pos(1400, 700), // Position the player on the screen
+             k.scale(10),
+             {
+                 speed: 200,
+              direction: "left",
+            },
+             "player",
+         ]);
+    
+        // Add the player to the scene
+         k.add(player);
+
+      // ANIMATIONS AND LOGIC FOR TRIGGER IT 
+        player.play("idle");
+
+        const enemies_One = k.make([
+            k.sprite("enemies_One"),
+            { anim: "idle" },
+            k.area({
+                shape: new k.Rect(new k.vec2(0), 10, 10),
+            }),
+            k.body(),
+            k.anchor("center"),
+            k.pos(400, 580), // Position the player on the screen
+            k.scale(10),
+            {
+                speed: 200,
+             direction: "left",
+           },
+            "enemies_One",
+        ]);
+   
+       // Add the player to the scene
+        k.add(enemies_One);
+
+     // ANIMATIONS AND LOGIC FOR TRIGGER IT 
+       enemies_One.play("idle");
+    });
+    
+    
     const SPEED = 250;
 
     k.scene("game", () => {
