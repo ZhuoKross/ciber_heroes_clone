@@ -78,7 +78,21 @@ export default async function initGame(canvas) {
 
 
     //k.setGravity(600);
-    const SPEED = 140;
+    k.scene("prueba", ()=>{
+      k.add([
+        k.rect(
+            20,20
+        ),
+        k.area(),
+        k.outline(2),
+        k.pos(
+            100, 50
+        ),
+        k.setBackground(k.Color.fromHex("523212")),
+        k.body({isStatic: true})
+      ])
+    })
+    const SPEED = 250;
 
     k.scene("game", () => {
 
@@ -176,6 +190,19 @@ export default async function initGame(canvas) {
                             });
                         })
                     } else {
+                        console.log("si escucharon ese rempalago?!!")
+                    };
+
+                    if (obj.name === "info_Test") {
+                        k.onCollide("player", obj.name, () => {
+
+                            console.log(`collision with object: ${obj.name}`)
+                            k.go("prueba")
+
+                            player.isOnDialogue = true;
+
+                        })
+                    } else {
                         continue
                     }
 
@@ -192,12 +219,12 @@ export default async function initGame(canvas) {
             })
 
 
-            k.onMouseDown((mouseBtn) => {
-                if (mouseBtn !== "left" || player.isOnDialogue) return;
+            // k.onMouseDown((mouseBtn) => {
+            //     if (mouseBtn !== "left" || player.isOnDialogue) return;
 
-                const worldMousePosition = k.toWorld(k.mousePos());
-                player.moveTo(worldMousePosition, player.speed);
-            })
+            //     const worldMousePosition = k.toWorld(k.mousePos());
+            //     player.moveTo(worldMousePosition, player.speed);
+            // })
 
             k.onKeyDown("a", () => {
                 player.move(-SPEED, 0)
@@ -252,5 +279,5 @@ export default async function initGame(canvas) {
 
 
     k.go("game");
-
+    
 }
