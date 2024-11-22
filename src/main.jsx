@@ -4,7 +4,7 @@ import { createBrowserRouter } from 'react-router-dom'
 import { RouterProvider } from 'react-router-dom'
 import Root from './components/root'
 import './index.css'
-import  initGame  from './service/initGame'
+
 
 const router = createBrowserRouter([
   {

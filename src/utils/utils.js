@@ -44,3 +44,26 @@ export const displayDialogue = async (text, onDialogueEnd) => {
 
     btnClose.addEventListener("click", HandleCloseEvent)
 } 
+
+
+// {
+    
+
+
+//     try {
+//         await k.loadSprite("enemies_One", "/assets/0_Fallen_Angels_Idle_001-sheet.png",{
+//            sliceX: 9,
+//            sliceY: 0, 
+//            anims:{
+//             "idle": {
+//                     from: 1,
+//                     to: 0,
+//                     loop: true,
+//                     speed: 3
+//                 },
+//            }
+//         })
+
+        
+
+// }

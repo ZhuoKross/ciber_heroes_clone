@@ -1,26 +1,25 @@
 import kaplay from "kaplay";
 
 
-let kaplayContext = null;
-
 export default function context(canvas) {
 
 
-    console.log("canvas from context function: ", canvas)
+    console.log("canvas from context function: ", canvas);
+    console.log("dimensiones del canvas: ", canvas.clientWidth, canvas.clientHeight)
 
-    //if (!kaplayContext) {
+    
+
+    
+
         return kaplay({
             global: false,
             debug: true,
-            letterbox: true,
+            //letterbox: true,
             debugKey: "c",
             width: canvas.clientWidth,
-            height: canvas.offsetHeight,
+            height: canvas.clientHeight,
             canvas: canvas,
-            //pixelDensity: devicePixelRatio,
         });
 
-    //}
 
-    //return kaplayContext;
 }

@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react'
 import Game from './game'
-import initGame from '../service/initGame'
+
 
 
 

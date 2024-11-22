@@ -1,5 +1,5 @@
 import { useEffect, useRef } from "react";
-import initGame from "../service/initGame";
+import main from "../service/main";
 import Dialogue from "./Dialogue";
 
 
@@ -13,13 +13,13 @@ export default function Game() {
 
         // console.log("elemento contenedor: ", document.querySelector("#father_game"));
 
-        // console.log("canvas ref: ", canvasRef.current);
+        console.log("canvas ref: ", canvasRef.current);
         console.log("Element container dialogue: ", document.querySelector(".dialogue-container"))
-        console.log("Element description dialogue: ", document.getElementById("description"))
+        //console.log("Element description dialogue: ", document.getElementById("description"))
 
-        if (canvasRef.current && !hasInitialized.current) {
+        if (canvasRef.current && hasInitialized) {
             console.log("entra en la validación")
-            initGame(canvasRef.current)
+            main(canvasRef.current)
 
             hasInitialized.current = true;
         }
