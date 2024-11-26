@@ -1,28 +1,138 @@
-export default function scene02(k, goToNextScene, levelData) {
-
-    try {
-
-        k.add([
-            k.sprite("level-02"),
-            k.scale(2),
-            k.pos(100, 50)
-        ])
+export default function scene02(k, goToNextScene, goBackSceene, levelData) {
 
 
-        // k.add([
-        //     k.text("Presiona 'U' para ir a la escena 03"),
-        //     k.pos(400, 130),
-        //     k.anchor("center")
-        // ])
 
-    } catch (e) {
-        throw new Error("No se pudo cargar totalmente la escena 02");
+    const map = k.add([
+        k.sprite("level-02"),
+        k.scale(2),
+        k.pos(100, 0)
+    ])
+
+    const player = k.make([
+        k.sprite("character"),
+        { anim: "idle" },
+        k.area({
+            shape: new k.Rect(new k.vec2(0), 18, 18)
+        }),
+        k.body(),
+        k.anchor("center"),
+        k.pos(),
+        k.scale(3),
+        {
+            speed: 200,
+            direction: "left",
+            isOnDialogue: false,
+            enemiesDefeated: 0
+
+        },
+        "player"
+    ])
+
+    const SPEED = 250;
+
+    console.log("data of the level 02: ", levelData);
+
+
+    for (const layer of levelData.layers) {
+        if (layer.name === "limits") {
+            for (const obj of layer.objects) {
+                map.add([
+                    k.body({ isStatic: true }),
+                    k.pos(obj.x, obj.y),
+                    k.area({shape: new k.Rect(new k.vec2(0), obj.width, obj.height)}),
+                    obj.name
+                ]);
+
+                if(obj.name === "passage_back"){
+                    k.onCollide("player", obj.name, ()=>{
+                        goBackSceene();
+                    })
+                }
+            }
+        }
+
+        if (layer.name === "colliders") {
+            for (const obj of layer.objects) {
+                if (obj.name === "level_02_from_level_01") {
+
+                    player.pos = k.vec2(
+                        (map.pos.x + obj.x  + 215),
+                        (map.pos.y + obj.y  )
+                    ),
+
+                        k.add(player)
+
+                }
+
+
+                map.add([
+                    k.body({ isStatic: true }),
+                    k.area({ shape: new k.Rect(k.vec2(0), obj.width, obj.height) }),
+                    k.pos(obj.x, obj.y),
+                    obj.name
+                ]);
+            }
+
+        }
     }
 
 
+    player.play("idle");
+
+
+
     k.onKeyPress("u", () => {
-        goToNextScene();
+        goBackSceene();
     });
 
 
+    k.onUpdate(() => {
+        k.camPos(player.pos.x, player.pos.y + 100);
+    })
+
+
+    k.onKeyDown("a", () => {
+        player.move(-SPEED, 0)
+        if (player.getCurAnim().name !== "walk-left") {
+            //console.log("name of the current animation:", player.getCurAnim().name)
+            player.play("walk-left")
+        }
+    })
+
+    k.onKeyDown("w", () => {
+        player.move(0, -SPEED)
+
+        if (player.getCurAnim().name !== "walk-up") {
+            //console.log("name of the current animation:", player.getCurAnim().name)
+            player.play("walk-up")
+        }
+    });
+
+    k.onKeyDown("s", () => {
+        player.move(0, SPEED)
+
+        if (player.getCurAnim().name !== "walk-down") {
+            //console.log("name of the current animation:", player.getCurAnim().name)
+            player.play("walk-down")
+        }
+    })
+
+    k.onKeyDown("d", () => {
+        player.move(SPEED, 0)
+
+        if (player.getCurAnim().name !== "walk-right") {
+            //console.log("name of the current animation:", player.getCurAnim().name)
+            player.play("walk-right")
+        }
+    })
+
+    const keys = ["w", "a", "s", "d"];
+
+    keys.forEach(key => {
+        k.onKeyRelease(key, () => {
+            if (!k.isKeyDown("w") || !k.isKeyDown("a") || k.isKeyDown("s") || k.isKeyDown("d")) {
+                player.play("idle");
+            }
+        })
+    });
 }

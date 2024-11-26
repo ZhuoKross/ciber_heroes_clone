@@ -1,13 +1,7 @@
 //import { displayDialogue } from "../../utils/utils";
 import dialog from "../dialog";
 
-export default function scene01(k, goToNextScene, levelData) {
-
-    // k.add([
-    //     k.rect(200, 100),
-    //     k.pos(100, 100)
-    // ])
-
+export default function scene01(k, goToNextScene, levelData, allPositions) {
 
     const map = k.add([
         k.sprite("level-01"),
@@ -29,8 +23,9 @@ export default function scene01(k, goToNextScene, levelData) {
             speed: 200,
             direction: "left",
             isOnDialogue: false,
-            enemiesDefeated: 0
-
+            enemiesDefeated: 0,
+            currentPosition: {},
+            currentLevel: "",
         },
         "player"
     ])
@@ -40,6 +35,15 @@ export default function scene01(k, goToNextScene, levelData) {
     console.log("data of the level 01: ", levelData);
 
     for (const layer of levelData.layers) {
+
+        if(layer.name === "positions"){
+            for(const obj of layer.objects){
+                if(obj.name === "transition_positions"){
+                    var dataPositionTransition = obj;
+                }
+            }
+        }
+
         if (layer.name === "limits") {
             for (const obj of layer.objects) {
                 map.add([
@@ -49,25 +53,42 @@ export default function scene01(k, goToNextScene, levelData) {
                     obj.name
                 ])
 
+                player.enemiesDefeated = 3;
+
                 if(obj.name === "passage"){
                     k.onCollide("player", obj.name, () => {
-                        k.debug.log("No puedes pasar. No has derrotado a todos lo enemigos :(")
+                        if(player.enemiesDefeated === 3){
+                            
+                            goToNextScene();
+                            
+                            //player.pos =  new k.vec2(dataPositionTransition.x, dataPositionTransition.y);
+                            
+                        }else{
+                            k.debug.log("No puedes pasar. No has derrotado a todos lo enemigos :(")
+                        }
+                        //console.log("Enemies defeated: ", player.enemiesDefeated);
                     })
+                }
+            }
+        }
+
+        if(layer.name === "positions"){
+            for (const obj of layer.objects){
+                if (obj.name === "spawn_position") {
+                    player.pos = k.vec2(
+                        (map.pos.x + allPositions.positions_level_01.spawn_position.x + 400),
+                        (map.pos.y + allPositions.positions_level_01.spawn_position.y + 100)
+                    )
+
+                    player.currentPosition = {"x": allPositions.}
+
+                    k.add(player);  
                 }
             }
         }
 
         if (layer.name === "colliders") {
             for (const obj of layer.objects) {
-                if (obj.name === "player") {
-                    player.pos = k.vec2(
-                        (map.pos.x + obj.x + 400),
-                        (map.pos.y + obj.y + 100)
-                    )
-
-                    k.add(player);  
-                }
-
                 if(obj.name === "info"){
                     map.add([
                         k.body({isStatic: true}),
@@ -82,6 +103,8 @@ export default function scene01(k, goToNextScene, levelData) {
                         dialog(k,"EXAMPLE TEXT BITCH YEAAAAAAHHHHH", k.vec2(k.camPos()), ()=> {
                             k.debug.log("yesss, it worksss");
                         })
+
+
                     })
                 }
             }

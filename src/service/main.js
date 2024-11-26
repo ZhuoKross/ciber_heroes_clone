@@ -16,7 +16,11 @@ export default async function main() {
 
     // FUNTION TO PASS THROUGHT SCENES 
     function changeScene(nextScene) {
-        k.go(nextScene)
+        k.go(nextScene);
+    }
+
+    function backScene(scene){
+        k.go(scene);
     }
 
 
@@ -29,18 +33,98 @@ export default async function main() {
 
 
 
+
+    // FOR THE POSITIONS OF THE EACH LEVEL
+
+    const posLevel01 = {};
+    const posLevel02 = {};
+    const posLevel03 = {};
+
+    const allPositions = {
+        "positions_level_01": posLevel01,
+        "positions_level_02": posLevel02,
+        "positions_level_03": posLevel03
+    }
+
+    // LEVEL 01
+    for (const layer of level01.layers){
+        if(layer.name === "positions"){
+            for (const obj of layer.objects){
+                if(obj.name === "spawn_position"){
+                    posLevel01["spawn_position"] = {"x": obj.x, "y": obj.y};
+                }
+                else if(obj.name === "level_01_from_level_02"){
+                    posLevel01["level_01_from_level_02"] = {"x": obj.x, "y": obj.y};
+                }
+            }
+        }
+    }
+
+    // LEVEL 02
+    for(const layer of level02.layers){
+        if(layer.name === "positions"){
+            for(const obj of layer.objects){
+                if(obj.name === "level_02_from_level_01"){
+                    posLevel02["level_02_from_level_01"] =  {"x": obj.x, "y": obj.y};
+                }
+                else if(obj.name === "level_02_from_level_03"){
+                    posLevel02["level_02_from_level_03"] = {"x": obj.x, "y": obj.y};
+                }
+            }
+        }
+    }
+
+
+    // LEVEL 03
+    for (const layer of level03.layers){
+        if(layer.name === "colliders"){
+            for(const obj of layer.objects){
+                if(obj.name === "level_03_from_level_02"){
+                    posLevel03["level_03_from_level_02"] = {"x": obj.x, "y": obj.y}; 
+                }
+            }
+        }
+    }
+
+
     // DEFINING THE SCENES OF THE GAME
     k.scene("scene01", () => {
-        scene01(k, () => { changeScene("scene02") }, level01);
+        scene01(k, () => { changeScene("scene02") }, level01, allPositions);
     })
 
     k.scene("scene03", () => {
-        scene03(k, () => { changeScene("scene02") }, level02);
+        scene03(k, () => { changeScene("scene02") }, level03);
     })
 
     k.scene("scene02", () => {
-        scene02(k, () => { changeScene("scene03") }, level03);
+        scene02(k, () => { changeScene("scene03") }, () => { backScene("scene01")}, level02);
     })
+
+
+
+    
+
+
+
+    // VALIDATING THE POSITIONS OF EACH LEVEL
+    // console.log("Positions of level 01: ", posLevel01);
+    // console.log("Positions of level 02: ", posLevel02);
+    // console.log("Positions of level 03: ", posLevel03);
+    console.log("all pos: ", allPositions);
+
+
+    // FUNTION TO THE TRANSITION BETWEEN SCENES
+    // function transitionLevel(newLevel, newPosition){
+    //     const DataPositions = {
+    //         currentLevel: newLevel,
+    //         newPosition: newPosition
+    //     }
+
+    //     return DataPositions;
+
+    // }
+
+
 
 
 

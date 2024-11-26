@@ -1285,27 +1285,50 @@
                  "width":61.5,
                  "x":63.5,
                  "y":118
-                }, 
+                }],
+         "opacity":1,
+         "type":"objectgroup",
+         "visible":true,
+         "x":0,
+         "y":0
+        }, 
+        {
+         "draworder":"topdown",
+         "id":10,
+         "name":"positions",
+         "objects":[
                 {
                  "height":0,
-                 "id":525,
-                 "name":"player",
+                 "id":1070,
+                 "name":"level_01_from_level_02",
                  "point":true,
                  "rotation":0,
                  "type":"",
                  "visible":true,
                  "width":0,
-                 "x":416,
-                 "y":108
+                 "x":223.75,
+                 "y":301.75
+                }, 
+                {
+                 "height":0,
+                 "id":1071,
+                 "name":"spawn_position",
+                 "point":true,
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":0,
+                 "x":410.333333333333,
+                 "y":117.5
                 }],
          "opacity":1,
          "type":"objectgroup",
-         "visible":false,
+         "visible":true,
          "x":0,
          "y":0
         }],
- "nextlayerid":10,
- "nextobjectid":1068,
+ "nextlayerid":11,
+ "nextobjectid":1072,
  "orientation":"orthogonal",
  "renderorder":"right-down",
  "tiledversion":"1.11.0",
