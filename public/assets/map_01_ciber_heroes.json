@@ -1252,6 +1252,17 @@
                  "width":114,
                  "x":332.727272727273,
                  "y":244.909090909091
+                }, 
+                {
+                 "height":27.3333333333333,
+                 "id":1067,
+                 "name":"passage",
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":127.333333333333,
+                 "x":160,
+                 "y":324
                 }],
          "opacity":1,
          "type":"objectgroup",
@@ -1289,12 +1300,12 @@
                 }],
          "opacity":1,
          "type":"objectgroup",
-         "visible":true,
+         "visible":false,
          "x":0,
          "y":0
         }],
  "nextlayerid":10,
- "nextobjectid":1067,
+ "nextobjectid":1068,
  "orientation":"orthogonal",
  "renderorder":"right-down",
  "tiledversion":"1.11.0",
