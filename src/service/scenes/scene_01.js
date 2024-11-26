@@ -29,6 +29,7 @@ export default function scene01(k, goToNextScene, levelData) {
             speed: 200,
             direction: "left",
             isOnDialogue: false,
+            enemiesDefeated: 0
 
         },
         "player"
@@ -47,6 +48,12 @@ export default function scene01(k, goToNextScene, levelData) {
                     k.area({ shape: new k.Rect(k.vec2(0), obj.width, obj.height) }),
                     obj.name
                 ])
+
+                if(obj.name === "passage"){
+                    k.onCollide("player", obj.name, () => {
+                        k.debug.log("No puedes pasar. No has derrotado a todos lo enemigos :(")
+                    })
+                }
             }
         }
 
