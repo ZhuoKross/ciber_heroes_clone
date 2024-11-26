@@ -36,14 +36,6 @@ export default function scene01(k, goToNextScene, levelData, allPositions) {
 
     for (const layer of levelData.layers) {
 
-        if(layer.name === "positions"){
-            for(const obj of layer.objects){
-                if(obj.name === "transition_positions"){
-                    var dataPositionTransition = obj;
-                }
-            }
-        }
-
         if (layer.name === "limits") {
             for (const obj of layer.objects) {
                 map.add([
@@ -59,7 +51,7 @@ export default function scene01(k, goToNextScene, levelData, allPositions) {
                     k.onCollide("player", obj.name, () => {
                         if(player.enemiesDefeated === 3){
                             
-                            goToNextScene();
+                            goToNextScene("scene02");
                             
                             //player.pos =  new k.vec2(dataPositionTransition.x, dataPositionTransition.y);
                             
@@ -80,7 +72,7 @@ export default function scene01(k, goToNextScene, levelData, allPositions) {
                         (map.pos.y + allPositions.positions_level_01.spawn_position.y + 100)
                     )
 
-                    player.currentPosition = {"x": allPositions.}
+                    //player.currentPosition = {"x": allPositions.}
 
                     k.add(player);  
                 }
