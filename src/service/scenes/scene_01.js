@@ -68,14 +68,27 @@ export default function scene01(k, goToNextScene, levelData) {
                         k.pos(obj.x, obj.y),
                         obj.name
                     ])
-
                     k.onCollide("player", obj.name, () => {
                         console.log("collision with object: ", obj.name);
-
-                        dialog(k,"EXAMPLE TEXT BITCH YEAAAAAAHHHHH", k.vec2(k.camPos()), ()=> {
-                            k.debug.log("yesss, it worksss");
-                        })
-                    })
+                    
+                        const PreguntaUno = "Aqui esta la pregunta"
+                        dialog(
+                            k,
+                            PreguntaUno, // Texto del diálogo
+                            k.vec2(k.camPos()), // Posición basada en la cámara
+                            () => {
+                                k.debug.log("Diálogo cerrado"); // Función de cierre
+                            },
+                            () => {
+                                k.debug.log("Pasando a la siguiente escena"); // Función para cambiar de escena
+                                k.go("nextScene"); // Ir a la siguiente escena
+                            }
+                        );
+                    });
+                    
+                    
+                    
+                                                 
                 }
             }
         }
