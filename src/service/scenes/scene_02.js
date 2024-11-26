@@ -1,4 +1,4 @@
-export default function scene02(k, goToNextScene, goBackSceene, levelData) {
+export default function scene02(k, changeScene, goBackSceene, levelData) {
 
 
 
@@ -22,8 +22,9 @@ export default function scene02(k, goToNextScene, goBackSceene, levelData) {
             speed: 200,
             direction: "left",
             isOnDialogue: false,
-            enemiesDefeated: 0
-
+            enemiesDefeated: 0,
+            currentPosition: {},
+            currentLevel: "",
         },
         "player"
     ])
@@ -39,12 +40,12 @@ export default function scene02(k, goToNextScene, goBackSceene, levelData) {
                 map.add([
                     k.body({ isStatic: true }),
                     k.pos(obj.x, obj.y),
-                    k.area({shape: new k.Rect(new k.vec2(0), obj.width, obj.height)}),
+                    k.area({ shape: new k.Rect(new k.vec2(0), obj.width, obj.height) }),
                     obj.name
                 ]);
 
-                if(obj.name === "passage_back"){
-                    k.onCollide("player", obj.name, ()=>{
+                if (obj.name === "passage_back") {
+                    k.onCollide("player", obj.name, () => {
                         goBackSceene();
                     })
                 }
@@ -53,17 +54,6 @@ export default function scene02(k, goToNextScene, goBackSceene, levelData) {
 
         if (layer.name === "colliders") {
             for (const obj of layer.objects) {
-                if (obj.name === "level_02_from_level_01") {
-
-                    player.pos = k.vec2(
-                        (map.pos.x + obj.x  + 215),
-                        (map.pos.y + obj.y  )
-                    ),
-
-                        k.add(player)
-
-                }
-
 
                 map.add([
                     k.body({ isStatic: true }),
@@ -73,6 +63,21 @@ export default function scene02(k, goToNextScene, goBackSceene, levelData) {
                 ]);
             }
 
+        }
+
+        if(layer.name === "positions"){
+            for(const obj of layer.objects){
+                if (obj.name === "level_02_from_level_01") {
+
+                    player.pos = k.vec2(
+                        (map.pos.x + obj.x + 215),
+                        (map.pos.y + obj.y)
+                    ),
+
+                    k.add(player)
+
+                }
+            }
         }
     }
 

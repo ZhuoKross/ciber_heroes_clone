@@ -91,14 +91,15 @@ export default async function main() {
     k.scene("scene01", () => {
         scene01(k, () => { changeScene("scene02") }, level01, allPositions);
     })
+    
+    k.scene("scene02", () => {
+        scene02(k, () => { changeScene("scene03") }, () => { backScene("scene01")}, level02);
+    })
 
     k.scene("scene03", () => {
         scene03(k, () => { changeScene("scene02") }, level03);
     })
 
-    k.scene("scene02", () => {
-        scene02(k, () => { changeScene("scene03") }, () => { backScene("scene01")}, level02);
-    })
 
 
 
