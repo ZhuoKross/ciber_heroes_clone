@@ -1,7 +1,7 @@
 //import { displayDialogue } from "../../utils/utils";
 import dialog from "../dialog";
 
-export default function scene01(k, goToNextScene, levelData, allPositions) {
+export default function scene01(k, changeScene, levelData, allPositions) {
 
     const map = k.add([
         k.sprite("level-01"),
@@ -39,7 +39,7 @@ export default function scene01(k, goToNextScene, levelData, allPositions) {
         if(layer.name === "positions"){
             for(const obj of layer.objects){
                 if(obj.name === "transition_positions"){
-                    var dataPositionTransition = obj;
+                    //var dataPositionTransition = obj;
                 }
             }
         }
@@ -59,7 +59,7 @@ export default function scene01(k, goToNextScene, levelData, allPositions) {
                     k.onCollide("player", obj.name, () => {
                         if(player.enemiesDefeated === 3){
                             
-                            goToNextScene();
+                            changeScene();
                             
                             //player.pos =  new k.vec2(dataPositionTransition.x, dataPositionTransition.y);
                             
@@ -80,7 +80,7 @@ export default function scene01(k, goToNextScene, levelData, allPositions) {
                         (map.pos.y + allPositions.positions_level_01.spawn_position.y + 100)
                     )
 
-                    player.currentPosition = {"x": allPositions.}
+                    player.currentPosition = {"x": allPositions}
 
                     k.add(player);  
                 }
@@ -109,7 +109,7 @@ export default function scene01(k, goToNextScene, levelData, allPositions) {
                             },
                             () => {
                                 k.debug.log("Pasando a la siguiente escena"); // Función para cambiar de escena
-                                k.go("nextScene"); // Ir a la siguiente escena
+                                changeScene(); // Ir a la siguiente escena
                             }
                         );
                     });
