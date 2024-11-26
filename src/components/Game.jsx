@@ -13,13 +13,13 @@ export default function Game() {
 
         // console.log("elemento contenedor: ", document.querySelector("#father_game"));
 
-        console.log("canvas ref: ", canvasRef.current);
-        console.log("Element container dialogue: ", document.querySelector(".dialogue-container"))
+        // console.log("canvas ref: ", canvasRef.current);
+        // console.log("Element container dialogue: ", document.querySelector(".dialogue-container"))
         //console.log("Element description dialogue: ", document.getElementById("description"))
 
         if (canvasRef.current && hasInitialized) {
-            console.log("entra en la validación")
-            main(canvasRef.current)
+            //console.log("entra en la validación")
+            main()
 
             hasInitialized.current = true;
         }
@@ -33,15 +33,17 @@ export default function Game() {
 
         <div className="w-full h-screen relative">
 
-            <p className="text-zinc-400 text-2xl" id="note">Press W/A/S/D to move :)</p>
+            
             
              <Dialogue /> 
 
 
 
-            <div id="father_game" className="w-full h-screen">
+            <div id="father_game" className="w-full h-full">
 
-                <canvas className="w-full h-full" id="game" ref={canvasRef}></canvas>
+                <canvas className="w-full h-full" id="game" ref={canvasRef}>
+                <p className="text-zinc-400 text-2xl" id="note">Press W/A/S/D to move :)</p>
+                </canvas>
             </div>
         </div>
 
