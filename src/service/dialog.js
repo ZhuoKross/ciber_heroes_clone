@@ -1,10 +1,5 @@
-export default async function dialog(k,
-    text = "example text",
-    position = k.vec2(200, 200),
-    f = () => k.debug.log("hello")
-) {
-
-
+export default async function dialog(k, text, position = k.vec2(200, 200), onClose = () => {}, goToNextScene = () => {}) {
+    // Contenedor del diálogo
     const dialogContainer = await k.add([
         k.rect(450, 460, { radius: 8 }),
         k.pos(position),
@@ -12,44 +7,64 @@ export default async function dialog(k,
         k.anchor("center"),
         k.outline(2),
         k.color(255, 255, 255),
-        "dialog"
-    ])
-
-    const buttons = dialogContainer.add([
-        k.rect(80, 30, { radius: 10 }),
-        k.pos(dialogContainer.area.offset.x + 150, dialogContainer.area.offset.y + 200),
-        k.area(),
-        k.anchor("center"),
-        k.outline(1),
-        k.color(200, 200, 200),
-        "close-btn"
+        "dialog",
     ]);
 
-
-    console.log("area of the dialog: ", dialogContainer.area.offset);
-
-    
-
-    //buttons.pos(dialogContainer.pos.x, dialogContainer.pos.y)
-
-
+    // Texto del diálogo
     dialogContainer.add([
         k.text(text, {
-            size: 34,
-            width: dialogContainer.width,
-            align: "center"
+            size: 24, // Tamaño del texto
+            width: 400, // Limitar ancho
+            align: "center",
         }),
+        k.pos(0, -150), // Ajustar posición dentro del contenedor
         k.anchor("center"),
+        k.color(0, 0, 0), // Color del texto en blanco
+    ]);
+    
+    
+
+    // Botón "Cerrar"
+    const closeButton = dialogContainer.add([
+        k.rect(120, 40, { radius: 10 }),
+        k.pos(-100, 150), // Posición ajustada
         k.area(),
-        k.color(0, 0, 0)
-    ])
+        k.anchor("center"),
+        k.color(200, 50, 50), // Rojo
+        "close-btn",
+    ]);
 
-    dialogContainer.onClick(f);
-    buttons.onClick(() => {
+    closeButton.add([
+        k.text("Cerrar", { size: 18, align: "center" }),
+        k.anchor("center"),
+        k.color(0, 0, 0), // Texto blanco
+    ]);
 
-        k.destroy(dialogContainer);
+    closeButton.onClick(() => {
+        k.destroy(dialogContainer); // Cierra el diálogo
+        onClose(); // Llama a la función de cierre
+    });
 
-    })
+    // Botón "Siguiente"
+    const nextButton = dialogContainer.add([
+        k.rect(120, 40, { radius: 10 }),
+        k.pos(100, 150), // Posición ajustada
+        k.area(),
+        k.anchor("center"),
+        k.color(50, 200, 50), // Verde
+        "next-btn",
+    ]);
+
+    nextButton.add([
+        k.text("Siguiente", { size: 18, align: "center" }),
+        k.anchor("center"),
+        k.color(0, 0, 0), // Texto blanco
+    ]);
+
+    nextButton.onClick(() => {
+        k.destroy(dialogContainer); // Cierra el diálogo
+        goToNextScqene(); // Llama a la función de la siguiente escena
+    });
 
     return dialogContainer;
 }
