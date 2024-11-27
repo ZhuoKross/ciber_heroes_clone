@@ -2,7 +2,7 @@ import dialog from "../dialog";
 import { store, currentLevelAtom, curretPositionsPlayerAtom } from "../store";
 
 
-export default async function scene01(k, changeScene, levelData, allPositions) {
+export default async function scene01(k, changeScene, changeFightScene, levelData, allPositions) {
 
 
     const map = k.add([
@@ -50,13 +50,32 @@ export default async function scene01(k, changeScene, levelData, allPositions) {
 
     const SPEED = 250;
 
+    function introDialogue() {
+
+        player.isOnDialogue = true;
+        console.log("the player is in dialogue? ", player.isOnDialogue);
+
+        dialog(k,
+            "PreguntaUno", // Texto del diálogo
+            k.vec2(player.pos.x, player.pos.y + 100), // Posición basada en la cámara
+            () => {
+                player.isOnDialogue = false;
+                console.log("the player isn't in dialogue? ", player.isOnDialogue);
+            },
+            () => {
+                k.debug.log("Pasando a la siguiente escena"); // Función para cambiar de escena
+                changeScene(); // Ir a la siguiente escena
+            });
+    }
+
+
 
 
     for (const layer of levelData.layers) {
 
-        if(layer.name === "positions"){
-            for(const obj of layer.objects){
-                if(obj.name === "transition_positions"){
+        if (layer.name === "positions") {
+            for (const obj of layer.objects) {
+                if (obj.name === "transition_positions") {
                     //var dataPositionTransition = obj;
                 }
             }
@@ -78,7 +97,7 @@ export default async function scene01(k, changeScene, levelData, allPositions) {
                         //console.log("colllision with: ", obj.name);
                         if (player.enemiesDefeated === 3) {
 
-                            changeScene();
+                            changeFightScene();
 
                         } else {
                             k.debug.log("No puedes pasar. No has derrotado a todos lo enemigos :(")
@@ -108,7 +127,8 @@ export default async function scene01(k, changeScene, levelData, allPositions) {
                             PreguntaUno, // Texto del diálogo
                             k.vec2(k.camPos()), // Posición basada en la cámara
                             () => {
-                                k.debug.log("Diálogo cerrado"); // Función de cierre
+                                player.isOnDialogue = false;
+                                console.log("the player isn't in dialogue");
                             },
                             () => {
                                 k.debug.log("Pasando a la siguiente escena"); // Función para cambiar de escena
@@ -125,18 +145,17 @@ export default async function scene01(k, changeScene, levelData, allPositions) {
         }
     }
 
-    
-    
 
 
-    if (player.currentPosition.x === allPositions.positions_level_01.spawn_position.x && 
-        player.currentPosition.y === allPositions.positions_level_01.spawn_position.y && 
-        player.currentLevel === "level_01")
-        {
+
+
+    if (player.currentPosition.x === allPositions.positions_level_01.spawn_position.x &&
+        player.currentPosition.y === allPositions.positions_level_01.spawn_position.y &&
+        player.currentLevel === "level_01") {
         console.log("first validation, spawn position");
 
 
-       
+
 
         //await k.destroy(player);
         player.pos = k.vec2(
@@ -146,11 +165,11 @@ export default async function scene01(k, changeScene, levelData, allPositions) {
 
         k.add(player);
 
-    } else if ( player.currentPosition.x === allPositions.positions_level_01.level_01_from_level_02.x && 
-                player.currentPosition.y === allPositions.positions_level_01.level_01_from_level_02.y &&
-                player.currentLevel === "level_01") {
+    } else if (player.currentPosition.x === allPositions.positions_level_01.level_01_from_level_02.x &&
+        player.currentPosition.y === allPositions.positions_level_01.level_01_from_level_02.y &&
+        player.currentLevel === "level_01") {
         console.log("second validation, level_01_from_level_02 position");
-        
+
         //await k.destroy(player);
 
         player.pos = k.vec2(
@@ -159,10 +178,10 @@ export default async function scene01(k, changeScene, levelData, allPositions) {
         )
 
         k.add(player);
-    
-    }else{
+
+    } else {
         console.log("Ninguna posición es tomada");
-    
+
     }
 
 
@@ -176,9 +195,11 @@ export default async function scene01(k, changeScene, levelData, allPositions) {
     // }
 
 
+    introDialogue();
+
     player.play("idle");
 
-
+    // test function 
     k.onKeyPress("u", () => {
         changeScene();
     })
@@ -189,37 +210,46 @@ export default async function scene01(k, changeScene, levelData, allPositions) {
 
 
     k.onKeyDown("a", () => {
-        player.move(-SPEED, 0)
-        if (player.getCurAnim().name !== "walk-left") {
-            //console.log("name of the current animation:", player.getCurAnim().name)
-            player.play("walk-left")
+        if (player.isOnDialogue === false) {
+            player.move(-SPEED, 0)
+            if (player.getCurAnim().name !== "walk-left") {
+                //console.log("name of the current animation:", player.getCurAnim().name)
+                player.play("walk-left")
+            }
         }
     })
 
     k.onKeyDown("w", () => {
-        player.move(0, -SPEED)
-
-        if (player.getCurAnim().name !== "walk-up") {
-            //console.log("name of the current animation:", player.getCurAnim().name)
-            player.play("walk-up")
+        
+        if (player.isOnDialogue === false) {
+            player.move(0, -SPEED)
+            if (player.getCurAnim().name !== "walk-up") {
+                //console.log("name of the current animation:", player.getCurAnim().name)
+                player.play("walk-up")
+            }
         }
     });
 
     k.onKeyDown("s", () => {
-        player.move(0, SPEED)
-
-        if (player.getCurAnim().name !== "walk-down") {
-            //console.log("name of the current animation:", player.getCurAnim().name)
-            player.play("walk-down")
+        
+        if (player.isOnDialogue === false) {
+            player.move(0, SPEED)
+            if (player.getCurAnim().name !== "walk-down") {
+                //console.log("name of the current animation:", player.getCurAnim().name)
+                player.play("walk-down")
+            }
         }
     })
 
     k.onKeyDown("d", () => {
-        player.move(SPEED, 0)
+        
+        if (player.isOnDialogue === false) {
+            player.move(SPEED, 0)
 
-        if (player.getCurAnim().name !== "walk-right") {
-            //console.log("name of the current animation:", player.getCurAnim().name)
-            player.play("walk-right")
+            if (player.getCurAnim().name !== "walk-right") {
+                //console.log("name of the current animation:", player.getCurAnim().name)
+                player.play("walk-right")
+            }
         }
     })
 

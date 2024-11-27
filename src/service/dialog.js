@@ -7,19 +7,21 @@ export default async function dialog(k, text, position = k.vec2(200, 200), onClo
         k.anchor("center"),
         k.outline(2),
         k.color(255, 255, 255),
+        k.animate(),
         "dialog",
     ]);
 
     // Texto del diálogo
     dialogContainer.add([
         k.text(text, {
-            size: 24, // Tamaño del texto
+            size: 30, // Tamaño del texto
             width: 400, // Limitar ancho
             align: "center",
+            font: "monogram"
         }),
         k.pos(0, -150), // Ajustar posición dentro del contenedor
         k.anchor("center"),
-        k.color(0, 0, 0), // Color del texto en blanco
+        k.color(0, 0, 0), // Color del texto en negro
     ]);
     
     
@@ -29,6 +31,7 @@ export default async function dialog(k, text, position = k.vec2(200, 200), onClo
         k.rect(120, 40, { radius: 10 }),
         k.pos(-100, 150), // Posición ajustada
         k.area(),
+        k.opacity(1),
         k.anchor("center"),
         k.color(200, 50, 50), // Rojo
         "close-btn",
@@ -40,7 +43,7 @@ export default async function dialog(k, text, position = k.vec2(200, 200), onClo
         k.color(0, 0, 0), // Texto blanco
     ]);
 
-    closeButton.onClick(() => {
+    closeButton.onClick( async () => {
         k.destroy(dialogContainer); // Cierra el diálogo
         onClose(); // Llama a la función de cierre
     });
@@ -63,7 +66,7 @@ export default async function dialog(k, text, position = k.vec2(200, 200), onClo
 
     nextButton.onClick(() => {
         k.destroy(dialogContainer); // Cierra el diálogo
-        changeScene(); // Llama a la función de la siguiente escena
+        changeFightScene(); // Llama a la función de la siguiente escena
     });
 
     return dialogContainer;

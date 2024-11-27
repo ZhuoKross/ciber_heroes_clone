@@ -3,6 +3,7 @@ import scene02 from "./scenes/scene_02";
 import scene03 from "./scenes/scene-03";
 import context from "./kaplayContext";
 import { store, currentLevelAtom, curretPositionsPlayerAtom } from "./store";
+import fight02 from "./scenes/fight02";
 
 export default async function main() {
 
@@ -29,6 +30,10 @@ export default async function main() {
 
 
         k.go(scene);
+    }
+
+    function changeFightScene(nameScene){
+        k.go(nameScene)
     }
 
 
@@ -168,6 +173,17 @@ export default async function main() {
         await k.loadSprite("level-03", "/assets/level_03_ciber_heroes.png")
         //console.log("level o3 uploaded successfully");
 
+
+        await k.loadFont("monogram", "../assets/monogram.ttf")
+
+        await k.loadSprite("monster", "/assets/Idle_monster.png", {
+            sliceX: 4,
+            sliceY: 0,
+            anims: {
+                "idle": {from: 0, to: 3, loop: true}
+            }
+        });
+
     } catch (error) {
         console.log("Error uploading sprites and assets: ", error);
     }
@@ -187,6 +203,7 @@ export default async function main() {
         scene01(
             k,
             () => {changeScene("scene02", "level_02", allPositions.positions_level_02.level_02_from_level_01) },
+            () => {changeFightScene("fight02")},
              level01, allPositions);
     })
 
@@ -205,6 +222,10 @@ export default async function main() {
             () => { changeScene("scene03", "level_03", allPositions.positions_level_03.level_03_from_level_02) },
             () => { backScene("scene01", "level_01", allPositions.positions_level_01.level_01_from_level_02) },
             level02, allPositions);
+    })
+
+    k.scene("fight02", () => {
+        fight02(k);
     })
 
 
