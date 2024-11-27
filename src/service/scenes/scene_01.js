@@ -2,7 +2,7 @@ import dialog from "../dialog";
 import { store, currentLevelAtom, curretPositionsPlayerAtom } from "../store";
 
 
-export default async function scene01(k, changeScene, levelData, allPositions) {
+export default async function scene01(k, changeScene, levelData, allPositions, changeFight) {
 
 
     const map = await k.add([
@@ -110,8 +110,7 @@ export default async function scene01(k, changeScene, levelData, allPositions) {
                                 k.debug.log("Diálogo cerrado"); // Función de cierre
                             },
                             () => {
-                                k.debug.log("Pasando a la siguiente escena"); // Función para cambiar de escena
-                                changeScene(); // Ir a la siguiente escena
+                              changeFight() // Ir a la siguiente escena
                             }
                         );
                     });
