@@ -123,7 +123,7 @@ export default function scene02(k, changeScene, goBackSceene, levelData, allPosi
         player.move(0, SPEED)
 
         if (player.getCurAnim().name !== "walk-down") {
-            //console.log("name of the current animation:", player.getCurAnim().name)
+            console.log("name of the current animation:", player.getCurAnim().name)
             player.play("walk-down")
         }
     })

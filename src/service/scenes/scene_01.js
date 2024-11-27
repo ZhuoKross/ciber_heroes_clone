@@ -53,6 +53,14 @@ export default async function scene01(k, changeScene, levelData, allPositions) {
 
     for (const layer of levelData.layers) {
 
+        if(layer.name === "positions"){
+            for(const obj of layer.objects){
+                if(obj.name === "transition_positions"){
+                    //var dataPositionTransition = obj;
+                }
+            }
+        }
+
         if (layer.name === "limits") {
             for (const obj of layer.objects) {
                 map.add([
@@ -103,7 +111,7 @@ export default async function scene01(k, changeScene, levelData, allPositions) {
                             },
                             () => {
                                 k.debug.log("Pasando a la siguiente escena"); // Función para cambiar de escena
-                                k.go("nextScene"); // Ir a la siguiente escena
+                                changeScene(); // Ir a la siguiente escena
                             }
                         );
                     });
@@ -165,7 +173,7 @@ export default async function scene01(k, changeScene, levelData, allPositions) {
 
 
     k.onKeyPress("u", () => {
-        goToNextScene();
+        changeScene();
     })
 
     k.onUpdate(() => {
