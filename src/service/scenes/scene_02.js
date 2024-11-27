@@ -1,6 +1,6 @@
 import { currentLevelAtom, curretPositionsPlayerAtom, store } from "../store";
 
-export default async function scene02(k, changeScene, goBackSceene, levelData, allPositions) {
+export default async function scene02(k, changeScene, goBackSceene, levelData, allPositions, changeFight) {
 
 
 
@@ -84,7 +84,7 @@ export default async function scene02(k, changeScene, goBackSceene, levelData, a
 
                 if(obj.name === "first_fight"){
                     k.onCollide("player", obj.name, ()=> {
-                        
+                        changeFight();
                     })
                 }
             }
