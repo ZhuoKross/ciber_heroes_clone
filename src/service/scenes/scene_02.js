@@ -1,4 +1,6 @@
-export default function scene02(k, changeScene, goBackSceene, levelData) {
+import { currentLevelAtom, curretPositionsPlayerAtom, store } from "../store";
+
+export default function scene02(k, changeScene, goBackSceene, levelData, allPositions) {
 
 
 
@@ -35,7 +37,9 @@ export default function scene02(k, changeScene, goBackSceene, levelData) {
 
 
     for (const layer of levelData.layers) {
+        
         if (layer.name === "limits") {
+            
             for (const obj of layer.objects) {
                 map.add([
                     k.body({ isStatic: true }),
@@ -53,6 +57,7 @@ export default function scene02(k, changeScene, goBackSceene, levelData) {
         }
 
         if (layer.name === "colliders") {
+            
             for (const obj of layer.objects) {
 
                 map.add([
@@ -66,12 +71,13 @@ export default function scene02(k, changeScene, goBackSceene, levelData) {
         }
 
         if(layer.name === "positions"){
+            
             for(const obj of layer.objects){
                 if (obj.name === "level_02_from_level_01") {
 
                     player.pos = k.vec2(
                         (map.pos.x + obj.x + 215),
-                        (map.pos.y + obj.y)
+                        (map.pos.y + obj.y + 40)
                     ),
 
                     k.add(player)
@@ -86,15 +92,15 @@ export default function scene02(k, changeScene, goBackSceene, levelData) {
 
 
 
-    k.onKeyPress("u", () => {
-        goBackSceene();
-    });
-
+    
 
     k.onUpdate(() => {
         k.camPos(player.pos.x, player.pos.y + 100);
     })
 
+    k.onKeyPress("u", ()=>{
+        changeScene();
+    })
 
     k.onKeyDown("a", () => {
         player.move(-SPEED, 0)
@@ -131,6 +137,9 @@ export default function scene02(k, changeScene, goBackSceene, levelData) {
         }
     })
 
+    
+
+
     const keys = ["w", "a", "s", "d"];
 
     keys.forEach(key => {
@@ -140,4 +149,10 @@ export default function scene02(k, changeScene, goBackSceene, levelData) {
             }
         })
     });
+
+
+    const valueCurLevel = store.get(currentLevelAtom);
+    const valueCurPos = store.get(curretPositionsPlayerAtom);
+    console.log("value of the level from scene 02: ", valueCurLevel);
+    console.log("value of the current position from scene 02: ", valueCurPos);
 }

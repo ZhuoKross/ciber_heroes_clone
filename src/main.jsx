@@ -4,6 +4,7 @@ import { createBrowserRouter } from 'react-router-dom'
 import { RouterProvider } from 'react-router-dom'
 import Root from './components/root'
 import './index.css'
+import { Provider } from 'jotai'
 
 
 const router = createBrowserRouter([
@@ -15,7 +16,9 @@ const router = createBrowserRouter([
 
 createRoot(document.getElementById('root')).render(
   <StrictMode>
-    <RouterProvider router={router} />
+    <Provider>
+      <RouterProvider router={router} />
+    </Provider>
   </StrictMode>
 );
 

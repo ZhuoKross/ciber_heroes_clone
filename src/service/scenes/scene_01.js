@@ -1,15 +1,20 @@
-//import { displayDialogue } from "../../utils/utils";
 import dialog from "../dialog";
+import { store, currentLevelAtom, curretPositionsPlayerAtom } from "../store";
 
-export default function scene01(k, goToNextScene, levelData, allPositions) {
 
-    const map = k.add([
+export default async function scene01(k, changeScene, levelData, allPositions) {
+
+
+    const map = await k.add([
         k.sprite("level-01"),
         k.scale(2),
-        k.pos(100, 0)
+        k.pos(100, 0),
+        "map"
     ])
 
-    const player = k.make([
+
+
+    let player = k.make([
         k.sprite("character"),
         { anim: "idle" },
         k.area({
@@ -30,9 +35,21 @@ export default function scene01(k, goToNextScene, levelData, allPositions) {
         "player"
     ])
 
-    const SPEED = 250;
+    console.log("data of positions", allPositions);
+
+    player.currentPosition = store.get(curretPositionsPlayerAtom);
+    player.currentLevel = store.get(currentLevelAtom);
+
+    //player.currentPosition = store.get(curretPositionsPlayerAtom);
+    //player.currentLevel = store.get(currentLevelAtom);
 
     console.log("data of the level 01: ", levelData);
+    console.log("current position: ", player.currentPosition);
+
+
+    const SPEED = 250;
+
+
 
     for (const layer of levelData.layers) {
 
@@ -47,15 +64,14 @@ export default function scene01(k, goToNextScene, levelData, allPositions) {
 
                 player.enemiesDefeated = 3;
 
-                if(obj.name === "passage"){
+                if (obj.name === "passage") {
                     k.onCollide("player", obj.name, () => {
-                        if(player.enemiesDefeated === 3){
-                            
-                            goToNextScene("scene02");
-                            
-                            //player.pos =  new k.vec2(dataPositionTransition.x, dataPositionTransition.y);
-                            
-                        }else{
+                        //console.log("colllision with: ", obj.name);
+                        if (player.enemiesDefeated === 3) {
+
+                            changeScene();
+
+                        } else {
                             k.debug.log("No puedes pasar. No has derrotado a todos lo enemigos :(")
                         }
                         //console.log("Enemies defeated: ", player.enemiesDefeated);
@@ -64,33 +80,19 @@ export default function scene01(k, goToNextScene, levelData, allPositions) {
             }
         }
 
-        if(layer.name === "positions"){
-            for (const obj of layer.objects){
-                if (obj.name === "spawn_position") {
-                    player.pos = k.vec2(
-                        (map.pos.x + allPositions.positions_level_01.spawn_position.x + 400),
-                        (map.pos.y + allPositions.positions_level_01.spawn_position.y + 100)
-                    )
-
-                    //player.currentPosition = {"x": allPositions.}
-
-                    k.add(player);  
-                }
-            }
-        }
 
         if (layer.name === "colliders") {
             for (const obj of layer.objects) {
-                if(obj.name === "info"){
+                if (obj.name === "info") {
                     map.add([
-                        k.body({isStatic: true}),
-                        k.area({shape: new k.Rect(k.vec2(0), obj.width, obj.height)}),
+                        k.body({ isStatic: true }),
+                        k.area({ shape: new k.Rect(k.vec2(0), obj.width, obj.height) }),
                         k.pos(obj.x, obj.y),
                         obj.name
                     ])
                     k.onCollide("player", obj.name, () => {
-                        console.log("collision with object: ", obj.name);
-                    
+                        //console.log("collision with object: ", obj.name);
+
                         const PreguntaUno = "Aqui esta la pregunta"
                         dialog(
                             k,
@@ -105,17 +107,61 @@ export default function scene01(k, goToNextScene, levelData, allPositions) {
                             }
                         );
                     });
-                    
-                    
-                    
-                                                 
+
+
+
+
                 }
             }
         }
     }
 
-    player.play("idle");
+    if (k.get("player")) {
 
+        await k.destroy(player);
+
+
+    }
+
+
+    if (player.currentPosition === allPositions.positions_level_01.spawn_position && player.currentLevel === "level_01") {
+        console.log("first validation, spawn position");
+
+        //await k.destroy(player);
+        player.pos = k.vec2(
+            (map.pos.x + player.currentPosition.x + 400),
+            (map.pos.y + player.currentPosition.y + 100)
+        )
+
+        k.add(player);
+
+    } else if (player.currentPosition === allPositions.positions_level_01.level_01_from_level_02 && player.currentLevel === "level_02") {
+        console.log("second validation, level_01_from_level_02 position");
+        
+        //await k.destroy(player);
+
+        player.pos = k.vec2(
+            (map.pos.x + player.currentPosition.x + 220),
+            (map.pos.y + player.currentPosition.y + 300)
+        )
+
+        k.add(player);
+    
+    }else{
+        console.log("default position");
+
+        //await k.destroy(player);
+
+        player.pos = k.vec2(
+            (map.pos.x + player.currentPosition.x + 400),
+            (map.pos.y + player.currentPosition.y + 100)
+        )
+
+        k.add(player);
+    }
+
+
+    player.play("idle");
 
 
     k.onKeyPress("u", () => {
@@ -171,5 +217,7 @@ export default function scene01(k, goToNextScene, levelData, allPositions) {
             }
         })
     });
+
+    console.log("pass all the 001 scene");
 
 }

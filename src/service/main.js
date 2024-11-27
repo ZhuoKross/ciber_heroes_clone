@@ -2,26 +2,40 @@ import scene01 from "./scenes/scene_01";
 import scene02 from "./scenes/scene_02";
 import scene03 from "./scenes/scene-03";
 import context from "./kaplayContext";
-
-
+import { store, currentLevelAtom, curretPositionsPlayerAtom } from "./store";
 
 export default async function main() {
 
 
 
+    const canvas = document.getElementsByTagName("canvas");
+
+    console.log(canvas);
     // GETTING THE CONTEXT OF KAPLAY
     const k = context();
 
-    k.setBackground(k.Color.fromHex("424050"))
+    k.setBackground(k.Color.fromHex("424050"));
 
     // FUNTION TO PASS THROUGHT SCENES 
-    function changeScene(nextScene) {
+    function changeScene(nextScene, newLevel, newPosition) {
+        store.set(currentLevelAtom, newLevel)
+        store.set(curretPositionsPlayerAtom, newPosition)
+
         k.go(nextScene);
     }
 
-    function backScene(scene){
+    function backScene(scene, newLevel, newPosition) {
+
+        store.set(currentLevelAtom, newLevel)
+        store.set(curretPositionsPlayerAtom, newPosition)
+
+
         k.go(scene);
     }
+
+
+    
+
 
 
     // UPLOADING THE DATA OF THE LEVELS
@@ -47,28 +61,28 @@ export default async function main() {
     }
 
     // LEVEL 01
-    for (const layer of level01.layers){
-        if(layer.name === "positions"){
-            for (const obj of layer.objects){
-                if(obj.name === "spawn_position"){
-                    posLevel01["spawn_position"] = {"x": obj.x, "y": obj.y};
+    for (const layer of level01.layers) {
+        if (layer.name === "positions") {
+            for (const obj of layer.objects) {
+                if (obj.name === "spawn_position") {
+                    posLevel01["spawn_position"] = { "x": obj.x, "y": obj.y };
                 }
-                else if(obj.name === "level_01_from_level_02"){
-                    posLevel01["level_01_from_level_02"] = {"x": obj.x, "y": obj.y};
+                else if (obj.name === "level_01_from_level_02") {
+                    posLevel01["level_01_from_level_02"] = { "x": obj.x, "y": obj.y };
                 }
             }
         }
     }
 
     // LEVEL 02
-    for(const layer of level02.layers){
-        if(layer.name === "positions"){
-            for(const obj of layer.objects){
-                if(obj.name === "level_02_from_level_01"){
-                    posLevel02["level_02_from_level_01"] =  {"x": obj.x, "y": obj.y};
+    for (const layer of level02.layers) {
+        if (layer.name === "positions") {
+            for (const obj of layer.objects) {
+                if (obj.name === "level_02_from_level_01") {
+                    posLevel02["level_02_from_level_01"] = { "x": obj.x, "y": obj.y };
                 }
-                else if(obj.name === "level_02_from_level_03"){
-                    posLevel02["level_02_from_level_03"] = {"x": obj.x, "y": obj.y};
+                else if (obj.name === "level_02_from_level_03") {
+                    posLevel02["level_02_from_level_03"] = { "x": obj.x, "y": obj.y };
                 }
             }
         }
@@ -76,57 +90,26 @@ export default async function main() {
 
 
     // LEVEL 03
-    for (const layer of level03.layers){
-        if(layer.name === "colliders"){
-            for(const obj of layer.objects){
-                if(obj.name === "level_03_from_level_02"){
-                    posLevel03["level_03_from_level_02"] = {"x": obj.x, "y": obj.y}; 
+    for (const layer of level03.layers) {
+        if (layer.name === "colliders") {
+            for (const obj of layer.objects) {
+                if (obj.name === "level_03_from_level_02") {
+                    posLevel03["level_03_from_level_02"] = { "x": obj.x, "y": obj.y };
                 }
             }
         }
     }
 
 
-    // DEFINING THE SCENES OF THE GAME
-    k.scene("scene01", () => {
-        scene01(k, () => { changeScene("scene02") }, level01, allPositions);
-    })
-    
-    k.scene("scene02", () => {
-        scene02(k, () => { changeScene("scene03") }, () => { backScene("scene01")}, level02);
-    })
-
-    k.scene("scene03", () => {
-        scene03(k, () => { changeScene("scene02") }, level03);
-    })
+    store.set(curretPositionsPlayerAtom, allPositions.positions_level_01.spawn_position);
+    store.set(currentLevelAtom, "level_01");
 
 
 
-
-    
-
-
-
-    // VALIDATING THE POSITIONS OF EACH LEVEL
-    // console.log("Positions of level 01: ", posLevel01);
-    // console.log("Positions of level 02: ", posLevel02);
-    // console.log("Positions of level 03: ", posLevel03);
-    console.log("all pos: ", allPositions);
-
-
-    // FUNTION TO THE TRANSITION BETWEEN SCENES
-    // function transitionLevel(newLevel, newPosition){
-    //     const DataPositions = {
-    //         currentLevel: newLevel,
-    //         newPosition: newPosition
-    //     }
-
-    //     return DataPositions;
-
-    // }
-
-
-
+    const levelValue = store.get(currentLevelAtom)
+    const curValuePos = store.get(curretPositionsPlayerAtom)
+    console.log("value of the level from global state: ", levelValue);
+    console.log("value of the current position from globla state: ", curValuePos);
 
 
     // UPLOADING THE SPRITES AND ASSETS
@@ -179,15 +162,15 @@ export default async function main() {
         console.log("character uploaded succesfully");
 
 
-        k.loadSprite("level-01", "/assets/map_01_ciber_heroes.png")
+        await k.loadSprite("level-01", "/assets/map_01_ciber_heroes.png")
         console.log("level 01 uploaded succesfully");
 
 
-        k.loadSprite("level-02", "/assets/level_02_ciber_heroes.png")
+        await k.loadSprite("level-02", "/assets/level_02_ciber_heroes.png")
         console.log("level 02 uploaded succesfully");
 
 
-        k.loadSprite("level-03", "/assets/level_03_ciber_heroes.png")
+        await k.loadSprite("level-03", "/assets/level_03_ciber_heroes.png")
         console.log("level o3 uploaded successfully");
 
     } catch (error) {
@@ -196,7 +179,38 @@ export default async function main() {
 
 
 
+    
+
+
+    //console.log("all positions: ",allPositions);
+
+    //console.log("validate scene 01: ", k.getSprite("level-01"));
+
+
+    // DEFINING THE SCENES OF THE GAME
+    k.scene("scene01", () => {
+        scene01(
+            k,
+            () => {changeScene("scene02", "level_02", allPositions.positions_level_02.level_02_from_level_01) },
+             level01, allPositions);
+    })
+
+
+    k.scene("scene03", () => {
+        scene03(k, () => { changeScene("scene02") }, level03);
+    })
+
+
+    k.scene("scene02", () => {
+        scene02(
+            k,
+            () => { changeScene("scene03", "level_03", allPositions.positions_level_03.level_03_from_level_02) },
+            () => { backScene("scene01", "level_02", allPositions.positions_level_01.level_01_from_level_02) },
+            level02, allPositions);
+    })
+
 
     k.go("scene01")
-}
 
+    
+}
