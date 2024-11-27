@@ -5,7 +5,7 @@ import { store, currentLevelAtom, curretPositionsPlayerAtom } from "../store";
 export default async function scene01(k, changeScene, levelData, allPositions, changeFight) {
 
 
-    const map = await k.add([
+    const map = k.add([
         k.sprite("level-01"),
         k.scale(2),
         k.pos(100, 0),
@@ -44,6 +44,7 @@ export default async function scene01(k, changeScene, levelData, allPositions, c
     //player.currentLevel = store.get(currentLevelAtom);
 
     console.log("data of the level 01: ", levelData);
+    console.log("data fo the current level: ", player.currentLevel);
     console.log("current position: ", player.currentPosition);
 
 
@@ -123,16 +124,18 @@ export default async function scene01(k, changeScene, levelData, allPositions, c
         }
     }
 
-    if (k.get("player")) {
-
-        await k.destroy(player);
-
-
-    }
+    
+    
 
 
-    if (player.currentPosition === allPositions.positions_level_01.spawn_position && player.currentLevel === "level_01") {
+    if (player.currentPosition.x === allPositions.positions_level_01.spawn_position.x && 
+        player.currentPosition.y === allPositions.positions_level_01.spawn_position.y && 
+        player.currentLevel === "level_01")
+        {
         console.log("first validation, spawn position");
+
+
+       
 
         //await k.destroy(player);
         player.pos = k.vec2(
@@ -142,7 +145,9 @@ export default async function scene01(k, changeScene, levelData, allPositions, c
 
         k.add(player);
 
-    } else if (player.currentPosition === allPositions.positions_level_01.level_01_from_level_02 && player.currentLevel === "level_02") {
+    } else if ( player.currentPosition.x === allPositions.positions_level_01.level_01_from_level_02.x && 
+                player.currentPosition.y === allPositions.positions_level_01.level_01_from_level_02.y &&
+                player.currentLevel === "level_01") {
         console.log("second validation, level_01_from_level_02 position");
         
         //await k.destroy(player);
@@ -155,17 +160,19 @@ export default async function scene01(k, changeScene, levelData, allPositions, c
         k.add(player);
     
     }else{
-        console.log("default position");
-
-        //await k.destroy(player);
-
-        player.pos = k.vec2(
-            (map.pos.x + player.currentPosition.x + 400),
-            (map.pos.y + player.currentPosition.y + 100)
-        )
-
-        k.add(player);
+        console.log("Ninguna posición es tomada");
+    
     }
+
+
+    // const existAlready = k.get("player");
+
+    // if (existAlready.length >= 1) {
+
+    //     console.log("enter validation exist")
+    //     //await k.destroy();
+    //     console.log("element exists: ", existAlready)
+    // }
 
 
     player.play("idle");

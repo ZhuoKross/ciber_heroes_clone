@@ -9,9 +9,7 @@ export default async function main() {
 
 
 
-    const canvas = document.getElementsByTagName("canvas");
-
-    console.log(canvas);
+    
     // GETTING THE CONTEXT OF KAPLAY
     const k = context();
     figthOne(k);
@@ -106,15 +104,12 @@ export default async function main() {
     }
 
 
-    store.set(curretPositionsPlayerAtom, allPositions.positions_level_01.spawn_position);
-    store.set(currentLevelAtom, "level_01");
+    await store.set(curretPositionsPlayerAtom, allPositions.positions_level_01.spawn_position);
+    await store.set(currentLevelAtom, "level_01");
 
 
-
-    const levelValue = store.get(currentLevelAtom)
-    const curValuePos = store.get(curretPositionsPlayerAtom)
-    console.log("value of the level from global state: ", levelValue);
-    console.log("value of the current position from globla state: ", curValuePos);
+    console.log("value of the level from global state: ", store.get(currentLevelAtom));
+    console.log("value of the current position from globla state: ", store.get(curretPositionsPlayerAtom));
 
 
     // UPLOADING THE SPRITES AND ASSETS
@@ -164,19 +159,19 @@ export default async function main() {
         })
 
 
-        console.log("character uploaded succesfully");
+        //console.log("character uploaded succesfully");
 
 
         await k.loadSprite("level-01", "/assets/map_01_ciber_heroes.png")
-        console.log("level 01 uploaded succesfully");
+        //console.log("level 01 uploaded succesfully");
 
 
         await k.loadSprite("level-02", "/assets/level_02_ciber_heroes.png")
-        console.log("level 02 uploaded succesfully");
+        //console.log("level 02 uploaded succesfully");
 
 
         await k.loadSprite("level-03", "/assets/level_03_ciber_heroes.png")
-        console.log("level o3 uploaded successfully");
+        //console.log("level o3 uploaded successfully");
 
     } catch (error) {
         console.log("Error uploading sprites and assets: ", error);
@@ -208,7 +203,10 @@ export default async function main() {
 
 
     k.scene("scene03", () => {
-        scene03(k, () => { changeScene("scene02") }, level03);
+        scene03(
+            k,
+            () => { changeScene("scene02", "level_02", allPositions.positions_level_02.level_02_from_level_03) },
+            level03, allPositions);
     })
 
 
@@ -216,9 +214,10 @@ export default async function main() {
         scene02(
             k,
             () => { changeScene("scene03", "level_03", allPositions.positions_level_03.level_03_from_level_02) },
-            () => { backScene("scene01", "level_02", allPositions.positions_level_01.level_01_from_level_02) },
+            () => { backScene("scene01", "level_01", allPositions.positions_level_01.level_01_from_level_02) },
             level02, allPositions);
     })
+
 
 
     k.go("scene01")

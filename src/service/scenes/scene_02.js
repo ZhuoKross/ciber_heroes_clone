@@ -1,6 +1,6 @@
 import { currentLevelAtom, curretPositionsPlayerAtom, store } from "../store";
 
-export default function scene02(k, changeScene, goBackSceene, levelData, allPositions) {
+export default async function scene02(k, changeScene, goBackSceene, levelData, allPositions) {
 
 
 
@@ -31,9 +31,18 @@ export default function scene02(k, changeScene, goBackSceene, levelData, allPosi
         "player"
     ])
 
+
+    console.log("data of positions", allPositions);
+
+    player.currentPosition = store.get(curretPositionsPlayerAtom);
+    player.currentLevel = store.get(currentLevelAtom);
+
+
     const SPEED = 250;
 
     console.log("data of the level 02: ", levelData);
+    console.log("data fo the current level: ", player.currentLevel);
+    console.log("current position level 02: ", player.currentPosition);
 
 
     for (const layer of levelData.layers) {
@@ -53,6 +62,12 @@ export default function scene02(k, changeScene, goBackSceene, levelData, allPosi
                         goBackSceene();
                     })
                 }
+
+                if(obj.name === "passage"){
+                    k.onCollide("player", obj.name, () => {
+                        changeScene();
+                    })
+                }
             }
         }
 
@@ -69,23 +84,55 @@ export default function scene02(k, changeScene, goBackSceene, levelData, allPosi
             }
 
         }
-
-        if(layer.name === "positions"){
-            
-            for(const obj of layer.objects){
-                if (obj.name === "level_02_from_level_01") {
-
-                    player.pos = k.vec2(
-                        (map.pos.x + obj.x + 215),
-                        (map.pos.y + obj.y + 40)
-                    ),
-
-                    k.add(player)
-
-                }
-            }
-        }
     }
+
+
+
+
+    if (player.currentPosition.x === allPositions.positions_level_02.level_02_from_level_01.x && 
+        player.currentPosition.y === allPositions.positions_level_02.level_02_from_level_01.y && 
+        player.currentLevel === "level_02")
+        {
+        console.log("first validation, spawn position level 02");
+
+
+        if (k.get("player")) {
+
+            console.log("enter validation exist")
+            await k.destroy(player);
+            console.log("element exists: ", k.get("player"))
+        }
+
+        //await k.destroy(player);
+        player.pos = k.vec2(
+            (map.pos.x + player.currentPosition.x + 230),
+            (map.pos.y + player.currentPosition.y + 30)
+        )
+
+        k.add(player);
+
+    } else if ( player.currentPosition.x === allPositions.positions_level_02.level_02_from_level_03.x &&
+                player.currentPosition.y === allPositions.positions_level_02.level_02_from_level_03.y && 
+                player.currentLevel === "level_02") 
+    {
+
+        console.log("second validation, level_02_from_level_03 position");
+        
+        //await k.destroy(player);
+
+        player.pos = k.vec2(
+            (map.pos.x + player.currentPosition.x + 340),
+            (map.pos.y + player.currentPosition.y + 300)
+        )
+
+        k.add(player);
+    
+    }else{
+        console.log("Ninguna posición es tomada");
+    
+    }
+
+
 
 
     player.play("idle");
@@ -123,7 +170,7 @@ export default function scene02(k, changeScene, goBackSceene, levelData, allPosi
         player.move(0, SPEED)
 
         if (player.getCurAnim().name !== "walk-down") {
-            console.log("name of the current animation:", player.getCurAnim().name)
+            //console.log("name of the current animation:", player.getCurAnim().name)
             player.play("walk-down")
         }
     })
