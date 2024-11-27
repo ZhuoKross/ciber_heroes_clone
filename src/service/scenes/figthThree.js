@@ -1,5 +1,4 @@
-export default async function figthOne(k) {
-
+export default async function figthThree(k) {
     const player = k.make([
         k.sprite("character"),
         { anim: "idle" },
@@ -8,8 +7,8 @@ export default async function figthOne(k) {
         }),
         k.body(),
         k.anchor("center"),
-        k.pos(1000, 550),
-        k.scale(8),
+        k.pos(100, 650),
+        k.scale(3),
         {
             speed: 200,
             direction: "left",
@@ -22,26 +21,14 @@ export default async function figthOne(k) {
     ])
     k.add(player);
 
+     
+
     k.add([
-        k.rect(9000, 700),
+        k.rect(9000, 250),
         k.area(),
         k.outline(2),
-        k.pos(0, 650),
+        k.pos(0, 700),
         k.body({ isStatic: true }),
     ]); 
-
-    const enemies_one = k.add([
-        k.sprite("enemies_one"),
-        k.pos(100, 650),
-        k.area(),
-        k.body(),
-        {anim: "idle"},
-        k.scale(8)
-    ])
-
-   // Add the player to the scene
-   enemies_one.play("idle");
-
-
     
 }
