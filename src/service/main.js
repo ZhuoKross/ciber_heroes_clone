@@ -3,6 +3,7 @@ import scene02 from "./scenes/scene_02";
 import scene03 from "./scenes/scene-03";
 import context from "./kaplayContext";
 import { store, currentLevelAtom, curretPositionsPlayerAtom } from "./store";
+import figthOne from "./scenes/fightOne";
 
 export default async function main() {
 
@@ -13,8 +14,12 @@ export default async function main() {
     console.log(canvas);
     // GETTING THE CONTEXT OF KAPLAY
     const k = context();
-
+    figthOne(k);
     k.setBackground(k.Color.fromHex("424050"));
+    // FUNTION TO PASS THROUGHT FIGTH
+    function changeFight(nextScene) {
+        k.go(nextScene); // Cambia directamente a la escena de la pelea
+    }    
 
     // FUNTION TO PASS THROUGHT SCENES 
     function changeScene(nextScene, newLevel, newPosition) {
@@ -177,11 +182,6 @@ export default async function main() {
         console.log("Error uploading sprites and assets: ", error);
     }
 
-
-
-    
-
-
     //console.log("all positions: ",allPositions);
 
     //console.log("validate scene 01: ", k.getSprite("level-01"));
@@ -191,9 +191,20 @@ export default async function main() {
     k.scene("scene01", () => {
         scene01(
             k,
-            () => {changeScene("scene02", "level_02", allPositions.positions_level_02.level_02_from_level_01) },
-             level01, allPositions);
-    })
+            () => { changeScene("scene02", "level_02", allPositions.positions_level_02.level_02_from_level_01) },
+            level01,
+            allPositions,
+            () => { changeFight("fightOne") } // Corrige el nombre aquí
+        );
+    });
+    
+    
+    // Define la escena de la pelea
+    k.scene("fightOne", () => {
+        console.log("Fight 01 loaded");
+        figthOne(k)
+    });
+    
 
 
     k.scene("scene03", () => {
