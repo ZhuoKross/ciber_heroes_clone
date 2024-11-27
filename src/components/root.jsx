@@ -1,17 +1,21 @@
-import React, { useEffect } from 'react'
-import Game from './game'
-
-
+import { useEffect } from 'react';
+import main from '../service/main';
 
 
 export default function Root() {
 
+  useEffect( () => {
+       
+        
+       
+    main();
+
+    
+}, [])
 
   return (
     <div className='w-full h-screen'>
       
-
-      <Game />
     </div>
   )
 }
