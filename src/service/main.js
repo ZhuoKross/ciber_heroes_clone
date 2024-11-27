@@ -36,16 +36,6 @@ export default async function main() {
 
         k.go(scene);
     }
-
-    function changeFightScene(nameScene){
-        k.go(nameScene)
-    }
-
-
-    
-
-
-
     // UPLOADING THE DATA OF THE LEVELS
 
 
