@@ -64,7 +64,7 @@ export default async function scene01(k, changeScene, levelData, allPositions, c
             },
             () => {
                 k.debug.log("Pasando a la siguiente escena"); // Función para cambiar de escena
-                changeScene(); // Ir a la siguiente escena
+                changeFight(); // Ir a la siguiente escena
             });
     }
 
@@ -97,7 +97,7 @@ export default async function scene01(k, changeScene, levelData, allPositions, c
                         //console.log("colllision with: ", obj.name);
                         if (player.enemiesDefeated === 3) {
 
-                            changeFightScene();
+                            changeScene();
 
                         } else {
                             k.debug.log("No puedes pasar. No has derrotado a todos lo enemigos :(")
