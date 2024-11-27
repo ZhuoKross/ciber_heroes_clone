@@ -10,7 +10,7 @@ export default async function main() {
 
     
     // GETTING THE CONTEXT OF KAPLAY
-    const k = await context();
+    const k = context();
 
     k.setBackground(k.Color.fromHex("424050"));
 
@@ -99,15 +99,12 @@ export default async function main() {
     }
 
 
-    store.set(curretPositionsPlayerAtom, allPositions.positions_level_01.spawn_position);
-    store.set(currentLevelAtom, "level_01");
+    await store.set(curretPositionsPlayerAtom, allPositions.positions_level_01.spawn_position);
+    await store.set(currentLevelAtom, "level_01");
 
 
-
-    const levelValue = store.get(currentLevelAtom)
-    const curValuePos = store.get(curretPositionsPlayerAtom)
-    console.log("value of the level from global state: ", levelValue);
-    console.log("value of the current position from globla state: ", curValuePos);
+    console.log("value of the level from global state: ", store.get(currentLevelAtom));
+    console.log("value of the current position from globla state: ", store.get(curretPositionsPlayerAtom));
 
 
     // UPLOADING THE SPRITES AND ASSETS
@@ -209,7 +206,7 @@ export default async function main() {
             () => { backScene("scene01", "level_01", allPositions.positions_level_01.level_01_from_level_02) },
             level02, allPositions);
     })
-    
+
 
 
     k.go("scene01")

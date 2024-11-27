@@ -136,12 +136,7 @@ export default async function scene01(k, changeScene, levelData, allPositions) {
         console.log("first validation, spawn position");
 
 
-        if (k.get("player")) {
-
-            console.log("enter validation exist")
-            await k.destroy(player);
-            console.log("element exists: ", k.get("player"))
-        }
+       
 
         //await k.destroy(player);
         player.pos = k.vec2(
@@ -169,6 +164,16 @@ export default async function scene01(k, changeScene, levelData, allPositions) {
         console.log("Ninguna posición es tomada");
     
     }
+
+
+    // const existAlready = k.get("player");
+
+    // if (existAlready.length >= 1) {
+
+    //     console.log("enter validation exist")
+    //     //await k.destroy();
+    //     console.log("element exists: ", existAlready)
+    // }
 
 
     player.play("idle");

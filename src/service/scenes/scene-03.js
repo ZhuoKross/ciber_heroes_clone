@@ -143,7 +143,7 @@ export default async function (k, goToNextScene, levelData, allPositions) {
         player.move(0, SPEED)
 
         if (player.getCurAnim().name !== "walk-down") {
-            console.log("name of the current animation:", player.getCurAnim().name)
+            //console.log("name of the current animation:", player.getCurAnim().name)
             player.play("walk-down")
         }
     })
