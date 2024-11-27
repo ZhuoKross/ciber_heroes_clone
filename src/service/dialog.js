@@ -1,4 +1,4 @@
-export default async function dialog(k, text, position = k.vec2(200, 200), onClose, goToNextScene) {
+export default async function dialog(k, text, position = k.vec2(200, 200), onClose, changeScene) {
     // Contenedor del diálogo
     const dialogContainer = await k.add([
         k.rect(450, 460, { radius: 8 }),

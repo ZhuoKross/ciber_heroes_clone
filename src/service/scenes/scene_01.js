@@ -127,7 +127,7 @@ export default function scene01(k, changeScene, levelData, allPositions) {
 
 
     k.onKeyPress("u", () => {
-        goToNextScene();
+        changeScene();
     })
 
     k.onUpdate(() => {
