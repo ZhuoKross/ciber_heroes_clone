@@ -187,6 +187,9 @@ export default async function main() {
             }
         });
 
+
+        await k.loadSprite("background_level_02", "assets/background_level_02.png");
+
     } catch (error) {
         console.log("Error uploading sprites and assets: ", error);
     }
@@ -233,7 +236,8 @@ export default async function main() {
             k,
             () => { changeScene("scene03", "level_03", allPositions.positions_level_03.level_03_from_level_02) },
             () => { backScene("scene01", "level_01", allPositions.positions_level_01.level_01_from_level_02) },
-            level02, allPositions);
+            level02, allPositions,
+            ()=>{changeFight("fight_01_level_02")});
     })
 
     k.scene("fight02", () => {
