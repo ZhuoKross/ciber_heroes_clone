@@ -36,14 +36,6 @@ export default async function main() {
 
         k.go(scene);
     }
-
-    
-
-
-    
-
-
-
     // UPLOADING THE DATA OF THE LEVELS
 
 
