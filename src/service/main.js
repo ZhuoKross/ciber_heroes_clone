@@ -4,7 +4,7 @@ import scene03 from "./scenes/scene-03";
 import context from "./kaplayContext";
 import { store, currentLevelAtom, curretPositionsPlayerAtom } from "./store";
 import figthOne from "./scenes/fightOne";
-import fight02 from "./scenes/fight02";
+import fight02 from "./scenes/fight01_level_02";
 
 export default async function main() {
 
@@ -13,7 +13,7 @@ export default async function main() {
     
     // GETTING THE CONTEXT OF KAPLAY
     const k = context();
-    figthOne(k);
+    
     k.setBackground(k.Color.fromHex("424050"));
     // FUNTION TO PASS THROUGHT FIGTH
     function changeFight(nextScene) {
@@ -195,7 +195,7 @@ export default async function main() {
             () => { changeScene("scene02", "level_02", allPositions.positions_level_02.level_02_from_level_01) },
             level01,
             allPositions,
-            () => { changeFight("fightOne") } // Corrige el nombre aquí
+            () => { changeFight("fight_01_level_02") } // Corrige el nombre aquí
         );
     });
     
@@ -206,6 +206,10 @@ export default async function main() {
         figthOne(k)
     });
     
+
+    k.scene("fight_01_level_02", ()=>{
+        fight02(k);
+    })
 
 
     k.scene("scene03", () => {

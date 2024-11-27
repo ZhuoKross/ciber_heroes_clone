@@ -81,6 +81,12 @@ export default async function scene02(k, changeScene, goBackSceene, levelData, a
                     k.pos(obj.x, obj.y),
                     obj.name
                 ]);
+
+                if(obj.name === "first_fight"){
+                    k.onCollide("player", obj.name, ()=> {
+                        
+                    })
+                }
             }
 
         }
