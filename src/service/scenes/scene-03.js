@@ -1,7 +1,15 @@
 import { currentLevelAtom, curretPositionsPlayerAtom, store } from "../store";
 
 
-export default async function (k, goToNextScene, levelData, allPositions) {
+export default async function (
+    k,
+    goToNextScene,
+    levelData,
+    allPositions,
+    firstFightLevelThree,
+    secondFightLevelThree,
+    thirdFightLevelOThree
+) {
 
 
     const map = k.add([
@@ -37,7 +45,7 @@ export default async function (k, goToNextScene, levelData, allPositions) {
     player.currentLevel = store.get(currentLevelAtom);
 
 
-     
+
     const SPEED = 250;
 
     console.log("data of the level 03: ", levelData);
@@ -45,10 +53,10 @@ export default async function (k, goToNextScene, levelData, allPositions) {
     console.log("current position level 03: ", player.currentPosition);
 
 
-    for(const layer of levelData.layers){
+    for (const layer of levelData.layers) {
 
-        if(layer.name === "limits"){
-            for(const obj of layer.objects){
+        if (layer.name === "limits") {
+            for (const obj of layer.objects) {
                 map.add([
                     k.body({ isStatic: true }),
                     k.pos(obj.x, obj.y),
@@ -57,7 +65,7 @@ export default async function (k, goToNextScene, levelData, allPositions) {
                 ]);
 
 
-                if(obj.name === "passage"){
+                if (obj.name === "passage") {
                     console.log("enter")
                     k.onCollide("player", obj.name, () => {
                         goToNextScene();
@@ -66,8 +74,8 @@ export default async function (k, goToNextScene, levelData, allPositions) {
             }
         }
 
-        if(layer.name === "colliders"){
-            for(const obj of layer.objects){
+        if (layer.name === "colliders") {
+            for (const obj of layer.objects) {
                 map.add([
                     k.body({ isStatic: true }),
                     k.pos(obj.x, obj.y),
@@ -75,18 +83,35 @@ export default async function (k, goToNextScene, levelData, allPositions) {
                     obj.name
                 ]);
 
-                
+                if (obj.name === "fight_01") {
+                    k.onCollide("player", obj.name, () => {
+                        firstFightLevelThree();
+                    })
+                }
+    
+                if(obj.name === "fight_02"){
+                    k.onCollide("player", obj.name, () => {
+                        secondFightLevelThree();
+                    })
+                }
+
+                if(obj.name === "fight_03"){
+                    k.onCollide("player", obj.name, () => {
+                        thirdFightLevelOThree();
+                    })
+                }
             }
+
+            
         }
     }
 
 
 
 
-    if (player.currentPosition.x === allPositions.positions_level_03.level_03_from_level_02.x && 
-        player.currentPosition.y === allPositions.positions_level_03.level_03_from_level_02.y && 
-        player.currentLevel === "level_03")
-        {
+    if (player.currentPosition.x === allPositions.positions_level_03.level_03_from_level_02.x &&
+        player.currentPosition.y === allPositions.positions_level_03.level_03_from_level_02.y &&
+        player.currentLevel === "level_03") {
         console.log("first validation, spawn position level 02");
 
 
@@ -105,9 +130,9 @@ export default async function (k, goToNextScene, levelData, allPositions) {
 
         k.add(player);
 
-    } else{
+    } else {
         console.log("Ninguna posición es tomada");
-    
+
     }
 
 
@@ -157,7 +182,7 @@ export default async function (k, goToNextScene, levelData, allPositions) {
         }
     })
 
-    
+
 
 
     const keys = ["w", "a", "s", "d"];

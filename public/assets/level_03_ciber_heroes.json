@@ -2876,7 +2876,7 @@
                 {
                  "height":35,
                  "id":827,
-                 "name":"info_03",
+                 "name":"fight_03",
                  "rotation":0,
                  "type":"",
                  "visible":true,
@@ -2887,7 +2887,7 @@
                 {
                  "height":49.3333,
                  "id":829,
-                 "name":"first_fight",
+                 "name":"fight_02",
                  "rotation":0,
                  "type":"",
                  "visible":true,
@@ -2898,7 +2898,7 @@
                 {
                  "height":46,
                  "id":830,
-                 "name":"second_fight",
+                 "name":"fight_01",
                  "rotation":0,
                  "type":"",
                  "visible":true,
