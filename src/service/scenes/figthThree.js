@@ -10,11 +10,11 @@ export default async function figthThree(k, backScene) {
     console.log("aqui estoy")
         player.isOnDialogue = true;
         console.log("the player is in dialogue? ", player.isOnDialogue);
-        const resp = "a. Contiene errores de ortografía o caracteres extraños";
+        const resp = "b. Contiene errores de ortografía o caracteres extraños";
         dialogFigth(
             k,
             "¿Cuál es una señal de que un enlace podría ser falso o peligroso?",
-            ["a. Contiene errores de ortografía o caracteres extraños", "b.	Tiene un nombre largo", "c.	No tiene imágenes", "d.	Es compartido por un amigo"],
+            ["a. Tiene un nombre largo ", "b. Contiene errores de ortografía o caracteres extraños", "c.	No tiene imágenes", "d.	Es compartido por un amigo"],
             k.vec2(canvasWidth / 2, canvasHeight / 2),
             (selectedOption) => {
                 console.log("Opción seleccionada:", selectedOption);

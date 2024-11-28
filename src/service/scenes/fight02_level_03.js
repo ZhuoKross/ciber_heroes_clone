@@ -8,11 +8,11 @@ export default async function fightTwoLevelThree(k, goBackScene){
 
         player.isOnDialogue = true;
         console.log("the player is in dialogue? ", player.isOnDialogue);
-        const resp = "Opción 1";
+        const resp = "d. Un tipo de estafa donde se engaña a la persona para que revele información personal";
         dialogFigth(
             k,
             "¿Que es phising?",
-            ["Opción 1", "Opción 2", "Opción 3", "Opción 4"],
+            ["a. Una técnica para crear contraseñas seguras", "b. Un sistema de cifrado de datos", "c. Un software que ayuda a proteger la información", "d. Un tipo de estafa donde se engaña a la persona para que revele información personal"],
             k.vec2(800, 400),
             (selectedOption) => {
                 console.log("Opción seleccionada:", selectedOption);

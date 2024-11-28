@@ -13,11 +13,11 @@ export default async function fightOneLevelThree(k, goBackScene){
 
         player.isOnDialogue = true;
         console.log("the player is in dialogue? ", player.isOnDialogue);
-        const resp = "Opción 1";
+        const resp = "c. No requiere contraseña para conectarse";
         dialogFigth(
             k,
-            "¿Que es phising?",
-            ["Opción 1", "Opción 2", "Opción 3", "Opción 4"],
+            "¿Cuál es una señal de que una red Wi-Fi pública puede no ser segura?",
+            ["a. Tiene una señal fuerte", "b. Es de un lugar popular", "c. No requiere contraseña para conectarse", "d.	Es accesible en varios dispositivos"],
             k.vec2(800, 400),
             (selectedOption) => {
                 console.log("Opción seleccionada:", selectedOption);
