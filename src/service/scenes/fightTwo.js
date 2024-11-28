@@ -65,16 +65,16 @@ export default async function figthTwo(k, backScene) {
         },
         "player"
     ])
-    const enemies_two = k.add([
-        k.sprite("enemies_two"),
-        k.pos(300, 650),
+    const enemies_02_three = k.add([
+        k.sprite("enemies_02_three"),
+        k.pos(400, 650),
         k.area({
-            shape: new k.Rect(k.vec2(0), 30, 30)
+            shape: new k.Rect(k.vec2(0), 35, 35)
         }),
         k.body(),
         {anim: "idle"},
         k.anchor("center"),
-        k.scale(8)
+        k.scale(4)
     ])
 
     const gravity = 200;
@@ -82,7 +82,7 @@ export default async function figthTwo(k, backScene) {
     k.setGravity(gravity);    
 
     k.add(player);
-   enemies_two.play("idle");
+   enemies_02_three.play("idle");
    player.play("idle");
    introDialogue();
     

@@ -64,18 +64,9 @@ export default async function figthThree(k, backScene) {
             currentLevel: "",
         },
         "player"
-    ])
-    const enemies_three = k.add([
-        k.sprite("enemies_three"),
-        k.pos(400, 650),
-        k.area({
-            shape: new k.Rect(k.vec2(0), 35, 35)
-        }),
-        k.body(),
-        {anim: "idle"},
-        k.anchor("center"),
-        k.scale(6)
-    ])
+    ]);
+
+    
 
     const gravity = 200;
 
@@ -84,7 +75,7 @@ export default async function figthThree(k, backScene) {
     
 
    // Add the player to the scene
-   enemies_three.play("idle");
+   enemies_02_three.play("idle");
    player.play("idle");
    introDialogue();
     

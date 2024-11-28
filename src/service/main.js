@@ -239,9 +239,17 @@ export default async function main() {
             anims: {"idle": {from: 0, to: 1, loop: true, speed: 3}}
         });
 
-        await k.loadSprite("background_figthThree", "assets/background_glacial_mountains.png")
+        await k.loadSprite("enemies_02_three", "/assets/Idle_fire.png", {
+            sliceX: 8,
+            sliceY: 0,
+            anims: {"idle": {from: 0, to: 1, loop: true, speed: 3}}
+        });
 
-        await k.loadSprite("background_figthTwo", "assets/Background.png")
+        await k.loadSprite("background_figth_02_Three", "assets/Hills_Free.png");
+
+        await k.loadSprite("background_figthThree", "assets/background_glacial_mountains.png");
+
+        await k.loadSprite("background_figthTwo", "assets/Background.png");
 
         await k.loadSprite("background_level_02", "assets/background_level_02.png");
 
