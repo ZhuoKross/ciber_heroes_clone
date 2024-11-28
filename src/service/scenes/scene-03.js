@@ -1,5 +1,5 @@
 import { currentLevelAtom, curretPositionsPlayerAtom, store } from "../store";
-
+import dialog from "../dialog";
 
 export default async function (
     k,
@@ -85,19 +85,58 @@ export default async function (
 
                 if (obj.name === "fight_01") {
                     k.onCollide("player", obj.name, () => {
-                        firstFightLevelThree();
+                       const PreguntaUno = "Los ciberdelincuentes suelen utilizar enlaces falsos para engañar y robar información personal o instalar software malicioso. Una señal común de un enlace sospechoso es que contenga errores de ortografía, caracteres extraños o un dominio que no coincide con la organización legítima (Ej: “amaz0n.com” en lugar de “amazon.com”). "
+                            dialog(
+                                k,
+                                PreguntaUno, // Texto del diálogo
+                                k.vec2(k.camPos()), // Posición basada en la cámara
+                                () => {
+                                    player.isOnDialogue = false;
+                                    console.log("the player isn't in dialogue");
+                                },
+                                () => {
+                                    firstFightLevelThree(); // Ir a la siguiente escena
+                                }
+                            );                        
                     })
                 }
     
                 if(obj.name === "fight_02"){
                     k.onCollide("player", obj.name, () => {
-                        secondFightLevelThree();
+                        const PreguntaUno = "Los ciberdelincuentes suelen utilizar enlaces falsos para engañar y robar información personal o instalar software malicioso. Una señal común de un enlace sospechoso es que contenga errores de ortografía, caracteres extraños o un dominio que no coincide con la organización legítima (Ej: “amaz0n.com” en lugar de “amazon.com”). "
+                        dialog(
+                            k,
+                            PreguntaUno, // Texto del diálogo
+                            k.vec2(k.camPos()), // Posición basada en la cámara
+                            () => {
+                                player.isOnDialogue = false;
+                                console.log("the player isn't in dialogue");
+                            },
+                            () => {
+                              secondFightLevelThree();   // Ir a la siguiente escena
+                            }
+                        );     
+                        
+                        
                     })
                 }
 
                 if(obj.name === "fight_03"){
                     k.onCollide("player", obj.name, () => {
-                        thirdFightLevelOThree();
+                        const PreguntaUno = "Los ciberdelincuentes suelen utilizar enlaces falsos para engañar y robar información personal o instalar software malicioso. Una señal común de un enlace sospechoso es que contenga errores de ortografía, caracteres extraños o un dominio que no coincide con la organización legítima (Ej: “amaz0n.com” en lugar de “amazon.com”). "
+                        dialog(
+                            k,
+                            PreguntaUno, // Texto del diálogo
+                            k.vec2(k.camPos()), // Posición basada en la cámara
+                            () => {
+                                player.isOnDialogue = false;
+                                console.log("the player isn't in dialogue");
+                            },
+                            () => {
+                             thirdFightLevelOThree();    // Ir a la siguiente escena
+                            }
+                        );     
+                       
                     })
                 }
             }

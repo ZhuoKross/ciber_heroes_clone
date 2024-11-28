@@ -1,3 +1,4 @@
+import dialogFigth from "../dialogFigth";
 export default async function fightOneLevelThree(k, goBackScene){
     
     // k.add([
@@ -7,6 +8,33 @@ export default async function fightOneLevelThree(k, goBackScene){
 
     const canvasWidth = k.width();
     const canvasHeight = k.height();
+
+    function introDialogue() {
+
+        player.isOnDialogue = true;
+        console.log("the player is in dialogue? ", player.isOnDialogue);
+        const resp = "Opción 1";
+        dialogFigth(
+            k,
+            "¿Que es phising?",
+            ["Opción 1", "Opción 2", "Opción 3", "Opción 4"],
+            k.vec2(800, 400),
+            (selectedOption) => {
+                console.log("Opción seleccionada:", selectedOption);
+                if(selectedOption === resp){
+                    k.setGravity(null)
+                    goBackScene()
+                }else{
+                    alert("lastima sapa")
+                }
+            },
+            () => {
+                console.log("Diálogo cerrado");
+                // Lógica adicional si el diálogo se cierra sin enviar
+            }
+        );
+         }
+       
 
     const map = k.add([
         k.sprite("background_figthTwo"),
@@ -25,11 +53,11 @@ export default async function fightOneLevelThree(k, goBackScene){
 
     const boss01 = k.add([
         k.sprite("first_boss_level_03"),
-        k.pos(100, canvasHeight - 50),
+        k.pos(200, canvasHeight - 200),
         k.body(),
         k.area({shape: new k.Rect(k.vec2(0), 25, 40)}),
         k.anchor("center"),
-        k.scale(4),
+        k.scale(8),
         {anim: "idle"}
     ])
 
@@ -41,8 +69,8 @@ export default async function fightOneLevelThree(k, goBackScene){
         }),
         k.body(),
         k.anchor("center"),
-        k.pos(canvasWidth - 100, canvasHeight - 50),
-        k.scale(4),
+        k.pos(canvasWidth - 100, canvasHeight - 10),
+        k.scale(6),
         {
             speed: 200,
             direction: "left",
@@ -63,5 +91,7 @@ export default async function fightOneLevelThree(k, goBackScene){
 
     k.onKeyPress("u", () =>{
         goBackScene()
-    })
+    })  
+    
+    introDialogue();
 }
