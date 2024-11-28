@@ -85,7 +85,7 @@ export default async function (
 
                 if (obj.name === "fight_01") {
                     k.onCollide("player", obj.name, () => {
-                       const PreguntaUno = "Los ciberdelincuentes suelen utilizar enlaces falsos para engañar y robar información personal o instalar software malicioso. Una señal común de un enlace sospechoso es que contenga errores de ortografía, caracteres extraños o un dominio que no coincide con la organización legítima (Ej: “amaz0n.com” en lugar de “amazon.com”). "
+                       const PreguntaUno = "No todas las redes Wi-Fi públicas son confiables. Una señal clave de que una red puede no ser segura es que no requiere contraseña para conectarse. Esto significa que la red probablemente no utiliza cifrado para proteger los datos que se transmiten, lo que deja tu información personal vulnerable a ser interceptada."
                             dialog(
                                 k,
                                 PreguntaUno, // Texto del diálogo
@@ -103,7 +103,7 @@ export default async function (
     
                 if(obj.name === "fight_02"){
                     k.onCollide("player", obj.name, () => {
-                        const PreguntaUno = "Los ciberdelincuentes suelen utilizar enlaces falsos para engañar y robar información personal o instalar software malicioso. Una señal común de un enlace sospechoso es que contenga errores de ortografía, caracteres extraños o un dominio que no coincide con la organización legítima (Ej: “amaz0n.com” en lugar de “amazon.com”). "
+                        const PreguntaUno = "El phishing es una técnica de estafa en la que los ciberdelincuentes engañan a las personas para que revelen información personal, como contraseñas, datos bancarios o números de tarjetas de crédito. Normalmente, esto se logra mediante correos electrónicos, mensajes de texto o sitios web falsos que imitan a entidades legítimas, como bancos o plataformas en línea."
                         dialog(
                             k,
                             PreguntaUno, // Texto del diálogo
@@ -123,7 +123,7 @@ export default async function (
 
                 if(obj.name === "fight_03"){
                     k.onCollide("player", obj.name, () => {
-                        const PreguntaUno = "Los ciberdelincuentes suelen utilizar enlaces falsos para engañar y robar información personal o instalar software malicioso. Una señal común de un enlace sospechoso es que contenga errores de ortografía, caracteres extraños o un dominio que no coincide con la organización legítima (Ej: “amaz0n.com” en lugar de “amazon.com”). "
+                        const PreguntaUno = "El malware (software malicioso) es cualquier programa o archivo diseñado para dañar, interrumpir o robar información de un dispositivo. Ejemplos comunes de malware incluyen virus, gusanos, troyanos, spyware y ransomware."
                         dialog(
                             k,
                             PreguntaUno, // Texto del diálogo

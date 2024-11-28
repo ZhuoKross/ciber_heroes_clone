@@ -26,11 +26,11 @@ export default async function fightThreeLevelThree(k, goBackScene){
 
             player.isOnDialogue = true;
             console.log("the player is in dialogue? ", player.isOnDialogue);
-            const resp = "Opción 1";
+            const resp = "b. Un virus que afecta el funcionamiento de tu dispositivo";
             dialogFigth(
                 k,
-                "¿Que es phising?",
-                ["Opción 1", "Opción 2", "Opción 3", "Opción 4"],
+                "¿Cuál de los siguientes es un ejemplo de 'malware'?",
+                ["a. Una aplicación de banca segura", "b. Un virus que afecta el funcionamiento de tu dispositivo", "c.	Un sistema operativo actualizado", "d. Un archivo adjunto en un correo de un desconocido."],
                 k.vec2(canvasWidth / 2, canvasHeight / 2),
                 (selectedOption) => {
                     console.log("Opción seleccionada:", selectedOption);
