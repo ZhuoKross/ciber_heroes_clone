@@ -14,7 +14,7 @@ export default async function fightThreeLevelTwo(k, goBackScene){
             k,
             "¿Por qué es importante usar una red Wi-Fi segura en lugares públicos?",
             ["a. Para evitar que otras personas accedan a tu información", "b. Para aumentar la velocidad de conexión", "c.	Para evitar consumir la batería rápidamente", "d. Para descargar contenido más rápido"],
-            k.vec2(canvasWidth / 2 + 100, canvasHeight / 2),
+            k.vec2(canvasWidth / 2, canvasHeight / 2),
             (selectedOption) => {
                 console.log("Opción seleccionada:", selectedOption);
                 if(selectedOption === resp){
@@ -39,7 +39,7 @@ export default async function fightThreeLevelTwo(k, goBackScene){
         }),
         k.body(),
         k.anchor("center"),
-        k.pos(1300, 650),
+        k.pos(canvasWidth - 100, canvasHeight - 100),
         k.scale(8),
         {
             speed: 200,
@@ -75,7 +75,7 @@ export default async function fightThreeLevelTwo(k, goBackScene){
     
     const enemies_02_two = k.add([
         k.sprite("enemies_02_two"),
-        k.pos(400, 650),
+        k.pos(200, canvasHeight - 50),
         k.area({
             shape: new k.Rect(k.vec2(0), 30, 30)
         }),

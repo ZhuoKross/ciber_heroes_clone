@@ -40,7 +40,7 @@ export default async function fight02(k, goBackScene){
         }),
         k.body(),
         k.anchor("center"),
-        k.pos(1300, 650),
+        k.pos(canvasWidth - 100, canvasHeight - 100),
         k.scale(9),
         {
             speed: 200,

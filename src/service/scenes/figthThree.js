@@ -55,7 +55,7 @@ export default async function figthThree(k, backScene) {
         }),
         k.body(),
         k.anchor("center"),
-        k.pos(1300, 650),
+        k.pos(canvasWidth - 100, canvasHeight - 50),
         k.scale(8),
         {
             speed: 200,
@@ -71,7 +71,7 @@ export default async function figthThree(k, backScene) {
     
     const enemies_01_three = k.add([
         k.sprite("enemies_01_three"),
-        k.pos(400, 650),
+        k.pos(200, canvasHeight - 50),
         k.area({
             shape: new k.Rect(k.vec2(0), 30, 30)
         }),

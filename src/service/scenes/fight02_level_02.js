@@ -45,7 +45,7 @@ export default async function fightTwoLevelTwo(k, goBackScene) {
         }),
         k.body(),
         k.anchor("center"),
-        k.pos(1300, 650),
+        k.pos(canvasWidth - 100, canvasHeight - 100),
         k.scale(8),
         {
             speed: 200,
@@ -68,7 +68,7 @@ export default async function fightTwoLevelTwo(k, goBackScene) {
 
     const enemies_02_three = k.add([
         k.sprite("enemies_02_three"),
-        k.pos(400, 650),
+        k.pos(200, canvasHeight - 50),
         k.area({
             shape: new k.Rect(k.vec2(0), 30, 30)
         }),
