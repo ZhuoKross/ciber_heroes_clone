@@ -7,6 +7,7 @@ import figthOne from "./scenes/fightOne";
 import fight02 from "./scenes/fight01_level_02";
 import figthTwo from "./scenes/fightTwo";
 import fightTwoLevelTwo from "./scenes/fight02_level_02";
+import fightThreeLevelTwo from "./scenes/fight03_level_02";
 
 export default async function main() {
 
@@ -193,6 +194,8 @@ export default async function main() {
 
         await k.loadFont("monogram", "../assets/monogram.ttf")
 
+
+        // SPRITES OF THE MONSTER ENEMIES FOR THE SECOND LEVEL 
         await k.loadSprite("monster", "/assets/Idle_monster.png", {
             sliceX: 4,
             sliceY: 0,
@@ -200,6 +203,16 @@ export default async function main() {
                 "idle": {from: 0, to: 3, loop: true}
             }
         });
+
+        await k.loadSprite("monster02_level02", "assets/monster02_level02_Idle.png", {
+            "anims":{
+                "idle": {
+                    from: 0,
+                    to:3,
+                    loop:true
+                }
+            }
+        })
 
         await k.loadSprite("enemies_one", "/assets/0_Fallen_Angels_Idle_001-sheet.png", {
             sliceX: 9,
@@ -254,6 +267,10 @@ export default async function main() {
         fightTwoLevelTwo(k, ()=> {returnBackLevelScene("scene02")});
     })
 
+    k.scene("fight_03_level_02", ()=>{
+        fightThreeLevelTwo(k, ()=> {returnBackLevelScene("scene02")})
+    })
+
 
 
 
@@ -277,7 +294,8 @@ export default async function main() {
             () => { backScene("scene01", "level_01", allPositions.positions_level_01.level_01_from_level_02) },
             level02, allPositions,
             ()=>{change01Fight("fight_01_level_02")},
-            () => {change02Fight()}
+            () => {change02Fight("fight_02_level_02")},
+            () => {change03Fight("fight_03_level_02")}
         );
     })
 

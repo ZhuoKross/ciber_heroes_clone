@@ -99,7 +99,13 @@ export default async function scene02(
 
                 if (obj.name === "second_fight") {
                     k.onCollide("player", obj.name, () => {
+                        change02Fight()
+                    })
+                }
 
+                if(obj.name === "third_fight"){
+                    k.onCollide("player", obj.name, () => {
+                        change03Fight()
                     })
                 }
             }
