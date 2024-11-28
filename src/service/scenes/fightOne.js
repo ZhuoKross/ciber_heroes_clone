@@ -18,9 +18,11 @@ export default async function figthOne(k, backScene) {
             (selectedOption) => {
                 console.log("Opción seleccionada:", selectedOption);
                 if(selectedOption === resp){
+                    alert("Felicitaciones, Respondiste bien.")
                     backScene();
                 }else{
-                    alert("lastima sapa")
+                    alert("lastima sapa");
+                    backScene();
                 }
             },
             () => {
