@@ -225,7 +225,7 @@ export default async function main() {
         await k.loadSprite("enemies_one", "/assets/0_Fallen_Angels_Idle_001-sheet.png", {
             sliceX: 9,
             sliceY: 0,
-            anims: {"idle": {from: 0, to: 1, loop: true}}
+            anims: {"idle": {from: 0, to: 1, loop: true, speed: 5}}
         });
         await k.loadSprite("enemies_two", "/assets/AnimationSheet_Character.png", {
             sliceX: 8,
@@ -263,17 +263,7 @@ export default async function main() {
 
 
     // DEFINING THE SCENES OF THE GAME
-    k.scene("scene01", () => {
-        scene01(
-            k,
-            () => { changeScene("scene02", "level_02", allPositions.positions_level_02.level_02_from_level_01) },
-            level01,
-            allPositions,
-            () => { changeFight("fightThree") },
-            () => { changeThreeFight("fightThree") },
-            () => { changeTwoFight("fightTwo") } // Corrige el nombre aquí
-        );
-    });
+    
     
     
     // Define la escena de la pelea
@@ -303,6 +293,19 @@ export default async function main() {
     k.scene("fight_03_level_02", ()=>{
         fightThreeLevelTwo(k, ()=> {returnBackLevelScene("scene02")})
     })
+
+
+    k.scene("scene01", () => {
+        scene01(
+            k,
+            () => { changeScene("scene02", "level_02", allPositions.positions_level_02.level_02_from_level_01) },
+            level01,
+            allPositions,
+            () => { changeFight("fightOne") },
+            () => { changeTwoFight("fightTwo") }, // Corrige el nombre aquí
+            () => { changeThreeFight("fightThree") },
+        );
+    });
 
     k.scene("scene03", () => {
         scene03(
