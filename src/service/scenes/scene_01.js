@@ -2,7 +2,15 @@ import dialog from "../dialog";
 import { store, currentLevelAtom, curretPositionsPlayerAtom } from "../store";
 
 
-export default async function scene01(k, changeScene, levelData, allPositions, changeFight) {
+export default async function scene01(
+    k,
+    changeScene,
+    levelData,
+    allPositions,
+    firstFightLevelOne,
+    secondFightLevelOne,
+    thirdFightLevelOne
+) {
 
 
     k.setGravity(null);
@@ -66,7 +74,7 @@ export default async function scene01(k, changeScene, levelData, allPositions, c
             },
             () => {
                 k.debug.log("Pasando a la siguiente escena"); // Función para cambiar de escena
-                changeFight(); // Ir a la siguiente escena
+                firstFightLevelOne(); // Ir a la siguiente escena
             });
     }
 
@@ -113,13 +121,14 @@ export default async function scene01(k, changeScene, levelData, allPositions, c
 
         if (layer.name === "colliders") {
             for (const obj of layer.objects) {
-                if (obj.name === "info") {
-                    map.add([
-                        k.body({ isStatic: true }),
-                        k.area({ shape: new k.Rect(k.vec2(0), obj.width, obj.height) }),
-                        k.pos(obj.x, obj.y),
-                        obj.name
-                    ])
+                map.add([
+                    k.body({ isStatic: true }),
+                    k.area({ shape: new k.Rect(k.vec2(0), obj.width, obj.height) }),
+                    k.pos(obj.x, obj.y),
+                    obj.name
+                ])
+
+                if (obj.name === "fight_01") {
                     k.onCollide("player", obj.name, () => {
                         //console.log("collision with object: ", obj.name);
 
@@ -133,14 +142,22 @@ export default async function scene01(k, changeScene, levelData, allPositions, c
                                 console.log("the player isn't in dialogue");
                             },
                             () => {
-                              changeFight() // Ir a la siguiente escena
+                              firstFightLevelOne() // Ir a la siguiente escena
                             }
                         );
                     });
+                }
 
+                if(obj.name === "fight_02"){
+                    k.onCollide("player", obj.name, () => {
+                        secondFightLevelOne();
+                    })
+                }
 
-
-
+                if(obj.name === "fight_03"){
+                    k.onCollide("player", obj.name, () => {
+                        thirdFightLevelOne();
+                    })
                 }
             }
         }
