@@ -6,11 +6,11 @@ export default async function figthThree(k, backScene) {
     console.log("aqui estoy")
         player.isOnDialogue = true;
         console.log("the player is in dialogue? ", player.isOnDialogue);
-        const resp = "Opción 1";
+        const resp = "a. Contiene errores de ortografía o caracteres extraños";
         dialogFigth(
             k,
-            "¿Pregunta Dos?",
-            ["Opción 1", "Opción 2", "Opción 3", "Opción 4"],
+            "¿Cuál es una señal de que un enlace podría ser falso o peligroso?",
+            ["a. Contiene errores de ortografía o caracteres extraños", "b.	Tiene un nombre largo", "c.	No tiene imágenes", "d.	Es compartido por un amigo"],
             k.vec2(800, 400),
             (selectedOption) => {
                 console.log("Opción seleccionada:", selectedOption);
@@ -67,6 +67,17 @@ export default async function figthThree(k, backScene) {
     ]);
 
     
+    const enemies_01_three = k.add([
+        k.sprite("enemies_01_three"),
+        k.pos(400, 650),
+        k.area({
+            shape: new k.Rect(k.vec2(0), 30, 30)
+        }),
+        k.body(),
+        {anim: "idle"},
+        k.anchor("center"),
+        k.scale(8)
+    ])
 
     const gravity = 200;
 
@@ -75,7 +86,7 @@ export default async function figthThree(k, backScene) {
     
 
    // Add the player to the scene
-   enemies_02_three.play("idle");
+   enemies_01_three.play("idle")
    player.play("idle");
    introDialogue();
     

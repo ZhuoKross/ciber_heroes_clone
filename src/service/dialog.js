@@ -19,7 +19,7 @@ export default async function dialog(k, text, position = k.vec2(200, 200), onClo
             align: "center",
             font: "monogram"
         }),
-        k.pos(0, -150), // Ajustar posición dentro del contenedor
+        k.pos(0, -70), // Ajustar posición dentro del contenedor
         k.anchor("center"),
         k.color(0, 0, 0), // Color del texto en negro
     ]);
@@ -29,7 +29,7 @@ export default async function dialog(k, text, position = k.vec2(200, 200), onClo
     // Botón "Cerrar"
     const closeButton = dialogContainer.add([
         k.rect(120, 40, { radius: 10 }),
-        k.pos(-100, 150), // Posición ajustada
+        k.pos(-50, 150), // Posición ajustada
         k.area(),
         k.opacity(1),
         k.anchor("center"),

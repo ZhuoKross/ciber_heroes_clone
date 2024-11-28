@@ -6,11 +6,11 @@ export default async function figthTwo(k, backScene) {
     console.log("aqui estoy")
         player.isOnDialogue = true;
         console.log("the player is in dialogue? ", player.isOnDialogue);
-        const resp = "Opción 1";
+        const resp = "a. Usar combinaciones de letras, números y símbolos";
         dialogFigth(
             k,
-            "¿Pregunta Dos?",
-            ["Opción 1", "Opción 2", "Opción 3", "Opción 4"],
+            "¿Cuál de las siguientes es una buena práctica al crear una contraseña?",
+            ["a. Usar combinaciones de letras, números y símbolos", "b.	Usar solo tu nombre y fecha de nacimiento", "c. Usar solo palabras comunes", "d. Elegir una palabra fácil de recordar"],
             k.vec2(800, 400),
             (selectedOption) => {
                 console.log("Opción seleccionada:", selectedOption);

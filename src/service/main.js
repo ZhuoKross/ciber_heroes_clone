@@ -251,6 +251,12 @@ export default async function main() {
             anims: {"idle": {from: 0, to: 1, loop: true, speed: 3}}
         });
 
+        await k.loadSprite("enemies_01_three", "/assets/Flight.png", {
+            sliceX: 7,
+            sliceY: 0,
+            anims: {"idle": {from: 0, to: 1, loop: true, speed: 3}}
+        });
+
         await k.loadSprite("background_figth_02_Three", "assets/Hills_Free.png");
 
         await k.loadSprite("background_figthThree", "assets/background_glacial_mountains.png");

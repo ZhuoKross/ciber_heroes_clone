@@ -66,15 +66,14 @@ export default async function scene01(
         console.log("the player is in dialogue? ", player.isOnDialogue);
 
         dialog(k,
-            "PreguntaUno", // Texto del diálogo
+            "Tu misión comienza aqui, aprendiendo de los errores básicos de ciberseguridad. Tendrás que demostrar que sabes cómo proteger tu información personal. Cada respuesta correcta te acerca a la victoria. ¡Prepárate para proteger tus datos y vencer en tu primer combate!", // Texto del diálogo
             k.vec2(player.pos.x, player.pos.y + 100), // Posición basada en la cámara
             () => {
                 player.isOnDialogue = false;
                 console.log("the player isn't in dialogue? ", player.isOnDialogue);
             },
             () => {
-                k.debug.log("Pasando a la siguiente escena"); // Función para cambiar de escena
-                firstFightLevelOne(); // Ir a la siguiente escena
+                player.isOnDialogue = false;
             });
     }
 
@@ -132,7 +131,7 @@ export default async function scene01(
                     k.onCollide("player", obj.name, () => {
                         //console.log("collision with object: ", obj.name);
 
-                        const PreguntaUno = "Aqui esta la pregunta"
+                        const PreguntaUno = "Mantener tus contraseñas seguras es clave para proteger tu información personal y cuentas en línea. Cambiar tus contraseñas regularmente, especialmente cada 3 a 6 meses, ayuda a minimizar riesgos como accesos no autorizados. Además, es importante usar contraseñas únicas para cada cuenta y evitar compartirlas."
                         dialog(
                             k,
                             PreguntaUno, // Texto del diálogo
@@ -150,7 +149,7 @@ export default async function scene01(
 
                 if(obj.name === "fight_02"){
                     k.onCollide("player", obj.name, () => {
-                        const PreguntaUno = "Aqui esta la pregunta dos"
+                        const PreguntaUno = "En el mundo digital, tu información personal es valiosa. Para mantenerla segura, es importante usar contraseñas fuertes y difíciles de adivinar, combinando letras, números y símbolos, Cambiar tus contraseñas regularmente es una buena práctica, incluso si no crees que han sido descubiertas."
                         dialog(
                             k,
                             PreguntaUno, // Texto del diálogo
@@ -168,7 +167,7 @@ export default async function scene01(
 
                 if(obj.name === "fight_03"){
                     k.onCollide("player", obj.name, () => {
-                        const PreguntaUno = "Aqui esta la pregunta tres"
+                        const PreguntaUno = "Los ciberdelincuentes suelen utilizar enlaces falsos para engañar y robar información personal o instalar software malicioso. Una señal común de un enlace sospechoso es que contenga errores de ortografía, caracteres extraños o un dominio que no coincide con la organización legítima (Ej: “amaz0n.com” en lugar de “amazon.com”). "
                         dialog(
                             k,
                             PreguntaUno, // Texto del diálogo
