@@ -103,7 +103,7 @@ export default async function (
     
                 if(obj.name === "fight_02"){
                     k.onCollide("player", obj.name, () => {
-                        const PreguntaUno = "El phishing es una técnica de estafa en la que los ciberdelincuentes engañan a las personas para que revelen información personal, como contraseñas, datos bancarios o números de tarjetas de crédito. Normalmente, esto se logra mediante correos electrónicos, mensajes de texto o sitios web falsos que imitan a entidades legítimas, como bancos o plataformas en línea."
+                        const PreguntaUno = "El phishing es una técnica de estafa en la que los ciberdelincuentes engañan a las personas para que revelen información personal, como contraseñas, datos bancarios o números de tarjetas de crédito. Normalmente, esto se logra mediante correos electrónicos, mensajes de texto o sitios web falsos que imitan a entidades."
                         dialog(
                             k,
                             PreguntaUno, // Texto del diálogo
