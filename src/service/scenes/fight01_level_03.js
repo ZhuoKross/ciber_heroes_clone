@@ -1,15 +1,24 @@
 import dialogFigth from "../dialogFigth";
-export default async function fightOneLevelThree(k, goBackScene){
+export default async function fightOneLevelThree(k, goBackScene, music){
     
     // k.add([
     //     k.text("fight 01 level 3"),
     //     k.pos(100, 100)
     // ])
 
+
+    
+
+
     const canvasWidth = k.width();
     const canvasHeight = k.height();
 
     function introDialogue() {
+        k.play("level_01_back_boss_fight", {
+            loop: true,
+            volume: 0.5
+        })
+        
 
         player.isOnDialogue = true;
         console.log("the player is in dialogue? ", player.isOnDialogue);

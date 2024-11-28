@@ -23,6 +23,16 @@ export default async function main() {
     // GETTING THE CONTEXT OF KAPLAY
     const k = context();
     
+    const music = k.play("level_01_back_sound", {
+        loop: true,
+        volume: 0.5
+    })
+
+    
+
+
+
+
     k.setBackground(k.Color.fromHex("424050"));
     // FUNTION TO PASS THROUGHT FIGTH
     function changeFight(nextScene) {
@@ -151,8 +161,9 @@ export default async function main() {
     }
 
 
-    await store.set(curretPositionsPlayerAtom, allPositions.positions_level_01.spawn_position);
-    await store.set(currentLevelAtom, "level_01");
+    // SETING THE VALUES OF THE POSITIONS
+    store.set(curretPositionsPlayerAtom, allPositions.positions_level_01.spawn_position);
+    store.set(currentLevelAtom, "level_01");
 
 
     console.log("value of the level from global state: ", store.get(currentLevelAtom));
@@ -342,6 +353,11 @@ export default async function main() {
 
         await k.loadSprite("back_fight03_level03", "assets/Blue_Nebula_04-1024x1024.png");
 
+        // AUDIO SETTINGS 
+        await k.loadSound("level_01_back_sound", "assets/Overworld_Theme.wav");
+
+        await k.loadSound("level_01_back_boss_fight", "assets/the-wizard-loop2.wav");
+
     } catch (error) {
         console.log("Error uploading sprites and assets: ", error);
     }
@@ -388,7 +404,7 @@ export default async function main() {
     // SCENES OF FIGHTS OF THE LEVEL 03
 
     k.scene("fight_01_level_03", ()=>{
-        fightOneLevelThree(k, ()=> {returnBackLevelScene("scene03")});
+        fightOneLevelThree(k, ()=> {returnBackLevelScene("scene03")}, music);
     })
 
     k.scene("fight_02_level_03", ()=> {

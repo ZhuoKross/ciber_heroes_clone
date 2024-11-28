@@ -12,6 +12,8 @@ export default async function scene01(
     thirdFightLevelOne
 ) {
 
+   
+
 
     k.setGravity(null);
 
@@ -61,6 +63,12 @@ export default async function scene01(
     const SPEED = 250;
 
     function introDialogue() {
+
+        k.play("level_01_back_sound", {
+            loop: true,
+            volume: 0.5
+        })
+
 
         player.isOnDialogue = true;
         console.log("the player is in dialogue? ", player.isOnDialogue);
@@ -245,6 +253,8 @@ export default async function scene01(
     k.onKeyPress("u", () => {
         changeScene();
     })
+
+   
 
     k.onUpdate(() => {
         k.camPos(player.pos.x, player.pos.y + 100);
