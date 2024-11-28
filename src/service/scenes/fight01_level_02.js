@@ -1,4 +1,4 @@
-import dialog from "../dialog";
+import dialogFigth from "../dialogFigth";
 
 export default async function fight02(k, goBackScene){
     const background = k.add ([
@@ -28,7 +28,7 @@ export default async function fight02(k, goBackScene){
         k.body(),
         {anim: "idle"},
         k.anchor("center"),
-        k.scale(3)
+        k.scale(6)
     ])
 
 
@@ -40,8 +40,8 @@ export default async function fight02(k, goBackScene){
         }),
         k.body(),
         k.anchor("center"),
-        k.pos(900, + 550),
-        k.scale(4),
+        k.pos(1300, 650),
+        k.scale(9),
         {
             speed: 200,
             direction: "left",
@@ -65,11 +65,30 @@ export default async function fight02(k, goBackScene){
     k.add(player);
 
 
-    dialog(k, "EXAMPLE BITCH", k.vec2(canvasWidth / 2, canvasHeight / 2), ()=> {k.debug.log("closing dialogue")});
+    function introDialogue() {
 
-    k.onKeyPress("u", ()=>{
-        k.setGravity(null);
-        goBackScene();
-    })
-
+        player.isOnDialogue = true;
+        console.log("the player is in dialogue? ", player.isOnDialogue);
+        const resp = "Opción 1";
+        dialogFigth(
+            k,
+            "¿Que es phising?",
+            ["Opción 1", "Opción 2", "Opción 3", "Opción 4"],
+            k.vec2(800, 400),
+            (selectedOption) => {
+                console.log("Opción seleccionada:", selectedOption);
+                if(selectedOption === resp){
+                    k.setGravity(null)
+                    goBackScene()
+                }else{
+                    alert("lastima sapa")
+                }
+            },
+            () => {
+                console.log("Diálogo cerrado");
+                // Lógica adicional si el diálogo se cierra sin enviar
+            }
+        );
+         }
+         introDialogue();
 }

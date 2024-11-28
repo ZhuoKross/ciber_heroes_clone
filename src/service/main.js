@@ -301,9 +301,23 @@ export default async function main() {
             anims: {"idle": {from: 0, to: 1, loop: true, speed: 3}}
         });
 
-        await k.loadSprite("background_figthThree", "assets/background_glacial_mountains.png")
+        await k.loadSprite("enemies_02_three", "/assets/Idle_fire.png", {
+            sliceX: 8,
+            sliceY: 0,
+            anims: {"idle": {from: 0, to: 1, loop: true, speed: 3}}
+        });
 
-        await k.loadSprite("background_figthTwo", "assets/Background.png")
+        await k.loadSprite("enemies_02_two", "/assets/Idle_Martial.png", {
+            sliceX: 10,
+            sliceY: 0,
+            anims: {"idle": {from: 0, to: 1, loop: true, speed: 3}}
+        });
+
+        await k.loadSprite("background_figth_02_Three", "assets/Hills_Free.png");
+
+        await k.loadSprite("background_figthThree", "assets/background_glacial_mountains.png");
+
+        await k.loadSprite("background_figthTwo", "assets/Background.png");
 
         await k.loadSprite("background_level_02", "assets/background_level_02.png");
 
@@ -314,6 +328,14 @@ export default async function main() {
         await k.loadSprite("03_back_palm_orange_sunset", "assets/03_WaterOrange.png");
 
         await k.loadSprite("04_back_palm_orange_sunset", "assets/04_PalmsOrange.png");
+
+        await k.loadSprite("01_", "assets/1.png");
+
+        await k.loadSprite("02_", "assets/2.png");
+
+        await k.loadSprite("03_", "assets/3.png");
+
+        await k.loadSprite("04_", "assets/4.png");
 
     } catch (error) {
         console.log("Error uploading sprites and assets: ", error);
