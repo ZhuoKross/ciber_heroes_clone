@@ -31,6 +31,11 @@ export default async function fightTwoLevelTwo(k, goBackScene) {
         );
         
     }
+    k.add([
+        k.sprite("background_figth_02_Three"),
+        k.pos(0),
+        k.scale(3.2, 2.9),
+    ])
 
     const player = k.make([
         k.sprite("character"),
@@ -53,46 +58,6 @@ export default async function fightTwoLevelTwo(k, goBackScene) {
         "player"
     ])
 
-
-    
-   
-    k.add([
-        k.sprite("02_back_palm_orange_sunset"),
-        k.pos(0),
-        k.scale(6.65 ,5.5),
-    ])
-
-    k.add([
-        k.sprite("03_back_palm_orange_sunset"),
-        k.pos(0),
-        k.scale(6.65, 5.5),
-    ])
-
-    k.add([
-        k.sprite("04_back_palm_orange_sunset"),
-        k.pos(0),
-        k.scale(5, 4.6),
-        k.area({
-            shape: new k.Rect(k.vec2(0, 130 ), canvasWidth, 10)
-        })
-    ])
-
-
-    // const monster = k.add([
-    //     k.sprite("monster02_level02"),
-    //     k.pos(200, 130),
-    //     k.area({
-    //         shape: new k.Rect(k.vec2(0), 20, 20)
-    //     }),
-    //     k.body(),
-    //     k.anchor("center"),
-    //     k.scale(4),
-    //     {anim: "idle"}
-    // ])
-
-
-    // monster.play("idle"); 
-
     k.add([
         k.rect(canvasWidth, 200),
         k.pos(0, canvasHeight - 50),
@@ -100,8 +65,21 @@ export default async function fightTwoLevelTwo(k, goBackScene) {
         k.body({isStatic: true}),
         k.color(k.Color.fromHex(("#2e4053")))
     ])
+
+    const enemies_02_three = k.add([
+        k.sprite("enemies_02_three"),
+        k.pos(400, 650),
+        k.area({
+            shape: new k.Rect(k.vec2(0), 30, 30)
+        }),
+        k.body(),
+        {anim: "idle"},
+        k.anchor("center"),
+        k.scale(7)
+    ])
    // Add the player to the scene
    k.add(player)
    player.play("idle");
+   enemies_02_three.play("idle")
     introDialogue();
 }

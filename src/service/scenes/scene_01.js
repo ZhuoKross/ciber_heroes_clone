@@ -150,13 +150,38 @@ export default async function scene01(
 
                 if(obj.name === "fight_02"){
                     k.onCollide("player", obj.name, () => {
-                        secondFightLevelOne();
+                        const PreguntaUno = "Aqui esta la pregunta dos"
+                        dialog(
+                            k,
+                            PreguntaUno, // Texto del diálogo
+                            k.vec2(k.camPos()), // Posición basada en la cámara
+                            () => {
+                                player.isOnDialogue = false;
+                                console.log("the player isn't in dialogue");
+                            },
+                            () => {
+                                secondFightLevelOne(); // Ir a la siguiente escena
+                            }
+                        );
                     })
                 }
 
                 if(obj.name === "fight_03"){
                     k.onCollide("player", obj.name, () => {
-                        thirdFightLevelOne();
+                        const PreguntaUno = "Aqui esta la pregunta tres"
+                        dialog(
+                            k,
+                            PreguntaUno, // Texto del diálogo
+                            k.vec2(k.camPos()), // Posición basada en la cámara
+                            () => {
+                                player.isOnDialogue = false;
+                                console.log("the player isn't in dialogue");
+                            },
+                            () => {
+                                thirdFightLevelOne(); // Ir a la siguiente escena
+                            }
+                        );
+                        
                     })
                 }
             }

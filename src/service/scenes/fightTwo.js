@@ -28,10 +28,29 @@ export default async function figthTwo(k, backScene) {
         
     }
 
-    const background = k.add ([
-        k.sprite("background_figthTwo"),
-        k.scale(1.8, 1),
-        k.pos(0, -100)
+    k.add([
+        k.sprite("01_"),
+        k.pos(0),
+        k.scale(2.9 ,2.5),
+    ])
+
+    k.add([
+        k.sprite("02_"),
+        k.pos(10, 100),
+        k.scale(2.9 ,2.5),
+    ])
+
+    k.add([
+        k.sprite("03_"),
+        k.pos(0),
+        k.scale(2.9 ,2.5),
+    ])
+
+    k.add([
+        k.sprite("04_"),
+        k.pos(0),
+        k.scale(2.9 ,2.5),
+       
     ])
    
     const canvasWidth = k.width();
@@ -65,16 +84,16 @@ export default async function figthTwo(k, backScene) {
         },
         "player"
     ])
-    const enemies_02_three = k.add([
-        k.sprite("enemies_02_three"),
-        k.pos(400, 650),
+    const enemies_two = k.add([
+        k.sprite("enemies_two"),
+        k.pos(300, 650),
         k.area({
-            shape: new k.Rect(k.vec2(0), 35, 35)
+            shape: new k.Rect(k.vec2(0), 30, 30)
         }),
         k.body(),
         {anim: "idle"},
         k.anchor("center"),
-        k.scale(4)
+        k.scale(8)
     ])
 
     const gravity = 200;
@@ -82,7 +101,7 @@ export default async function figthTwo(k, backScene) {
     k.setGravity(gravity);    
 
     k.add(player);
-   enemies_02_three.play("idle");
+   enemies_two.play("idle");
    player.play("idle");
    introDialogue();
     

@@ -53,11 +53,37 @@ export default async function fightThreeLevelTwo(k, goBackScene){
     ])
 
     k.add([
-        k.sprite("background_figth_02_Three"),
+        k.sprite("02_back_palm_orange_sunset"),
         k.pos(0),
-        k.scale(3.2, 2.9),
+        k.scale(6.65 ,5.5),
     ])
 
+    k.add([
+        k.sprite("03_back_palm_orange_sunset"),
+        k.pos(0),
+        k.scale(6.65, 5.5),
+    ])
+
+    k.add([
+        k.sprite("04_back_palm_orange_sunset"),
+        k.pos(0),
+        k.scale(5, 4.6),
+        k.area({
+            shape: new k.Rect(k.vec2(0, 130 ), canvasWidth, 10)
+        })
+    ])
+    
+    const enemies_02_two = k.add([
+        k.sprite("enemies_02_two"),
+        k.pos(400, 650),
+        k.area({
+            shape: new k.Rect(k.vec2(0), 30, 30)
+        }),
+        k.body(),
+        {anim: "idle"},
+        k.anchor("center"),
+        k.scale(7)
+    ])
 
     k.onKeyPress("u", ()=> {
         goBackScene();
@@ -65,8 +91,7 @@ export default async function fightThreeLevelTwo(k, goBackScene){
 
     const gravity = 200;
 
-    k.setGravity(gravity);
-    k.add(player);
+    
     
     k.add([
         k.rect(canvasWidth, 200),
@@ -76,6 +101,9 @@ export default async function fightThreeLevelTwo(k, goBackScene){
         k.color(k.Color.fromHex(("#2e4053")))
     ])
    // Add the player to the scene
+   k.setGravity(gravity);
+   k.add(player);
+   enemies_02_two.play("idle")
    player.play("idle");
     introDialogue();
 }

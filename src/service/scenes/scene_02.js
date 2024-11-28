@@ -1,5 +1,5 @@
 import { currentLevelAtom, curretPositionsPlayerAtom, store } from "../store";
-
+import dialog from "../dialog";
 export default async function scene02(
     k,
     changeScene,
@@ -93,19 +93,58 @@ export default async function scene02(
 
                 if (obj.name === "first_fight") {
                     k.onCollide("player", obj.name, () => {
-                        change01Fight();
+                        const PreguntaUno = "Aqui esta la pregunta uno del mapa dos"
+                        dialog(
+                            k,
+                            PreguntaUno, // Texto del diálogo
+                            k.vec2(k.camPos()), // Posición basada en la cámara
+                            () => {
+                                player.isOnDialogue = false;
+                                console.log("the player isn't in dialogue");
+                            },
+                            () => {
+                                change01Fight(); // Ir a la siguiente escena
+                            }
+                        );
+                        
                     })
                 }
 
                 if (obj.name === "second_fight") {
                     k.onCollide("player", obj.name, () => {
-                        change02Fight()
+                        const PreguntaUno = "Aqui esta la pregunta dos del mapa dos"
+                        dialog(
+                            k,
+                            PreguntaUno, // Texto del diálogo
+                            k.vec2(k.camPos()), // Posición basada en la cámara
+                            () => {
+                                player.isOnDialogue = false;
+                                console.log("the player isn't in dialogue");
+                            },
+                            () => {
+                                change02Fight(); // Ir a la siguiente escena
+                            }
+                        );
+                        
                     })
                 }
 
                 if(obj.name === "third_fight"){
                     k.onCollide("player", obj.name, () => {
-                        change03Fight()
+                        const PreguntaUno = "Aqui esta la pregunta tres del mapa dos"
+                        dialog(
+                            k,
+                            PreguntaUno, // Texto del diálogo
+                            k.vec2(k.camPos()), // Posición basada en la cámara
+                            () => {
+                                player.isOnDialogue = false;
+                                console.log("the player isn't in dialogue");
+                            },
+                            () => {
+                                change03Fight(); // Ir a la siguiente escena
+                            }
+                        );
+                       
                     })
                 }
             }
