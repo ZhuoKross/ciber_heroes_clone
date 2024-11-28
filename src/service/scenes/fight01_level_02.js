@@ -81,7 +81,8 @@ export default async function fight02(k, goBackScene){
                     k.setGravity(null)
                     goBackScene()
                 }else{
-                    alert("lastima sapa")
+                    alert("lastima sapa");
+                    goBackScene();
                 }
             },
             () => {

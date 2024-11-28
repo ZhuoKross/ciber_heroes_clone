@@ -25,7 +25,8 @@ export default async function fightOneLevelThree(k, goBackScene){
                     k.setGravity(null)
                     goBackScene()
                 }else{
-                    alert("lastima sapa")
+                    alert("lastima sapa");
+                    goBackScene();
                 }
             },
             () => {

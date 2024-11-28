@@ -21,7 +21,8 @@ export default async function figthTwo(k, backScene) {
                 if(selectedOption === resp){
                     backScene();
                 }else{
-                    alert("lastima sapa")
+                    alert("lastima sapa");
+                    backScene();
                 }
             },
             () => {
