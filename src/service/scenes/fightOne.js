@@ -1,5 +1,7 @@
 import dialogFigth from "../dialogFigth";
-export default async function figthOne(k, backScene) {
+import { emeniesDefeat } from "../store";
+
+export default async function figthOne(k, backScene, enemiesDefeated) {
     
     const canvasWidth = k.width();
     const canvasHeight = k.height();
@@ -20,8 +22,10 @@ export default async function figthOne(k, backScene) {
                 if(selectedOption === resp){
                     alert("Felicitaciones, Respondiste bien.")
                     backScene();
+                   enemiesDefeated(1);
+                   console.log(enemiesDefeated);
                 }else{
-                    alert("lastima sapa");
+                    alert("lastimosamente su respuesta fue incorrecta");
                     backScene();
                 }
             },
