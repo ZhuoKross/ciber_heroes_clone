@@ -1,3 +1,4 @@
+import dialogFigth from "../dialogFigth";
 export default async function fightThreeLevelThree(k, goBackScene){
     // k.add([
     //     k.text("fight 03 level 3"),
@@ -21,6 +22,32 @@ export default async function fightThreeLevelThree(k, goBackScene){
         //     k.body({isStatic: true}),
         //     k.color(k.Color.fromHex(("#020232")))
         // ]);
+        function introDialogue() {
+
+            player.isOnDialogue = true;
+            console.log("the player is in dialogue? ", player.isOnDialogue);
+            const resp = "Opción 1";
+            dialogFigth(
+                k,
+                "¿Que es phising?",
+                ["Opción 1", "Opción 2", "Opción 3", "Opción 4"],
+                k.vec2(800, 400),
+                (selectedOption) => {
+                    console.log("Opción seleccionada:", selectedOption);
+                    if(selectedOption === resp){
+                        k.setGravity(null)
+                        goBackScene()
+                    }else{
+                        alert("lastima sapa")
+                    }
+                },
+                () => {
+                    console.log("Diálogo cerrado");
+                    // Lógica adicional si el diálogo se cierra sin enviar
+                }
+            );
+             }
+             
 
     const boss03 = k.add([
         k.sprite("third_boss_level_03"),
@@ -60,4 +87,6 @@ export default async function fightThreeLevelThree(k, goBackScene){
     k.onKeyPress("u", () =>{
         goBackScene()
     })
+    
+    introDialogue();
 }
