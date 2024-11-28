@@ -93,7 +93,7 @@ export default async function scene02(
 
                 if (obj.name === "first_fight") {
                     k.onCollide("player", obj.name, () => {
-                        const PreguntaUno = "Aqui esta la pregunta uno del mapa dos"
+                        const PreguntaUno = "Los correos maliciosos suelen incluir mensajes urgentes que buscan asustarte o presionarte para que tomes decisiones rápidas, como compartir datos personales, contraseñas o información bancaria. Por ejemplo, un correo que afirma que tu cuenta será suspendida si no proporcionas información urgente es una señal de alerta."
                         dialog(
                             k,
                             PreguntaUno, // Texto del diálogo
@@ -112,7 +112,7 @@ export default async function scene02(
 
                 if (obj.name === "second_fight") {
                     k.onCollide("player", obj.name, () => {
-                        const PreguntaUno = "Aqui esta la pregunta dos del mapa dos"
+                        const PreguntaUno = "Los correos sospechosos suelen contener enlaces o archivos adjuntos diseñados para robar tu información personal o infectar tu dispositivo con malware. Por ello, nunca debes hacer clic en un enlace sin verificar primero su autenticidad."
                         dialog(
                             k,
                             PreguntaUno, // Texto del diálogo
@@ -131,7 +131,7 @@ export default async function scene02(
 
                 if(obj.name === "third_fight"){
                     k.onCollide("player", obj.name, () => {
-                        const PreguntaUno = "Aqui esta la pregunta tres del mapa dos"
+                        const PreguntaUno = "Cuando te conectas a una red Wi-Fi pública, como las disponibles en cafeterías, aeropuertos o centros comerciales, tu información personal puede estar en riesgo. Estas redes suelen ser menos seguras porque no requieren contraseñas fuertes o cifrado, lo que las convierte en un objetivo para los ciberdelincuentes."
                         dialog(
                             k,
                             PreguntaUno, // Texto del diálogo

@@ -69,11 +69,11 @@ export default async function fight02(k, goBackScene){
 
         player.isOnDialogue = true;
         console.log("the player is in dialogue? ", player.isOnDialogue);
-        const resp = "Opción 1";
+        const resp = "a. Un correo que pide información personal urgente";
         dialogFigth(
             k,
-            "¿Que es phising?",
-            ["Opción 1", "Opción 2", "Opción 3", "Opción 4"],
+            "¿Cuál de los siguientes correos es más probable que sea falso o malicioso?",
+            ["a. Un correo que pide información personal urgente", "b. Un correo de un amigo", "c. Un correo de bienvenida a un servicio al que te suscribiste", "d. Un correo con consejos para mejorar la seguridad"],
             k.vec2(canvasWidth / 2, canvasHeight / 2),
             (selectedOption) => {
                 console.log("Opción seleccionada:", selectedOption);

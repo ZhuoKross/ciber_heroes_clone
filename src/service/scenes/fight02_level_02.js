@@ -9,11 +9,11 @@ export default async function fightTwoLevelTwo(k, goBackScene) {
 
         player.isOnDialogue = true;
         console.log("the player is in dialogue? ", player.isOnDialogue);
-        const resp = "Opción 1";
+        const resp = "a. No hacer clic y verificar primero el remitente";
         dialogFigth(
             k,
-            "¿Que es phising?",
-            ["Opción 1", "Opción 2", "Opción 3", "Opción 4"],
+            "¿Qué debes hacer si recibes un correo sospechoso con un enlace?",
+            ["a. No hacer clic y verificar primero el remitente", "b. Hacer clic para ver de qué se trata", "c.	Responder al correo para obtener más información", "d. Reenviar el correo a tus contactos"],
             k.vec2(canvasWidth / 2, canvasHeight / 2),
             (selectedOption) => {
                 console.log("Opción seleccionada:", selectedOption);

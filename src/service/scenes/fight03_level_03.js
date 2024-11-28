@@ -31,7 +31,7 @@ export default async function fightThreeLevelThree(k, goBackScene){
                 k,
                 "¿Que es phising?",
                 ["Opción 1", "Opción 2", "Opción 3", "Opción 4"],
-                k.vec2(800, 400),
+                k.vec2(900, 400),
                 (selectedOption) => {
                     console.log("Opción seleccionada:", selectedOption);
                     if(selectedOption === resp){
@@ -55,7 +55,7 @@ export default async function fightThreeLevelThree(k, goBackScene){
         k.body(),
         k.area({shape: new k.Rect(k.vec2(0), 25, 180)}),
         k.anchor("center"),
-        k.scale(2),
+        k.scale(3),
         {anim: "idle"}
     ])
 
