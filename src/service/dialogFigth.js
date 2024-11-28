@@ -1,4 +1,4 @@
-export default async function dialogFigth(k, text, options = [], position = k.vec2(200, 200), onSubmit, onClose) {
+export default async function dialogFigth(k, text, options = [], position = k.vec2(200, 200), onSubmit) {
     // Contenedor del diálogo
     const dialogContainer = await k.add([
         k.rect(450, 500, { radius: 8 }),
@@ -11,65 +11,67 @@ export default async function dialogFigth(k, text, options = [], position = k.ve
         "dialog",
     ]);
 
-    // Texto del diálogo
+    // Título o texto principal del diálogo
     dialogContainer.add([
         k.text(text, {
-            size: 30, // Tamaño del texto
-            width: 400, // Limitar ancho
+            size: 30,
+            width: 400,
             align: "center",
             font: "monogram",
         }),
-        k.pos(0, -180), // Ajustar posición dentro del contenedor
+        k.pos(0, -180),
         k.anchor("center"),
-        k.color(0, 0, 0), // Color del texto en negro
+        k.color(0, 0, 0),
     ]);
 
-    // Lista para almacenar referencias de los botones de opciones
-    const optionButtons = [];
-    let selectedOption = null;
+    // Variable para guardar la opción seleccionada
+    let selectedButton = null;
 
-    // Crear botones para las opciones
-    options.forEach((option, index) => {
+    // Crear botones de opciones
+    const optionButtons = options.map((option, index) => {
+        // Botón base
         const optionButton = dialogContainer.add([
-            k.rect(400, 60, { radius: 5 }), // Aumenta la altura para acomodar texto largo
-            k.pos(0, -100 + index * 70), // Ajusta la posición vertical
+            k.rect(400, 60, { radius: 5 }),
+            k.pos(0, -100 + index * 70),
             k.area(),
             k.anchor("center"),
-            k.color(200, 200, 200), // Color inicial
+            k.color(200, 200, 200), // Fondo gris por defecto
             "option-btn",
         ]);
-    
-        optionButton.add([
-            k.text(option, { 
-                size: 18, // Tamaño de texto más pequeño
-                align: "left", 
-                width: 380, // Limita el ancho del texto para que se ajuste
+
+        // Texto dentro del botón
+        const buttonText = optionButton.add([
+            k.text(option, {
+                size: 18,
+                align: "left",
+                width: 380,
             }),
-            k.pos(-180, 0), // Ajuste de posición del texto dentro del botón
+            k.pos(-180, 0),
             k.anchor("left"),
             k.color(0, 0, 0), // Texto negro
         ]);
-    
-        // Agregar el evento de clic
+
+        // Evento de clic en el botón
         optionButton.onClick(() => {
-            // Actualizar la opción seleccionada
-            selectedOption = option;
-    
-            // Actualizar el color de todos los botones
-            optionButtons.forEach((btn) => {
-                btn.color = k.color(200, 200, 200); // Restablecer color
-            });
-            optionButton.color = k.color(100, 200, 100); // Verde claro para selección
+            // Si ya se había seleccionado otro botón, restablecer su color
+            if (selectedButton) {
+                selectedButton.use(k.color(200, 200, 200)); // Fondo gris
+            }
+
+            // Cambiar el color del botón actual a verde
+            optionButton.use(k.color(100, 200, 100)); // Fondo verde claro
+
+            // Actualizar el botón seleccionado
+            selectedButton = optionButton;
         });
-    
-        // Almacenar referencia al botón
-        optionButtons.push(optionButton);
+
+        return optionButton;
     });
 
     // Botón "Enviar"
     const submitButton = dialogContainer.add([
         k.rect(120, 40, { radius: 10 }),
-        k.pos(-100, 180), // Posición ajustada
+        k.pos(0, 180),
         k.area(),
         k.anchor("center"),
         k.color(50, 200, 50), // Verde
@@ -79,39 +81,17 @@ export default async function dialogFigth(k, text, options = [], position = k.ve
     submitButton.add([
         k.text("Enviar", { size: 18, align: "center" }),
         k.anchor("center"),
-        k.color(0, 0, 0), // Texto negro
+        k.color(0, 0, 0),
     ]);
-
+    // Evento de clic en "Enviar"
     submitButton.onClick(() => {
-        if (selectedOption) {
+        if (selectedButton) {
+            const selectedOption = options[optionButtons.indexOf(selectedButton)];
             k.destroy(dialogContainer); // Cierra el diálogo
             onSubmit(selectedOption); // Enviar la respuesta seleccionada
         } else {
             console.warn("No se seleccionó ninguna opción");
         }
     });
-
-    // Botón "Cerrar"
-    const closeButton = dialogContainer.add([
-        k.rect(120, 40, { radius: 10 }),
-        k.pos(100, 180), // Posición ajustada
-        k.area(),
-        k.anchor("center"),
-        k.color(200, 50, 50), // Rojo
-        "close-btn",
-    ]);
-
-    closeButton.add([
-        k.text("Cerrar", { size: 18, align: "center" }),
-        k.anchor("center"),
-        k.color(0, 0, 0), // Texto negro
-    ]);
-
-    closeButton.onClick(() => {
-        k.destroy(dialogContainer); // Cierra el diálogo
-        onClose(); // Llama a la función de cierre
-    });
-
     return dialogContainer;
 }
- 
