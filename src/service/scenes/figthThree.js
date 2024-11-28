@@ -21,7 +21,8 @@ export default async function figthThree(k, backScene) {
                 if(selectedOption === resp){
                     backScene();
                 }else{
-                    alert("lastima sapa")
+                    alert("lastima sapa");
+                    backScene();
                 }
             },
             () => {
