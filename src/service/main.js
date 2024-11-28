@@ -268,7 +268,7 @@ export default async function main() {
                 }
             }
         })
-        
+
         await k.loadSprite("third_boss_level_03", "assets/Agis.png", {
             sliceX: 15,
             sliceY: 0,
@@ -336,6 +336,10 @@ export default async function main() {
         await k.loadSprite("03_", "assets/3.png");
 
         await k.loadSprite("04_", "assets/4.png");
+
+        await k.loadSprite("back_fight02_level03", "assets/Purple_Nebula_03.png");
+
+        await k.loadSprite("back_fight03_level03", "assets/Blue_Nebula_04-1024x1024.png");
 
     } catch (error) {
         console.log("Error uploading sprites and assets: ", error);
