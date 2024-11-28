@@ -9,6 +9,11 @@ import figthTwo from "./scenes/fightTwo";
 import fightTwoLevelTwo from "./scenes/fight02_level_02";
 import figthThree from "./scenes/figthThree";
 import fightThreeLevelTwo from "./scenes/fight03_level_02";
+import fightOneLevelThree from "./scenes/fight01_level_03";
+import fightTwoLevelThree from "./scenes/fight02_level_03";
+import fightThreeLevelThree from "./scenes/fight03_level_03";
+
+
 
 export default async function main() {
 
@@ -67,6 +72,21 @@ export default async function main() {
     function change03Fight(scene){
         k.go(scene);
     }
+
+
+    //FUNCTIONS OF CHANGE FIGHT SCENES OF LEVEL 03
+    function Fight01LevelThree(scene){
+        k.go(scene);
+    }
+
+    function Fight02LevelThree(scene){
+        k.go(scene);
+    }
+
+    function Fight03LevelThree(scene){
+        k.go(scene);
+    }
+
 
 
 
@@ -222,6 +242,48 @@ export default async function main() {
             }
         })
 
+
+        // SPRITES OF THE MONSTER ENEMIES FOR THE third LEVEL 
+
+        await k.loadSprite("first_boss_level_03", "assets/boss_01_level_03_Idle.png",{
+            sliceX: 8,
+            sliceY: 0,
+            anims: {
+                "idle": {
+                    from: 0,
+                    to: 7,
+                    loop:true
+                }
+            }
+        })
+
+        await k.loadSprite("second_boss_level_03", "assets/boss_02_level_03_Idle.png",{
+            sliceX: 8,
+            sliceY: 0,
+            anims:{
+                "idle": {
+                    from: 0,
+                    to: 7,
+                    loop:true
+                }
+            }
+        })
+        
+        await k.loadSprite("third_boss_level_03", "assets/Agis.png", {
+            sliceX: 15,
+            sliceY: 0,
+            anims: {
+                "idle": {
+                    from: 0,
+                    to: 14,
+                    loop:true
+                }
+            }
+        })
+
+
+
+        ///
         await k.loadSprite("enemies_one", "/assets/0_Fallen_Angels_Idle_001-sheet.png", {
             sliceX: 9,
             sliceY: 0,
@@ -295,6 +357,24 @@ export default async function main() {
     })
 
 
+
+    // SCENES OF FIGHTS OF THE LEVEL 03
+
+    k.scene("fight_01_level_03", ()=>{
+        fightOneLevelThree(k, ()=> {returnBackLevelScene("scene03")});
+    })
+
+    k.scene("fight_02_level_03", ()=> {
+        fightTwoLevelThree(k, ()=> {returnBackLevelScene("scene03")});
+    })
+
+    k.scene("fight_03_level_03", ()=>{
+        fightThreeLevelThree(k, ()=> {returnBackLevelScene("scene03")})
+    })
+
+    
+    // MAIN SCENES (LEVELS)
+
     k.scene("scene01", () => {
         scene01(
             k,
@@ -311,7 +391,12 @@ export default async function main() {
         scene03(
             k,
             () => { changeScene("scene02", "level_02", allPositions.positions_level_02.level_02_from_level_03) },
-            level03, allPositions);
+            level03,
+            allPositions,
+            () => { Fight01LevelThree("fight_01_level_03")},
+            () =>{Fight02LevelThree("fight_02_level_03")},
+            () => {Fight03LevelThree("fight_03_level_03")}
+        );
     })
 
 
