@@ -1,6 +1,10 @@
 import dialogFigth from "../dialogFigth";
 
 export default async function figthTwo(k, backScene) {
+    
+    
+    const canvasWidth = k.width();
+    const canvasHeight = k.height();
    
     function introDialogue() {
     console.log("aqui estoy")
@@ -11,7 +15,7 @@ export default async function figthTwo(k, backScene) {
             k,
             "¿Cuál de las siguientes es una buena práctica al crear una contraseña?",
             ["a. Usar combinaciones de letras, números y símbolos", "b.	Usar solo tu nombre y fecha de nacimiento", "c. Usar solo palabras comunes", "d. Elegir una palabra fácil de recordar"],
-            k.vec2(800, 400),
+            k.vec2(canvasWidth / 2, canvasHeight / 2),
             (selectedOption) => {
                 console.log("Opción seleccionada:", selectedOption);
                 if(selectedOption === resp){
@@ -53,8 +57,6 @@ export default async function figthTwo(k, backScene) {
        
     ])
    
-    const canvasWidth = k.width();
-    const canvasHeight = k.height();
 
     k.add([
         k.rect(canvasWidth, 200),

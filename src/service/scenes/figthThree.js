@@ -1,7 +1,11 @@
 import dialogFigth from "../dialogFigth";
 
 export default async function figthThree(k, backScene) {
-   
+    
+    const canvasWidth = k.width();
+    const canvasHeight = k.height();
+
+    
     function introDialogue() {
     console.log("aqui estoy")
         player.isOnDialogue = true;
@@ -11,7 +15,7 @@ export default async function figthThree(k, backScene) {
             k,
             "¿Cuál es una señal de que un enlace podría ser falso o peligroso?",
             ["a. Contiene errores de ortografía o caracteres extraños", "b.	Tiene un nombre largo", "c.	No tiene imágenes", "d.	Es compartido por un amigo"],
-            k.vec2(800, 400),
+            k.vec2(canvasWidth / 2, canvasHeight / 2),
             (selectedOption) => {
                 console.log("Opción seleccionada:", selectedOption);
                 if(selectedOption === resp){
@@ -34,8 +38,6 @@ export default async function figthThree(k, backScene) {
         k.pos(0, 0)
     ])
    
-    const canvasWidth = k.width();
-    const canvasHeight = k.height();
 
     k.add([
         k.rect(canvasWidth, 200),
