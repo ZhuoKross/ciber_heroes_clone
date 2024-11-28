@@ -5,11 +5,11 @@ export default async function figthOne(k, backScene) {
 
         player.isOnDialogue = true;
         console.log("the player is in dialogue? ", player.isOnDialogue);
-        const resp = "Opción 1";
+        const resp = "a. Cada 3 a 6 meses";
         dialogFigth(
             k,
-            "¿Que es phising?",
-            ["Opción 1", "Opción 2", "Opción 3", "Opción 4"],
+            "¿Qué tan frecuentemente se recomienda cambiar tus contraseñas?",
+            ["a. Cada 3 a 6 meses", "b.	Cada año", "c. Solo cuando alguien la descubre", "d. Nunca, si es fuerte"],
             k.vec2(800, 400),
             (selectedOption) => {
                 console.log("Opción seleccionada:", selectedOption);
