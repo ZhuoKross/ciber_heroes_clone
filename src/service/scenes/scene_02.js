@@ -1,6 +1,15 @@
 import { currentLevelAtom, curretPositionsPlayerAtom, store } from "../store";
 
-export default async function scene02(k, changeScene, goBackSceene, levelData, allPositions, changeFight) {
+export default async function scene02(
+    k,
+    changeScene,
+    goBackSceene,
+    levelData,
+    allPositions,
+    change01Fight,
+    change02Fight,
+    change03Fight
+) {
 
 
 
@@ -46,9 +55,9 @@ export default async function scene02(k, changeScene, goBackSceene, levelData, a
 
 
     for (const layer of levelData.layers) {
-        
+
         if (layer.name === "limits") {
-            
+
             for (const obj of layer.objects) {
                 map.add([
                     k.body({ isStatic: true }),
@@ -63,7 +72,7 @@ export default async function scene02(k, changeScene, goBackSceene, levelData, a
                     })
                 }
 
-                if(obj.name === "passage"){
+                if (obj.name === "passage") {
                     k.onCollide("player", obj.name, () => {
                         changeScene();
                     })
@@ -72,7 +81,7 @@ export default async function scene02(k, changeScene, goBackSceene, levelData, a
         }
 
         if (layer.name === "colliders") {
-            
+
             for (const obj of layer.objects) {
 
                 map.add([
@@ -82,9 +91,15 @@ export default async function scene02(k, changeScene, goBackSceene, levelData, a
                     obj.name
                 ]);
 
-                if(obj.name === "first_fight"){
-                    k.onCollide("player", obj.name, ()=> {
-                        changeFight();
+                if (obj.name === "first_fight") {
+                    k.onCollide("player", obj.name, () => {
+                        change01Fight();
+                    })
+                }
+
+                if (obj.name === "second_fight") {
+                    k.onCollide("player", obj.name, () => {
+
                     })
                 }
             }
@@ -95,10 +110,9 @@ export default async function scene02(k, changeScene, goBackSceene, levelData, a
 
 
 
-    if (player.currentPosition.x === allPositions.positions_level_02.level_02_from_level_01.x && 
-        player.currentPosition.y === allPositions.positions_level_02.level_02_from_level_01.y && 
-        player.currentLevel === "level_02")
-        {
+    if (player.currentPosition.x === allPositions.positions_level_02.level_02_from_level_01.x &&
+        player.currentPosition.y === allPositions.positions_level_02.level_02_from_level_01.y &&
+        player.currentLevel === "level_02") {
         console.log("first validation, spawn position level 02");
 
 
@@ -117,13 +131,12 @@ export default async function scene02(k, changeScene, goBackSceene, levelData, a
 
         k.add(player);
 
-    } else if ( player.currentPosition.x === allPositions.positions_level_02.level_02_from_level_03.x &&
-                player.currentPosition.y === allPositions.positions_level_02.level_02_from_level_03.y && 
-                player.currentLevel === "level_02") 
-    {
+    } else if (player.currentPosition.x === allPositions.positions_level_02.level_02_from_level_03.x &&
+        player.currentPosition.y === allPositions.positions_level_02.level_02_from_level_03.y &&
+        player.currentLevel === "level_02") {
 
         console.log("second validation, level_02_from_level_03 position");
-        
+
         //await k.destroy(player);
 
         player.pos = k.vec2(
@@ -132,10 +145,10 @@ export default async function scene02(k, changeScene, goBackSceene, levelData, a
         )
 
         k.add(player);
-    
-    }else{
+
+    } else {
         console.log("Ninguna posición es tomada");
-    
+
     }
 
 
@@ -145,13 +158,13 @@ export default async function scene02(k, changeScene, goBackSceene, levelData, a
 
 
 
-    
+
 
     k.onUpdate(() => {
         k.camPos(player.pos.x, player.pos.y + 100);
     })
 
-    k.onKeyPress("u", ()=>{
+    k.onKeyPress("u", () => {
         changeScene();
     })
 
@@ -190,7 +203,7 @@ export default async function scene02(k, changeScene, goBackSceene, levelData, a
         }
     })
 
-    
+
 
 
     const keys = ["w", "a", "s", "d"];

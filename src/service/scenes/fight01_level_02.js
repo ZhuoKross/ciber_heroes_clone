@@ -1,6 +1,6 @@
+import dialog from "../dialog";
 
-
-export default async function fight02(k){
+export default async function fight02(k, goBackScene){
     const background = k.add ([
         k.sprite("background_level_02"),
         k.scale(1, 0.9),
@@ -21,14 +21,14 @@ export default async function fight02(k){
 
     const monster = k.add([
         k.sprite("monster"),
-        k.pos(100, 100),
+        k.pos(180, + 550),
         k.area({
-            shape: new k.Rect(k.vec2(0), 30, 30)
+            shape: new k.Rect(k.vec2(0), 30, 40)
         }),
         k.body(),
         {anim: "idle"},
         k.anchor("center"),
-        k.scale(2)
+        k.scale(3)
     ])
 
 
@@ -36,12 +36,12 @@ export default async function fight02(k){
         k.sprite("character"),
         { anim: "idle" },
         k.area({
-            shape: new k.Rect(new k.vec2(0), 18, 18)
+            shape: new k.Rect(new k.vec2(0), 26, 26)
         }),
         k.body(),
         k.anchor("center"),
-        k.pos(300, 100),
-        k.scale(3),
+        k.pos(900, + 550),
+        k.scale(4),
         {
             speed: 200,
             direction: "left",
@@ -60,6 +60,16 @@ export default async function fight02(k){
 
 
     monster.play("idle");
+    player.play("idle");
 
     k.add(player);
+
+
+    dialog(k, "EXAMPLE BITCH", k.vec2(canvasWidth / 2, canvasHeight / 2), ()=> {k.debug.log("closing dialogue")});
+
+    k.onKeyPress("u", ()=>{
+        k.setGravity(null);
+        goBackScene();
+    })
+
 }

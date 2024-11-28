@@ -5,6 +5,8 @@ import { store, currentLevelAtom, curretPositionsPlayerAtom } from "../store";
 export default async function scene01(k, changeScene, levelData, allPositions, changeFight) {
 
 
+    k.setGravity(null);
+
     const map = k.add([
         k.sprite("level-01"),
         k.scale(2),
