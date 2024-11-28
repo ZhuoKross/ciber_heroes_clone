@@ -1,14 +1,59 @@
-export default async function figthOne(k) {
-    let player = k.make([
+import dialogFigth from "../dialogFigth";
+export default async function figthOne(k, backScene) {
+
+    function introDialogue() {
+
+        player.isOnDialogue = true;
+        console.log("the player is in dialogue? ", player.isOnDialogue);
+        const resp = "Opción 1";
+        dialogFigth(
+            k,
+            "¿Que es phising?",
+            ["Opción 1", "Opción 2", "Opción 3", "Opción 4"],
+            k.vec2(800, 400),
+            (selectedOption) => {
+                console.log("Opción seleccionada:", selectedOption);
+                if(selectedOption === resp){
+                    backScene();
+                }else{
+                    alert("lastima sapa")
+                }
+            },
+            () => {
+                console.log("Diálogo cerrado");
+                // Lógica adicional si el diálogo se cierra sin enviar
+            }
+        );
+        
+    }
+
+    const background = k.add ([
+        k.sprite("background_level_02"),
+        k.scale(1, 0.9),
+        k.pos(-150, 0)
+    ])
+   
+    const canvasWidth = k.width();
+    const canvasHeight = k.height();
+
+    k.add([
+        k.rect(canvasWidth, 200),
+        k.pos(0, canvasHeight - 50),
+        k.area(),
+        k.body({isStatic: true}),
+        k.color(k.Color.fromHex(("#2e4053")))
+    ])
+    
+    const player = k.make([
         k.sprite("character"),
         { anim: "idle" },
         k.area({
-            shape: new k.Rect(new k.vec2(0), 18, 18)
+            shape: new k.Rect(new k.vec2(0), 26, 26)
         }),
         k.body(),
         k.anchor("center"),
-        k.pos(50, 500),
-        k.scale(3),
+        k.pos(1300, 650),
+        k.scale(6),
         {
             speed: 200,
             direction: "left",
@@ -19,15 +64,31 @@ export default async function figthOne(k) {
         },
         "player"
     ])
+    const enemies_one = k.add([
+        k.sprite("enemies_one"),
+        k.pos(300, 650),
+        k.area({
+            shape: new k.Rect(k.vec2(0), 30, 30)
+        }),
+        k.body(),
+        {anim: "idle"},
+        k.anchor("center"),
+        k.scale(6)
+    ])
+
+    const gravity = 200;
+
+    k.setGravity(gravity);
+
+
+    enemies_one.play("idle");
 
     k.add(player);
+    
 
-    k.add([
-        k.rect(9000, 250),
-        k.area(),
-        k.outline(2),
-        k.pos(0, 700),
-        k.body({ isStatic: true }),
-    ]); 
+   // Add the player to the scene
+   enemies_one.play("idle");
+   player.play("idle");
+   introDialogue();
     
 }

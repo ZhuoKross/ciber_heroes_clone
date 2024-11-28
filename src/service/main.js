@@ -5,6 +5,7 @@ import context from "./kaplayContext";
 import { store, currentLevelAtom, curretPositionsPlayerAtom } from "./store";
 import figthOne from "./scenes/fightOne";
 import fight02 from "./scenes/fight01_level_02";
+import figthTwo from "./scenes/fightTwo";
 import fightTwoLevelTwo from "./scenes/fight02_level_02";
 
 export default async function main() {
@@ -20,6 +21,8 @@ export default async function main() {
     function changeFight(nextScene) {
         k.go(nextScene); // Cambia directamente a la escena de la pelea
     }    
+
+
 
     // FUNTION TO PASS THROUGHT SCENES 
     function changeScene(nextScene, newLevel, newPosition) {
@@ -173,7 +176,6 @@ export default async function main() {
             }
         })
 
-
         //console.log("character uploaded succesfully");
 
 
@@ -199,6 +201,11 @@ export default async function main() {
             }
         });
 
+        await k.loadSprite("enemies_one", "/assets/0_Fallen_Angels_Idle_001-sheet.png", {
+            sliceX: 9,
+            sliceY: 0,
+            anims: {"idle": {from: 0, to: 1, loop: true}}
+        });
 
         await k.loadSprite("background_level_02", "assets/background_level_02.png");
 
@@ -226,14 +233,16 @@ export default async function main() {
             () => { changeScene("scene02", "level_02", allPositions.positions_level_02.level_02_from_level_01) },
             level01,
             allPositions,
-            () => { changeFight("fight_01_level_02") } // Corrige el nombre aquí
+            () => { changeFight("fightOne") } // Corrige el nombre aquí
         );
     });
     
     
     // Define la escena de la pelea
     k.scene("fightOne", () => {
+        k,
         console.log("Fight 01 loaded");
+        () => { backScene("scene01", "level_01") },
         figthOne(k)
     });
     
@@ -250,6 +259,11 @@ export default async function main() {
 
 
 
+
+
+    k.scene("fightTwo", ()=>{
+        figthTwo(k);
+    })
 
     k.scene("scene03", () => {
         scene03(
