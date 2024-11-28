@@ -53,7 +53,7 @@ export default async function fightThreeLevelThree(k, goBackScene) {
 
     const boss03 = k.add([
         k.sprite("third_boss_level_03"),
-        k.pos(200, canvasHeight - 50),
+        k.pos(300, 400),
         k.body(),
         k.area({ shape: new k.Rect(k.vec2(0), 25, 180) }),
         k.anchor("center"),
