@@ -302,15 +302,15 @@ export default async function main() {
         });
 
         await k.loadSprite("enemies_02_three", "/assets/Idle_fire.png", {
-            sliceX: 8,
-            sliceY: 0,
-            anims: {"idle": {from: 0, to: 1, loop: true, speed: 3}}
+            sliceX: 9,
+            sliceY: 1,
+            anims: {"idle": {from: 0, to: 7, loop: true, speed: 5}}
         });
 
         await k.loadSprite("enemies_02_two", "/assets/Idle_Martial.png", {
-            sliceX: 10,
-            sliceY: 0,
-            anims: {"idle": {from: 0, to: 1, loop: true, speed: 3}}
+            sliceX: 11,
+            sliceY: 1,
+            anims: {"idle": {from: 0, to: 10, loop: true}}
         });
 
         await k.loadSprite("enemies_01_three", "/assets/Flight.png", {

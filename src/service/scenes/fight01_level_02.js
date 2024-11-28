@@ -74,7 +74,7 @@ export default async function fight02(k, goBackScene){
             k,
             "¿Que es phising?",
             ["Opción 1", "Opción 2", "Opción 3", "Opción 4"],
-            k.vec2(800, 400),
+            k.vec2(canvasWidth / 2, canvasHeight / 2),
             (selectedOption) => {
                 console.log("Opción seleccionada:", selectedOption);
                 if(selectedOption === resp){
