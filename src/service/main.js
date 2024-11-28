@@ -240,10 +240,7 @@ export default async function main() {
     
     // Define la escena de la pelea
     k.scene("fightOne", () => {
-        k,
-        console.log("Fight 01 loaded");
-        () => { backScene("scene01", "level_01") },
-        figthOne(k)
+        figthOne(k, () => { returnBackLevelScene("scene01") })
     });
     
 
