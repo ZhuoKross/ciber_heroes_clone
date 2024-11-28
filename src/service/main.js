@@ -6,6 +6,7 @@ import { store, currentLevelAtom, curretPositionsPlayerAtom } from "./store";
 import figthOne from "./scenes/fightOne";
 import fight02 from "./scenes/fight01_level_02";
 import figthTwo from "./scenes/fightTwo";
+import fightTwoLevelTwo from "./scenes/fight02_level_02";
 
 export default async function main() {
 
@@ -39,9 +40,28 @@ export default async function main() {
 
         k.go(scene);
     }
+
+    function returnBackLevelScene(scene){
+        k.go(scene)
+    }
+
+
+    //FUNCTIONS OF CHANGE FIGHT SCENES OF LEVEL 02
+    function change01Fight(scene){
+        k.go(scene);
+    }
+
+    function change02Fight(scene){
+        k.go(scene);
+    }
+
+    function change03Fight(scene){
+        k.go(scene);
+    }
+
+
+
     // UPLOADING THE DATA OF THE LEVELS
-
-
     const level01 = await fetch("./assets/map_01_ciber_heroes.json").then(res => res.json());
     const level02 = await fetch("./assets/level_02_ciber_heroes.json").then(res => res.json());
     const level03 = await fetch("./assets/level_03_ciber_heroes.json").then(res => res.json());
@@ -189,6 +209,14 @@ export default async function main() {
 
         await k.loadSprite("background_level_02", "assets/background_level_02.png");
 
+        await k.loadSprite("01_back_palm_orange_sunset", "assets/01_SkyOrange.png");
+
+        await k.loadSprite("02_back_palm_orange_sunset", "assets/02_SkysunsetOrange.png");
+
+        await k.loadSprite("03_back_palm_orange_sunset", "assets/03_WaterOrange.png");
+
+        await k.loadSprite("04_back_palm_orange_sunset", "assets/04_PalmsOrange.png");
+
     } catch (error) {
         console.log("Error uploading sprites and assets: ", error);
     }
@@ -212,16 +240,23 @@ export default async function main() {
     
     // Define la escena de la pelea
     k.scene("fightOne", () => {
-        k,
-        console.log("Fight 01 loaded");
-        () => { backScene("scene01", "level_01") },
-        figthOne(k)
+        figthOne(k, () => { returnBackLevelScene("scene01") })
     });
     
 
+    // SCENES OF FIGHTS OF THE LEVEL 02
+
     k.scene("fight_01_level_02", ()=>{
-        fight02(k);
+        fight02(k, ()=> {returnBackLevelScene("scene02")});
     })
+
+    k.scene("fight_02_level_02", ()=> {
+        fightTwoLevelTwo(k, ()=> {returnBackLevelScene("scene02")});
+    })
+
+
+
+
 
     k.scene("fightTwo", ()=>{
         figthTwo(k);
@@ -241,7 +276,9 @@ export default async function main() {
             () => { changeScene("scene03", "level_03", allPositions.positions_level_03.level_03_from_level_02) },
             () => { backScene("scene01", "level_01", allPositions.positions_level_01.level_01_from_level_02) },
             level02, allPositions,
-            ()=>{changeFight("fight_01_level_02")});
+            ()=>{change01Fight("fight_01_level_02")},
+            () => {change02Fight()}
+        );
     })
 
     k.scene("fight02", () => {
