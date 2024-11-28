@@ -284,10 +284,10 @@ export default async function main() {
 
 
         ///
-        await k.loadSprite("enemies_one", "/assets/0_Fallen_Angels_Idle_001-sheet.png", {
-            sliceX: 9,
-            sliceY: 0,
-            anims: {"idle": {from: 0, to: 1, loop: true, speed: 5}}
+        await k.loadSprite("enemies_one", "/assets/Idle.png", {
+            sliceX: 8,
+            sliceY: 1,
+            anims: {"idle": {from: 0, to: 7, loop: true, speed: 5}}
         });
         await k.loadSprite("enemies_two", "/assets/AnimationSheet_Character.png", {
             sliceX: 8,
@@ -295,11 +295,6 @@ export default async function main() {
             anims: {"idle": {from: 0, to: 1, loop: true, speed: 5}}
         });
 
-        await k.loadSprite("enemies_three", "/assets/Idle.png", {
-            sliceX: 7,
-            sliceY: 0,
-            anims: {"idle": {from: 0, to: 1, loop: true, speed: 3}}
-        });
 
         await k.loadSprite("enemies_02_three", "/assets/Idle_fire.png", {
             sliceX: 9,
@@ -314,9 +309,9 @@ export default async function main() {
         });
 
         await k.loadSprite("enemies_01_three", "/assets/Flight.png", {
-            sliceX: 7,
-            sliceY: 0,
-            anims: {"idle": {from: 0, to: 1, loop: true, speed: 3}}
+            sliceX: 8,
+            sliceY: 1,
+            anims: {"idle": {from: 0, to: 7, loop: true, speed: 5}}
         });
 
         await k.loadSprite("background_figth_02_Three", "assets/Hills_Free.png");

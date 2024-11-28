@@ -1,6 +1,10 @@
 import dialogFigth from "../dialogFigth";
 export default async function figthOne(k, backScene) {
+    
+    const canvasWidth = k.width();
+    const canvasHeight = k.height();
 
+    
     function introDialogue() {
 
         player.isOnDialogue = true;
@@ -10,7 +14,7 @@ export default async function figthOne(k, backScene) {
             k,
             "¿Qué tan frecuentemente se recomienda cambiar tus contraseñas?",
             ["a. Cada 3 a 6 meses", "b.	Cada año", "c. Solo cuando alguien la descubre", "d. Nunca, si es fuerte"],
-            k.vec2(800, 400),
+            k.vec2(canvasWidth / 2, canvasHeight / 2),
             (selectedOption) => {
                 console.log("Opción seleccionada:", selectedOption);
                 if(selectedOption === resp){
@@ -33,8 +37,6 @@ export default async function figthOne(k, backScene) {
         k.pos(-150, 0)
     ])
    
-    const canvasWidth = k.width();
-    const canvasHeight = k.height();
 
     k.add([
         k.rect(canvasWidth, 200),
@@ -66,9 +68,9 @@ export default async function figthOne(k, backScene) {
     ])
     const enemies_one = k.add([
         k.sprite("enemies_one"),
-        k.pos(300, 650),
+        k.pos(300, canvasHeight - 50),
         k.area({
-            shape: new k.Rect(k.vec2(0), 30, 30)
+            shape: new k.Rect(k.vec2(0), 30, 40)    
         }),
         k.body(),
         {anim: "idle"},
