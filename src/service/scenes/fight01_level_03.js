@@ -53,7 +53,7 @@ export default async function fightOneLevelThree(k, goBackScene){
 
     const boss01 = k.add([
         k.sprite("first_boss_level_03"),
-        k.pos(200, canvasHeight - 200),
+        k.pos(100, canvasHeight - 50),
         k.body(),
         k.area({shape: new k.Rect(k.vec2(0), 25, 40)}),
         k.anchor("center"),
@@ -69,7 +69,7 @@ export default async function fightOneLevelThree(k, goBackScene){
         }),
         k.body(),
         k.anchor("center"),
-        k.pos(canvasWidth - 100, canvasHeight - 10),
+        k.pos(canvasWidth - 100, canvasHeight - 50),
         k.scale(6),
         {
             speed: 200,
