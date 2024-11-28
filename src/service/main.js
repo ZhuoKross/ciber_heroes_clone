@@ -21,6 +21,8 @@ export default async function main() {
         k.go(nextScene); // Cambia directamente a la escena de la pelea
     }    
 
+
+
     // FUNTION TO PASS THROUGHT SCENES 
     function changeScene(nextScene, newLevel, newPosition) {
         store.set(currentLevelAtom, newLevel)
@@ -210,7 +212,9 @@ export default async function main() {
     
     // Define la escena de la pelea
     k.scene("fightOne", () => {
+        k,
         console.log("Fight 01 loaded");
+        () => { backScene("scene01", "level_01") },
         figthOne(k)
     });
     

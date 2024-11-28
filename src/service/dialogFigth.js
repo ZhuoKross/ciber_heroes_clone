@@ -24,9 +24,11 @@ export default async function dialogFigth(k, text, options = [], position = k.ve
         k.color(0, 0, 0), // Color del texto en negro
     ]);
 
-    // Opciones del selector
+    // Lista para almacenar referencias de los botones de opciones
+    const optionButtons = [];
     let selectedOption = null;
 
+    // Crear botones para las opciones
     options.forEach((option, index) => {
         const optionButton = dialogContainer.add([
             k.rect(400, 40, { radius: 5 }),
@@ -44,18 +46,20 @@ export default async function dialogFigth(k, text, options = [], position = k.ve
             k.color(0, 0, 0), // Texto negro
         ]);
 
+        // Agregar el evento de clic
         optionButton.onClick(() => {
-            // Actualizar la selección
+            // Actualizar la opción seleccionada
             selectedOption = option;
 
-            // Cambiar el color para indicar selección
-            dialogContainer.getChildren().forEach((child) => {
-                if (child.is("option-btn")) {
-                    child.color = k.color(200, 200, 200); // Restablecer color
-                }
+            // Actualizar el color de todos los botones
+            optionButtons.forEach((btn) => {
+                btn.color = k.color(200, 200, 200); // Restablecer color
             });
             optionButton.color = k.color(100, 200, 100); // Verde claro para selección
         });
+
+        // Almacenar referencia al botón
+        optionButtons.push(optionButton);
     });
 
     // Botón "Enviar"
@@ -106,3 +110,4 @@ export default async function dialogFigth(k, text, options = [], position = k.ve
 
     return dialogContainer;
 }
+ 
