@@ -3,13 +3,13 @@ import dialogFigth from "../dialogFigth";
 export default async function figthTwo(k, backScene) {
    
     function introDialogue() {
-
+    console.log("aqui estoy")
         player.isOnDialogue = true;
         console.log("the player is in dialogue? ", player.isOnDialogue);
         const resp = "Opción 1";
         dialogFigth(
             k,
-            "¿Que es phising?",
+            "¿Pregunta Dos?",
             ["Opción 1", "Opción 2", "Opción 3", "Opción 4"],
             k.vec2(800, 400),
             (selectedOption) => {
@@ -29,9 +29,9 @@ export default async function figthTwo(k, backScene) {
     }
 
     const background = k.add ([
-        k.sprite("background_level_02"),
-        k.scale(1, 0.9),
-        k.pos(-150, 0)
+        k.sprite("background_figthTwo"),
+        k.scale(1.8, 1),
+        k.pos(0, -100)
     ])
    
     const canvasWidth = k.width();
@@ -54,7 +54,7 @@ export default async function figthTwo(k, backScene) {
         k.body(),
         k.anchor("center"),
         k.pos(1300, 650),
-        k.scale(6),
+        k.scale(8),
         {
             speed: 200,
             direction: "left",
@@ -65,8 +65,8 @@ export default async function figthTwo(k, backScene) {
         },
         "player"
     ])
-    const enemies_one = k.add([
-        k.sprite("enemies_one"),
+    const enemies_two = k.add([
+        k.sprite("enemies_two"),
         k.pos(300, 650),
         k.area({
             shape: new k.Rect(k.vec2(0), 30, 30)
@@ -74,21 +74,15 @@ export default async function figthTwo(k, backScene) {
         k.body(),
         {anim: "idle"},
         k.anchor("center"),
-        k.scale(6)
+        k.scale(8)
     ])
 
     const gravity = 200;
 
-    k.setGravity(gravity);
-
-
-    enemies_one.play("idle");
+    k.setGravity(gravity);    
 
     k.add(player);
-    
-
-   // Add the player to the scene
-   enemies_one.play("idle");
+   enemies_two.play("idle");
    player.play("idle");
    introDialogue();
     
