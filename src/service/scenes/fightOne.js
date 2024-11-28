@@ -53,7 +53,7 @@ export default async function figthOne(k, backScene) {
         k.body(),
         k.anchor("center"),
         k.pos(1300, 650),
-        k.scale(6),
+        k.scale(8),
         {
             speed: 200,
             direction: "left",
@@ -73,7 +73,7 @@ export default async function figthOne(k, backScene) {
         k.body(),
         {anim: "idle"},
         k.anchor("center"),
-        k.scale(6)
+        k.scale(8)
     ])
 
     const gravity = 200;
