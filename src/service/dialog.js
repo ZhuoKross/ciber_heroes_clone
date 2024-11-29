@@ -1,4 +1,4 @@
-export default async function dialog(k, text, position = k.vec2(200, 200), onClose, changeFight) {
+export default async function dialog(k, text, position = k.vec2(200, 200), onClose, close) {
     // Contenedor del diálogo
     const dialogContainer = await k.add([
         k.rect(450, 460, { radius: 8 }),
@@ -65,8 +65,8 @@ export default async function dialog(k, text, position = k.vec2(200, 200), onClo
     ]);
 
     nextButton.onClick(() => {
-        k.destroy(dialogContainer); // Cierra el diálogo
-        changeFight(); // Llama a la función de la siguiente escena
+        k.destroy(dialogContainer);
+        close(); // Cierra el diálogo
     });
 
     return dialogContainer;

@@ -1,5 +1,14 @@
 import dialog from "../dialog";
-import { store, currentLevelAtom, curretPositionsPlayerAtom } from "../store";
+import {
+    store,
+    currentLevelAtom,
+    curretPositionsPlayerAtom,
+    isMusicPlaying,
+    playerIsOnDialogue,
+    enemiesDefeated
+} from "../store";
+import MusicControls from "../../utils/utils";
+import Notification from "../../utils/notification";
 
 
 export default async function scene01(
@@ -12,7 +21,8 @@ export default async function scene01(
     thirdFightLevelOne
 ) {
 
-   
+
+
 
 
     k.setGravity(null);
@@ -23,6 +33,11 @@ export default async function scene01(
         k.pos(100, 0),
         "map"
     ])
+
+    const controls = MusicControls(k);
+    const enemiesCount = store.get(enemiesDefeated);
+
+
 
 
 
@@ -39,8 +54,6 @@ export default async function scene01(
         {
             speed: 200,
             direction: "left",
-            isOnDialogue: false,
-            enemiesDefeated: 0,
             currentPosition: {},
             currentLevel: "",
         },
@@ -51,6 +64,7 @@ export default async function scene01(
 
     player.currentPosition = store.get(curretPositionsPlayerAtom);
     player.currentLevel = store.get(currentLevelAtom);
+    player.isOnDialogue = store.get(playerIsOnDialogue);
 
     //player.currentPosition = store.get(curretPositionsPlayerAtom);
     //player.currentLevel = store.get(currentLevelAtom);
@@ -64,24 +78,37 @@ export default async function scene01(
 
     function introDialogue() {
 
-        k.play("level_01_back_sound", {
-            loop: true,
-            volume: 0.5
-        })
-
-
-        player.isOnDialogue = true;
-        console.log("the player is in dialogue? ", player.isOnDialogue);
-
         dialog(k,
             "Tu misión comienza aqui, aprendiendo de los errores básicos de ciberseguridad. Tendrás que demostrar que sabes cómo proteger tu información personal. Cada respuesta correcta te acerca a la victoria. ¡Prepárate para proteger tus datos y vencer en tu primer combate!", // Texto del diálogo
             k.vec2(player.pos.x, player.pos.y + 100), // Posición basada en la cámara
             () => {
-                player.isOnDialogue = false;
-                console.log("the player isn't in dialogue? ", player.isOnDialogue);
+                if (store.get(isMusicPlaying) === false) {
+
+                    store.set(isMusicPlaying, true);
+
+                    controls.playMusic();
+                } else {
+                    controls.stopMusic();
+                }
+
+                store.set(playerIsOnDialogue, false);
+                console.log("the player isn't in dialogue? ", store.get(playerIsOnDialogue));
             },
             () => {
-                player.isOnDialogue = false;
+
+
+
+                if (store.get(isMusicPlaying) === false) {
+
+                    store.set(isMusicPlaying, true);
+
+                    controls.playMusic();
+                } else {
+                    controls.stopMusic();
+                }
+
+                store.set(playerIsOnDialogue, false);
+                console.log("the player is in dialogue? ", store.get(playerIsOnDialogue));
             });
     }
 
@@ -107,17 +134,19 @@ export default async function scene01(
                     obj.name
                 ])
 
-                player.enemiesDefeated = 3;
+
 
                 if (obj.name === "passage") {
                     k.onCollide("player", obj.name, () => {
-                        //console.log("colllision with: ", obj.name);
-                        if (player.enemiesDefeated === 3) {
+
+                        console.log("count of enemies: ", enemiesCount.length);
+                        if (store.get(enemiesDefeated).length === 3) {
 
                             changeScene();
 
                         } else {
-                            k.debug.log("No puedes pasar. No has derrotado a todos lo enemigos :(")
+                            Notification(k, player);
+
                         }
                         //console.log("Enemies defeated: ", player.enemiesDefeated);
                     })
@@ -149,13 +178,15 @@ export default async function scene01(
                                 console.log("the player isn't in dialogue");
                             },
                             () => {
-                              firstFightLevelOne() // Ir a la siguiente escena
+
+                                firstFightLevelOne() // Ir a la siguiente escena
                             }
                         );
                     });
                 }
 
-                if(obj.name === "fight_02"){
+
+                if (obj.name === "fight_02") {
                     k.onCollide("player", obj.name, () => {
                         const PreguntaUno = "En el mundo digital, tu información personal es valiosa. Para mantenerla segura, es importante usar contraseñas fuertes y difíciles de adivinar, combinando letras, números y símbolos, Cambiar tus contraseñas regularmente es una buena práctica, incluso si no crees que han sido descubiertas."
                         dialog(
@@ -173,7 +204,7 @@ export default async function scene01(
                     })
                 }
 
-                if(obj.name === "fight_03"){
+                if (obj.name === "fight_03") {
                     k.onCollide("player", obj.name, () => {
                         const PreguntaUno = "Los ciberdelincuentes suelen utilizar enlaces falsos para engañar y robar información personal o instalar software malicioso. Una señal común de un enlace sospechoso es que contenga errores de ortografía, caracteres extraños o un dominio que no coincide con la organización legítima (Ej: “amaz0n.com” en lugar de “amazon.com”). "
                         dialog(
@@ -188,7 +219,7 @@ export default async function scene01(
                                 thirdFightLevelOne(); // Ir a la siguiente escena
                             }
                         );
-                        
+
                     })
                 }
             }
@@ -196,7 +227,7 @@ export default async function scene01(
     }
 
 
-
+    //console.log("cantidad de enemigos derrotados: ", store.get(emeniesDefeated));
 
 
     if (player.currentPosition.x === allPositions.positions_level_01.spawn_position.x &&
@@ -235,16 +266,6 @@ export default async function scene01(
     }
 
 
-    // const existAlready = k.get("player");
-
-    // if (existAlready.length >= 1) {
-
-    //     console.log("enter validation exist")
-    //     //await k.destroy();
-    //     console.log("element exists: ", existAlready)
-    // }
-
-
     introDialogue();
 
     player.play("idle");
@@ -254,7 +275,7 @@ export default async function scene01(
         changeScene();
     })
 
-   
+
 
     k.onUpdate(() => {
         k.camPos(player.pos.x, player.pos.y + 100);
@@ -262,7 +283,7 @@ export default async function scene01(
 
 
     k.onKeyDown("a", () => {
-        if (player.isOnDialogue === false) {
+        if (!store.get(playerIsOnDialogue)) {
             player.move(-SPEED, 0)
             if (player.getCurAnim().name !== "walk-left") {
                 //console.log("name of the current animation:", player.getCurAnim().name)
@@ -272,8 +293,8 @@ export default async function scene01(
     })
 
     k.onKeyDown("w", () => {
-        
-        if (player.isOnDialogue === false) {
+
+        if (!store.get(playerIsOnDialogue)) {
             player.move(0, -SPEED)
             if (player.getCurAnim().name !== "walk-up") {
                 //console.log("name of the current animation:", player.getCurAnim().name)
@@ -283,8 +304,8 @@ export default async function scene01(
     });
 
     k.onKeyDown("s", () => {
-        
-        if (player.isOnDialogue === false) {
+
+        if (!store.get(playerIsOnDialogue)) {
             player.move(0, SPEED)
             if (player.getCurAnim().name !== "walk-down") {
                 //console.log("name of the current animation:", player.getCurAnim().name)
@@ -294,8 +315,8 @@ export default async function scene01(
     })
 
     k.onKeyDown("d", () => {
-        
-        if (player.isOnDialogue === false) {
+
+        if (!store.get(playerIsOnDialogue)) {
             player.move(SPEED, 0)
 
             if (player.getCurAnim().name !== "walk-right") {
@@ -315,6 +336,7 @@ export default async function scene01(
         })
     });
 
+    console.log("enemies Defeated: ", store.get(enemiesDefeated));
     console.log("pass all the 001 scene");
 
 }
