@@ -1,5 +1,8 @@
 import dialogFigth from "../dialogFigth";
+<<<<<<< HEAD
 
+=======
+>>>>>>> f604de249070e35ada0a09277d5539b1c6d9e264
 
 export default async function fight02(k, goBackScene){
     const background = k.add ([
