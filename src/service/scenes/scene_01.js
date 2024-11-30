@@ -64,7 +64,7 @@ export default async function scene01(
 
     player.currentPosition = store.get(curretPositionsPlayerAtom);
     player.currentLevel = store.get(currentLevelAtom);
-    player.isOnDialogue = store.get(playerIsOnDialogue);
+    
 
     //player.currentPosition = store.get(curretPositionsPlayerAtom);
     //player.currentLevel = store.get(currentLevelAtom);

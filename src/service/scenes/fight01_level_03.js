@@ -12,6 +12,7 @@ export default async function fightOneLevelThree(k, goBackScene, music){
 
     const canvasWidth = k.width();
     const canvasHeight = k.height();
+    const enemiesCount = store.get(enemiesDefeated);
 
     function introDialogue() {
         k.play("level_01_back_boss_fight", {

@@ -1,15 +1,21 @@
 import dialogFigth from "../dialogFigth";
+import { store, enemiesDefeated, playerIsOnDialogue } from "../store";
+
 
 export default async function fightTwoLevelTwo(k, goBackScene) {
 
     const canvasWidth = k.width();
     const canvasHeight = k.height();
+    const enemiesCount = store.get(enemiesDefeated);
 
     function introDialogue() {
 
-        player.isOnDialogue = true;
-        console.log("the player is in dialogue? ", player.isOnDialogue);
+        store.set(playerIsOnDialogue, true);
+
+        console.log("the player is in dialogue? ", store.get(playerIsOnDialogue));
+
         const resp = "c. No hacer clic y verificar primero el remitente";
+        
         dialogFigth(
             k,
             "¿Qué debes hacer si recibes un correo sospechoso con un enlace?",
@@ -18,10 +24,18 @@ export default async function fightTwoLevelTwo(k, goBackScene) {
             (selectedOption) => {
                 console.log("Opción seleccionada:", selectedOption);
                 if(selectedOption === resp){
+                    
+                    alert("Felicitaciones, Respondiste bien.")
+                    
+                    store.set(enemiesDefeated, [...enemiesCount, 1])
+                    
                     k.setGravity(null)
+                    
                     goBackScene();
                 }else{
-                    alert("lastima sapa");
+                    
+                    alert("Respuesta Incorrecta, Intenta de nuevo");
+
                     goBackScene();
                 }
             },

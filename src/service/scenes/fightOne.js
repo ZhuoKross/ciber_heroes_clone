@@ -29,8 +29,7 @@ export default async function figthOne(k, backScene) {
                     console.log("cantidad de enemigos derrotados: ", store.get(enemiesDefeated));
 
                     backScene();
-                   enemiesDefeated(1);
-                   console.log(enemiesDefeated);
+                   
                 }else{
                     alert("lastimosamente su respuesta fue incorrecta");
                     backScene();

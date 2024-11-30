@@ -1,5 +1,9 @@
-import { currentLevelAtom, curretPositionsPlayerAtom, store } from "../store";
+import { enemiesDefeated, currentLevelAtom, curretPositionsPlayerAtom, store } from "../store";
 import dialog from "../dialog";
+import Notification from "../../utils/notification";
+
+
+
 export default async function scene02(
     k,
     changeScene,
@@ -11,6 +15,9 @@ export default async function scene02(
     change03Fight
 ) {
 
+
+
+    const enemiesCount = store.get(enemiesDefeated);
 
 
     const map = k.add([
@@ -32,8 +39,6 @@ export default async function scene02(
         {
             speed: 200,
             direction: "left",
-            isOnDialogue: false,
-            enemiesDefeated: 0,
             currentPosition: {},
             currentLevel: "",
         },
@@ -74,8 +79,14 @@ export default async function scene02(
 
                 if (obj.name === "passage") {
                     k.onCollide("player", obj.name, () => {
-                        changeScene();
+                        if (enemiesCount.length === 6) {
+                            changeScene();
+                        }else{
+                            Notification(k, player);
+                        }
+                        
                     })
+                    
                 }
             }
         }
@@ -106,7 +117,7 @@ export default async function scene02(
                                 change01Fight(); // Ir a la siguiente escena
                             }
                         );
-                        
+
                     })
                 }
 
@@ -125,11 +136,11 @@ export default async function scene02(
                                 change02Fight(); // Ir a la siguiente escena
                             }
                         );
-                        
+
                     })
                 }
 
-                if(obj.name === "third_fight"){
+                if (obj.name === "third_fight") {
                     k.onCollide("player", obj.name, () => {
                         const PreguntaUno = "Cuando te conectas a una red Wi-Fi pública, como las disponibles en cafeterías, aeropuertos o centros comerciales, tu información personal puede estar en riesgo. Estas redes suelen ser menos seguras porque no requieren contraseñas fuertes o cifrado, lo que las convierte en un objetivo para los ciberdelincuentes."
                         dialog(
@@ -144,7 +155,7 @@ export default async function scene02(
                                 change03Fight(); // Ir a la siguiente escena
                             }
                         );
-                       
+
                     })
                 }
             }
