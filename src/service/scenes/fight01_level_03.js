@@ -39,12 +39,14 @@ export default async function fightOneLevelThree(k, goBackScene){
                     alert("Felicitaciones, Respondiste bien.")
                     
                     store.set(enemiesDefeated, [...enemiesCount, 1])
+                    store.set(playerIsOnDialogue, false);
                     
                     k.setGravity(null)
                     
                     goBackScene()
                 }else{
                     alert("Respuesta Incorrecta, Intenta de nuevo");
+                    store.set(playerIsOnDialogue, false);
 
                     goBackScene();
                 }

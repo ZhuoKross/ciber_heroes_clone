@@ -110,7 +110,7 @@ export default async function scene02(
                             PreguntaUno, // Texto del diálogo
                             k.vec2(k.camPos()), // Posición basada en la cámara
                             () => {
-                                player.isOnDialogue = false;
+                                store.set(playerIsOnDialogue, false);
                                 console.log("the player isn't in dialogue");
                             },
                             () => {
@@ -129,7 +129,7 @@ export default async function scene02(
                             PreguntaUno, // Texto del diálogo
                             k.vec2(k.camPos()), // Posición basada en la cámara
                             () => {
-                                player.isOnDialogue = false;
+                                store.set(playerIsOnDialogue, false);
                                 console.log("the player isn't in dialogue");
                             },
                             () => {
@@ -148,7 +148,7 @@ export default async function scene02(
                             PreguntaUno, // Texto del diálogo
                             k.vec2(k.camPos()), // Posición basada en la cámara
                             () => {
-                                player.isOnDialogue = false;
+                                store.set(playerIsOnDialogue, false);
                                 console.log("the player isn't in dialogue");
                             },
                             () => {

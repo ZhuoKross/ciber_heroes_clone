@@ -27,6 +27,7 @@ export default async function fightThreeLevelTwo(k, goBackScene){
                     alert("Felicitaciones, Respondiste bien.")
 
                     store.set(enemiesDefeated, [...enemiesCount, 1])
+                    store.set(playerIsOnDialogue, false);
                     
                     k.setGravity(null)
                     

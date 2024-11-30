@@ -39,6 +39,7 @@ export default async function fightTwoLevelThree(k, goBackScene) {
                     alert("Felicitaciones, Respondiste bien.")
                     
                     store.set(enemiesDefeated, [...enemiesCount, 1])
+                    store.set(playerIsOnDialogue, false);
                     
                     k.setGravity(null)
                     
@@ -46,6 +47,7 @@ export default async function fightTwoLevelThree(k, goBackScene) {
                 } else {
                     
                     alert("Respuesta Incorrecta, Intenta de nuevo");
+                    store.set(playerIsOnDialogue, false);
 
                     goBackScene();
                 }
