@@ -2,14 +2,14 @@ import dialogFigth from "../dialogFigth";
 import { enemiesDefeated, playerIsOnDialogue, store } from "../store";
 
 export default async function figthTwo(k, backScene) {
-    
-    
+
+
     const canvasWidth = k.width();
     const canvasHeight = k.height();
     const enemiesCount = store.get(enemiesDefeated);
-   
+
     function introDialogue() {
-    console.log("aqui estoy")
+
         store.set(playerIsOnDialogue, true)
         console.log("the player is in dialogue? ", store.get(playerIsOnDialogue));
         const resp = "a. Usar combinaciones de letras, números y símbolos";
@@ -20,11 +20,17 @@ export default async function figthTwo(k, backScene) {
             k.vec2(canvasWidth / 2, canvasHeight / 2),
             (selectedOption) => {
                 console.log("Opción seleccionada:", selectedOption);
-                if(selectedOption === resp){
+                if (selectedOption === resp) {
+
+                    alert("Felicitaciones, Respondiste bien.")
+
                     store.set(enemiesDefeated, [...enemiesCount, 1])
+
                     backScene();
-                }else{
-                    alert("lastima sapa");
+                } else {
+
+                    alert("Respuesta Incorrecta, Intenta de nuevo");
+
                     backScene();
                 }
             },
@@ -33,43 +39,43 @@ export default async function figthTwo(k, backScene) {
                 // Lógica adicional si el diálogo se cierra sin enviar
             }
         );
-        
+
     }
 
     k.add([
         k.sprite("01_"),
         k.pos(0),
-        k.scale(2.9 ,2.5),
+        k.scale(2.9, 2.5),
     ])
 
     k.add([
         k.sprite("02_"),
         k.pos(10, 100),
-        k.scale(2.9 ,2.5),
+        k.scale(2.9, 2.5),
     ])
 
     k.add([
         k.sprite("03_"),
         k.pos(0),
-        k.scale(2.9 ,2.5),
+        k.scale(2.9, 2.5),
     ])
 
     k.add([
         k.sprite("04_"),
         k.pos(0),
-        k.scale(2.9 ,2.5),
-       
+        k.scale(2.9, 2.5),
+
     ])
-   
+
 
     k.add([
         k.rect(canvasWidth, 200),
         k.pos(0, canvasHeight - 50),
         k.area(),
-        k.body({isStatic: true}),
+        k.body({ isStatic: true }),
         k.color(k.Color.fromHex(("#2e4053")))
     ])
-    
+
     const player = k.make([
         k.sprite("character"),
         { anim: "idle" },
@@ -95,19 +101,19 @@ export default async function figthTwo(k, backScene) {
             shape: new k.Rect(k.vec2(0), 30, 30)
         }),
         k.body(),
-        {anim: "idle"},
+        { anim: "idle" },
         k.anchor("center"),
         k.scale(8)
     ])
 
     const gravity = 200;
 
-    k.setGravity(gravity);    
+    k.setGravity(gravity);
 
     k.add(player);
-   enemies_two.play("idle");
-   player.play("idle");
-   introDialogue();
-    
-    
+    enemies_two.play("idle");
+    player.play("idle");
+    introDialogue();
+
+
 }

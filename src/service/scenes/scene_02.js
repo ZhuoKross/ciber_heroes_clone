@@ -1,4 +1,4 @@
-import { enemiesDefeated, currentLevelAtom, curretPositionsPlayerAtom, store } from "../store";
+import { enemiesDefeated, currentLevelAtom, curretPositionsPlayerAtom, store, playerIsOnDialogue } from "../store";
 import dialog from "../dialog";
 import Notification from "../../utils/notification";
 
@@ -216,51 +216,55 @@ export default async function scene02(
 
 
 
+   
     k.onUpdate(() => {
         k.camPos(player.pos.x, player.pos.y + 100);
     })
 
-    k.onKeyPress("u", () => {
-        changeScene();
-    })
 
     k.onKeyDown("a", () => {
-        player.move(-SPEED, 0)
-        if (player.getCurAnim().name !== "walk-left") {
-            //console.log("name of the current animation:", player.getCurAnim().name)
-            player.play("walk-left")
+        if (!store.get(playerIsOnDialogue)) {
+            player.move(-SPEED, 0)
+            if (player.getCurAnim().name !== "walk-left") {
+                //console.log("name of the current animation:", player.getCurAnim().name)
+                player.play("walk-left")
+            }
         }
     })
 
     k.onKeyDown("w", () => {
-        player.move(0, -SPEED)
 
-        if (player.getCurAnim().name !== "walk-up") {
-            //console.log("name of the current animation:", player.getCurAnim().name)
-            player.play("walk-up")
+        if (!store.get(playerIsOnDialogue)) {
+            player.move(0, -SPEED)
+            if (player.getCurAnim().name !== "walk-up") {
+                //console.log("name of the current animation:", player.getCurAnim().name)
+                player.play("walk-up")
+            }
         }
     });
 
     k.onKeyDown("s", () => {
-        player.move(0, SPEED)
 
-        if (player.getCurAnim().name !== "walk-down") {
-            //console.log("name of the current animation:", player.getCurAnim().name)
-            player.play("walk-down")
+        if (!store.get(playerIsOnDialogue)) {
+            player.move(0, SPEED)
+            if (player.getCurAnim().name !== "walk-down") {
+                //console.log("name of the current animation:", player.getCurAnim().name)
+                player.play("walk-down")
+            }
         }
     })
 
     k.onKeyDown("d", () => {
-        player.move(SPEED, 0)
 
-        if (player.getCurAnim().name !== "walk-right") {
-            //console.log("name of the current animation:", player.getCurAnim().name)
-            player.play("walk-right")
+        if (!store.get(playerIsOnDialogue)) {
+            player.move(SPEED, 0)
+
+            if (player.getCurAnim().name !== "walk-right") {
+                //console.log("name of the current animation:", player.getCurAnim().name)
+                player.play("walk-right")
+            }
         }
     })
-
-
-
 
     const keys = ["w", "a", "s", "d"];
 
@@ -271,6 +275,7 @@ export default async function scene02(
             }
         })
     });
+
 
 
     const valueCurLevel = store.get(currentLevelAtom);

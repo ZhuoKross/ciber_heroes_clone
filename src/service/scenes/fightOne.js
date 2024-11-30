@@ -1,5 +1,7 @@
 import dialogFigth from "../dialogFigth";
 import { enemiesDefeated, playerIsOnDialogue, store } from "../store";
+
+
 export default async function figthOne(k, backScene) {
     
     const canvasWidth = k.width();
@@ -31,7 +33,8 @@ export default async function figthOne(k, backScene) {
                     backScene();
                    
                 }else{
-                    alert("lastimosamente su respuesta fue incorrecta");
+                    alert("Respuesta Incorrecta, Intenta de nuevo");
+                    
                     backScene();
                 }
             },

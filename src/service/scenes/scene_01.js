@@ -271,9 +271,9 @@ export default async function scene01(
     player.play("idle");
 
     // test function 
-    k.onKeyPress("u", () => {
-        changeScene();
-    })
+    // k.onKeyPress("u", () => {
+    //     changeScene();
+    // })
 
 
 

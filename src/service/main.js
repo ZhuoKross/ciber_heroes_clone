@@ -399,7 +399,7 @@ export default async function main() {
     // SCENES OF FIGHTS OF THE LEVEL 03
 
     k.scene("fight_01_level_03", ()=>{
-        fightOneLevelThree(k, ()=> {returnBackLevelScene("scene03")}, music);
+        fightOneLevelThree(k, ()=> {returnBackLevelScene("scene03")});
     })
 
     k.scene("fight_02_level_03", ()=> {

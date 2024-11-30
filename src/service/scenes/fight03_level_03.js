@@ -1,4 +1,8 @@
 import dialogFigth from "../dialogFigth";
+import { store, enemiesDefeated, playerIsOnDialogue } from "../store";
+
+
+
 export default async function fightThreeLevelThree(k, goBackScene) {
     // k.add([
     //     k.text("fight 03 level 3"),
@@ -8,6 +12,8 @@ export default async function fightThreeLevelThree(k, goBackScene) {
 
     const canvasWidth = k.width();
     const canvasHeight = k.height();
+    const enemiesCount = store.get(enemiesDefeated);
+
 
     const map = k.add([
         k.sprite("back_fight03_level03"),
@@ -25,9 +31,12 @@ export default async function fightThreeLevelThree(k, goBackScene) {
 
     function introDialogue() {
 
-        player.isOnDialogue = true;
-        console.log("the player is in dialogue? ", player.isOnDialogue);
+        store.set(playerIsOnDialogue, true);
+        
+        console.log("the player is in dialogue? ", store.get(playerIsOnDialogue));
+        
         const resp = "b. Un virus que afecta el funcionamiento de tu dispositivo";
+
         dialogFigth(
             k,
             "¿Cuál de los siguientes es un ejemplo de 'malware'?",
@@ -36,10 +45,17 @@ export default async function fightThreeLevelThree(k, goBackScene) {
             (selectedOption) => {
                 console.log("Opción seleccionada:", selectedOption);
                 if (selectedOption === resp) {
+                    alert("Felicitaciones, Respondiste bien.")
+                    
+                    store.set(enemiesDefeated, [...enemiesCount, 1])
+                    
                     k.setGravity(null)
+                    
                     goBackScene()
                 } else {
-                    alert("lastima sapa");
+                    
+                    alert("Respuesta Incorrecta, Intenta de nuevo");
+
                     goBackScene();
                 }
             },
@@ -53,7 +69,7 @@ export default async function fightThreeLevelThree(k, goBackScene) {
 
     const boss03 = k.add([
         k.sprite("third_boss_level_03"),
-        k.pos(300, 400),
+        k.pos(200, canvasHeight - 300),
         k.body(),
         k.area({ shape: new k.Rect(k.vec2(0), 25, 180) }),
         k.anchor("center"),
