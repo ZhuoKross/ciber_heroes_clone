@@ -1,16 +1,19 @@
 import dialogFigth from "../dialogFigth";
-import { store, enemiesDefeated } from "../store";
+import { enemiesDefeated, playerIsOnDialogue, store } from "../store";
 
-export default async function figthOne(k, backScene, enemiesDefeated) {
+
+export default async function figthOne(k, backScene) {
     
     const canvasWidth = k.width();
     const canvasHeight = k.height();
+    const enemiesCount = store.get(enemiesDefeated);
 
     
     function introDialogue() {
 
-        player.isOnDialogue = true;
-        console.log("the player is in dialogue? ", player.isOnDialogue);
+        store.set(playerIsOnDialogue, true);
+
+        console.log("the player is in dialogue? ", store.get(playerIsOnDialogue));
         const resp = "c. Cada 3 a 6 meses";
         dialogFigth(
             k,
@@ -20,12 +23,18 @@ export default async function figthOne(k, backScene, enemiesDefeated) {
             (selectedOption) => {
                 console.log("Opción seleccionada:", selectedOption);
                 if(selectedOption === resp){
+                    
                     alert("Felicitaciones, Respondiste bien.")
+                    
+                    store.set(enemiesDefeated, [...enemiesCount, 1])
+                    
+                    console.log("cantidad de enemigos derrotados: ", store.get(enemiesDefeated));
+
                     backScene();
-                   store.set(enemiesDefeated + 1);
-                   console.log(enemiesDefeated);
+                   
                 }else{
-                    alert("lastimosamente su respuesta fue incorrecta");
+                    alert("Respuesta Incorrecta, Intenta de nuevo");
+                    
                     backScene();
                 }
             },
@@ -65,8 +74,6 @@ export default async function figthOne(k, backScene, enemiesDefeated) {
         {
             speed: 200,
             direction: "left",
-            isOnDialogue: false,
-            enemiesDefeated: 0,
             currentPosition: {},
             currentLevel: "",
         },

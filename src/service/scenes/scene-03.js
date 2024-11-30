@@ -1,5 +1,8 @@
-import { currentLevelAtom, curretPositionsPlayerAtom, store } from "../store";
+import { currentLevelAtom, curretPositionsPlayerAtom, enemiesDefeated, store } from "../store";
 import dialog from "../dialog";
+import Notification from "../../utils/notification";
+
+
 
 export default async function (
     k,
@@ -10,6 +13,9 @@ export default async function (
     secondFightLevelThree,
     thirdFightLevelOThree
 ) {
+
+
+    const enemiesCount = store.get(enemiesDefeated);
 
 
     const map = k.add([
@@ -68,7 +74,12 @@ export default async function (
                 if (obj.name === "passage") {
                     console.log("enter")
                     k.onCollide("player", obj.name, () => {
-                        goToNextScene();
+                        if (enemiesCount.length === 9) {
+                            goToNextScene();
+                        }else{
+                            Notification(k, player);
+                        }
+                        
                     })
                 }
             }

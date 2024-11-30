@@ -1,4 +1,5 @@
 import dialogFigth from "../dialogFigth";
+import { store, enemiesDefeated, playerIsOnDialogue } from "../store";
 
 export default async function fight02(k, goBackScene){
     const background = k.add ([
@@ -9,6 +10,7 @@ export default async function fight02(k, goBackScene){
 
     const canvasWidth = k.width();
     const canvasHeight = k.height();
+    const enemiesCount = store.get(enemiesDefeated);
 
     k.add([
         k.rect(canvasWidth, 200),
@@ -45,8 +47,6 @@ export default async function fight02(k, goBackScene){
         {
             speed: 200,
             direction: "left",
-            isOnDialogue: false,
-            enemiesDefeated: 0,
             currentPosition: {},
             currentLevel: "",
         },
@@ -67,9 +67,12 @@ export default async function fight02(k, goBackScene){
 
     function introDialogue() {
 
-        player.isOnDialogue = true;
-        console.log("the player is in dialogue? ", player.isOnDialogue);
+        store.set(playerIsOnDialogue, true);
+
+        console.log("the player is in dialogue? ", store.get(playerIsOnDialogue));
+
         const resp = "a. Un correo que pide información personal urgente";
+        
         dialogFigth(
             k,
             "¿Cuál de los siguientes correos es más probable que sea falso o malicioso?",
@@ -78,10 +81,15 @@ export default async function fight02(k, goBackScene){
             (selectedOption) => {
                 console.log("Opción seleccionada:", selectedOption);
                 if(selectedOption === resp){
+                    alert("Felicitaciones, Respondiste bien.")
+
+                    store.set(enemiesDefeated, [...enemiesCount, 1])
+                    
                     k.setGravity(null)
+                    
                     goBackScene()
                 }else{
-                    alert("lastima sapa");
+                    alert("Respuesta Incorrecta, Intenta de nuevo");
                     goBackScene();
                 }
             },

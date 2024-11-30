@@ -1,15 +1,20 @@
 
 import dialogFigth from "../dialogFigth";
+import { playerIsOnDialogue,enemiesDefeated, store } from "../store";
 export default async function fightThreeLevelTwo(k, goBackScene){
 
     const canvasWidth = k.width();
     const canvasHeight = k.height();
+    const enemiesCount = store.get(enemiesDefeated);
 
     function introDialogue() {
 
-        player.isOnDialogue = true;
-        console.log("the player is in dialogue? ", player.isOnDialogue);
+        store.set(playerIsOnDialogue, true);
+
+        console.log("the player is in dialogue? ", playerIsOnDialogue);
+
         const resp = "d. Para evitar que otras personas accedan a tu información ";
+
         dialogFigth(
             k,
             "¿Por qué es importante usar una red Wi-Fi segura en lugares públicos?",
@@ -18,10 +23,17 @@ export default async function fightThreeLevelTwo(k, goBackScene){
             (selectedOption) => {
                 console.log("Opción seleccionada:", selectedOption);
                 if(selectedOption === resp){
+                    
+                    alert("Felicitaciones, Respondiste bien.")
+
+                    store.set(enemiesDefeated, [...enemiesCount, 1])
+                    
                     k.setGravity(null)
+                    
                     goBackScene();
                 }else{
-                    alert("lastima sapa");
+                    alert("Respuesta Incorrecta, Intenta de nuevo");
+
                     goBackScene();
                 }
             },

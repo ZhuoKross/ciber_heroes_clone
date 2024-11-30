@@ -1,5 +1,8 @@
 import dialogFigth from "../dialogFigth";
-export default async function fightOneLevelThree(k, goBackScene, music){
+import { enemiesDefeated, playerIsOnDialogue, store } from "../store";
+
+
+export default async function fightOneLevelThree(k, goBackScene){
     
     // k.add([
     //     k.text("fight 01 level 3"),
@@ -12,17 +15,19 @@ export default async function fightOneLevelThree(k, goBackScene, music){
 
     const canvasWidth = k.width();
     const canvasHeight = k.height();
+    const enemiesCount = store.get(enemiesDefeated);
+
 
     function introDialogue() {
-        k.play("level_01_back_boss_fight", {
-            loop: true,
-            volume: 0.5
-        })
+        
         
 
-        player.isOnDialogue = true;
-        console.log("the player is in dialogue? ", player.isOnDialogue);
+        store.set(playerIsOnDialogue, true);
+
+        console.log("the player is in dialogue? ", store.get(playerIsOnDialogue));
+
         const resp = "c. No requiere contraseña para conectarse";
+        
         dialogFigth(
             k,
             "¿Cuál es una señal de que una red Wi-Fi pública puede no ser segura?",
@@ -31,10 +36,16 @@ export default async function fightOneLevelThree(k, goBackScene, music){
             (selectedOption) => {
                 console.log("Opción seleccionada:", selectedOption);
                 if(selectedOption === resp){
+                    alert("Felicitaciones, Respondiste bien.")
+                    
+                    store.set(enemiesDefeated, [...enemiesCount, 1])
+                    
                     k.setGravity(null)
+                    
                     goBackScene()
                 }else{
-                    alert("lastima sapa");
+                    alert("Respuesta Incorrecta, Intenta de nuevo");
+
                     goBackScene();
                 }
             },

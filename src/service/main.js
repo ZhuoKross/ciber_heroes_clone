@@ -23,11 +23,7 @@ export default async function main() {
     // GETTING THE CONTEXT OF KAPLAY
     const k = context();
     
-    const music = k.play("level_01_back_sound", {
-        loop: true,
-        volume: 0.5
-    })
-
+    
     
 
 
@@ -367,8 +363,7 @@ export default async function main() {
     //console.log("validate scene 01: ", k.getSprite("level-01"));
 
 
-    // DEFINING THE SCENES OF THE GAME
-    
+    // DEFINING THE SCENES OF THE GAME    
     
     
     // Define la escena de la pelea
@@ -404,7 +399,7 @@ export default async function main() {
     // SCENES OF FIGHTS OF THE LEVEL 03
 
     k.scene("fight_01_level_03", ()=>{
-        fightOneLevelThree(k, ()=> {returnBackLevelScene("scene03")}, music);
+        fightOneLevelThree(k, ()=> {returnBackLevelScene("scene03")});
     })
 
     k.scene("fight_02_level_03", ()=> {

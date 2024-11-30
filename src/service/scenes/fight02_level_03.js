@@ -1,14 +1,32 @@
 import dialogFigth from "../dialogFigth";
-export default async function fightTwoLevelThree(k, goBackScene){
+import { store, enemiesDefeated, playerIsOnDialogue } from "../store";
+
+
+export default async function fightTwoLevelThree(k, goBackScene) {
     // k.add([
     //     k.text("fight 02 level 3"),
     //     k.pos(100, 100)
     // ])
+
+
+    
+    const canvasWidth = k.width();
+    const canvasHeight = k.height();
+    const enemiesCount = store.get(enemiesDefeated);
+
+
+
     function introDialogue() {
 
-        player.isOnDialogue = true;
-        console.log("the player is in dialogue? ", player.isOnDialogue);
+
+
+
+        store.set(playerIsOnDialogue, true);
+
+        console.log("the player is in dialogue? ", store.get(playerIsOnDialogue));
+        
         const resp = "d. Un tipo de estafa donde se engaña a la persona para que revele información personal";
+        
         dialogFigth(
             k,
             "¿Que es phising?",
@@ -16,11 +34,19 @@ export default async function fightTwoLevelThree(k, goBackScene){
             k.vec2(canvasWidth / 2, canvasHeight / 2),
             (selectedOption) => {
                 console.log("Opción seleccionada:", selectedOption);
-                if(selectedOption === resp){
+                if (selectedOption === resp) {
+
+                    alert("Felicitaciones, Respondiste bien.")
+                    
+                    store.set(enemiesDefeated, [...enemiesCount, 1])
+                    
                     k.setGravity(null)
+                    
                     goBackScene()
-                }else{
-                    alert("lastima sapa");
+                } else {
+                    
+                    alert("Respuesta Incorrecta, Intenta de nuevo");
+
                     goBackScene();
                 }
             },
@@ -29,11 +55,8 @@ export default async function fightTwoLevelThree(k, goBackScene){
                 // Lógica adicional si el diálogo se cierra sin enviar
             }
         );
-         }
-       
+    }
 
-    const canvasWidth = k.width();
-    const canvasHeight = k.height();
 
     const map = k.add([
         k.sprite("back_fight02_level03"),
@@ -45,7 +68,7 @@ export default async function fightTwoLevelThree(k, goBackScene){
         k.rect(canvasWidth, 200),
         k.pos(0, canvasHeight - 50),
         k.area(),
-        k.body({isStatic: true}),
+        k.body({ isStatic: true }),
         k.color(k.Color.fromHex(("#240a25")))
     ]);
 
@@ -54,10 +77,10 @@ export default async function fightTwoLevelThree(k, goBackScene){
         k.sprite("second_boss_level_03"),
         k.pos(200, canvasHeight - 300),
         k.body(),
-        k.area({shape: new k.Rect(k.vec2(0), 25, 80)}),
+        k.area({ shape: new k.Rect(k.vec2(0), 25, 80) }),
         k.anchor("center"),
         k.scale(6),
-        {anim: "idle"}
+        { anim: "idle" }
     ])
 
 
@@ -87,9 +110,9 @@ export default async function fightTwoLevelThree(k, goBackScene){
     boss02.play("idle");
     player.play("idle");
 
-    k.onKeyPress("u", () =>{
+    k.onKeyPress("u", () => {
         goBackScene()
-    }) 
-    
+    })
+
     introDialogue();
 }

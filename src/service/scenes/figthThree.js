@@ -1,15 +1,18 @@
 import dialogFigth from "../dialogFigth";
+import { enemiesDefeated, playerIsOnDialogue, store } from "../store";
 
 export default async function figthThree(k, backScene) {
     
     const canvasWidth = k.width();
     const canvasHeight = k.height();
+    const enemiesCount = store.get(enemiesDefeated);
 
     
     function introDialogue() {
     console.log("aqui estoy")
-        player.isOnDialogue = true;
-        console.log("the player is in dialogue? ", player.isOnDialogue);
+        store.set(playerIsOnDialogue, true);
+
+        console.log("the player is in dialogue? ", store.get(playerIsOnDialogue));
         const resp = "b. Contiene errores de ortografía o caracteres extraños";
         dialogFigth(
             k,
@@ -19,6 +22,7 @@ export default async function figthThree(k, backScene) {
             (selectedOption) => {
                 console.log("Opción seleccionada:", selectedOption);
                 if(selectedOption === resp){
+                    store.set(enemiesDefeated, [...enemiesCount, 1])
                     backScene();
                 }else{
                     alert("lastima sapa");
@@ -61,8 +65,6 @@ export default async function figthThree(k, backScene) {
         {
             speed: 200,
             direction: "left",
-            isOnDialogue: false,
-            enemiesDefeated: 0,
             currentPosition: {},
             currentLevel: "",
         },
