@@ -1,4 +1,12 @@
-import { enemiesDefeated, currentLevelAtom, curretPositionsPlayerAtom, store, playerIsOnDialogue } from "../store";
+import {
+    enemiesDefeated,
+    currentLevelAtom,
+    curretPositionsPlayerAtom,
+    store,
+    playerIsOnDialogue,
+    counterSuccessNotifications
+} from "../store";
+
 import dialog from "../dialog";
 import Notification from "../../utils/notification";
 
@@ -12,7 +20,7 @@ export default async function scene02(
     allPositions,
     change01Fight,
     change02Fight,
-    change03Fight
+    change03Fight,
 ) {
 
 
@@ -46,6 +54,8 @@ export default async function scene02(
     ])
 
 
+    
+
     console.log("data of positions", allPositions);
 
     player.currentPosition = store.get(curretPositionsPlayerAtom);
@@ -57,6 +67,7 @@ export default async function scene02(
     console.log("data of the level 02: ", levelData);
     console.log("data fo the current level: ", player.currentLevel);
     console.log("current position level 02: ", player.currentPosition);
+
 
 
     for (const layer of levelData.layers) {
@@ -79,14 +90,16 @@ export default async function scene02(
 
                 if (obj.name === "passage") {
                     k.onCollide("player", obj.name, () => {
-                        if (enemiesCount.length === 6) {
+                        store.set(playerIsOnDialogue, true);
+                        if (enemiesCount.length >= 6) {
                             changeScene();
-                        }else{
-                            Notification(k, player);
+                        } else {
+                            Notification(k, player, "No Puedes Pasar al Siguiente Nivel, Aún te quedan enemigos por derrotar :/", "block");
+                            
                         }
-                        
+
                     })
-                    
+
                 }
             }
         }
@@ -104,6 +117,7 @@ export default async function scene02(
 
                 if (obj.name === "first_fight") {
                     k.onCollide("player", obj.name, () => {
+                        store.set(playerIsOnDialogue, true);
                         const PreguntaUno = "Los correos maliciosos suelen incluir mensajes urgentes que buscan asustarte o presionarte para que tomes decisiones rápidas, como compartir datos personales, contraseñas o información bancaria. Por ejemplo, un correo que afirma que tu cuenta será suspendida si no proporcionas información urgente es una señal de alerta."
                         dialog(
                             k,
@@ -123,6 +137,7 @@ export default async function scene02(
 
                 if (obj.name === "second_fight") {
                     k.onCollide("player", obj.name, () => {
+                        store.set(playerIsOnDialogue, true);
                         const PreguntaUno = "Los correos sospechosos suelen contener enlaces o archivos adjuntos diseñados para robar tu información personal o infectar tu dispositivo con malware. Por ello, nunca debes hacer clic en un enlace sin verificar primero su autenticidad."
                         dialog(
                             k,
@@ -142,6 +157,7 @@ export default async function scene02(
 
                 if (obj.name === "third_fight") {
                     k.onCollide("player", obj.name, () => {
+                        store.set(playerIsOnDialogue, true);
                         const PreguntaUno = "Cuando te conectas a una red Wi-Fi pública, como las disponibles en cafeterías, aeropuertos o centros comerciales, tu información personal puede estar en riesgo. Estas redes suelen ser menos seguras porque no requieren contraseñas fuertes o cifrado, lo que las convierte en un objetivo para los ciberdelincuentes."
                         dialog(
                             k,
@@ -210,17 +226,32 @@ export default async function scene02(
 
 
 
+
+    // FOR THE ANIMATION OF THE DIALOGUE WHEN THE PLAYER COMPLETE THE LEVEL
+    if (store.get(enemiesDefeated).length >= 6 &&
+        store.get(counterSuccessNotifications) === 1) {
+
+        Notification(k, player, "¡FELICIDADES! Has completado el nivel 02", "success");
+        store.set(counterSuccessNotifications, 2);
+    }
+
+
     player.play("idle");
 
 
 
 
 
-   
+
     k.onUpdate(() => {
         k.camPos(player.pos.x, player.pos.y + 100);
     })
 
+
+    // test function 
+    k.onKeyPress("u", () => {
+        changeScene();
+    })
 
     k.onKeyDown("a", () => {
         if (!store.get(playerIsOnDialogue)) {
@@ -282,4 +313,6 @@ export default async function scene02(
     const valueCurPos = store.get(curretPositionsPlayerAtom);
     console.log("value of the level from scene 02: ", valueCurLevel);
     console.log("value of the current position from scene 02: ", valueCurPos);
+    console.log("enemies defeated: ", store.get(enemiesDefeated));
+    console.log("number of times of success notifications: ", store.get(counterSuccessNotifications));
 }

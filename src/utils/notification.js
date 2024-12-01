@@ -42,7 +42,7 @@ export default async function Notification(k, player, textDescription, typeNotif
         k.add(explosion)
         explosion.play("explosion");
 
-        notification.color = k.Color.fromHex("a8ed0f")
+        notification.color = k.Color.fromHex("93cd11")
 
     }
 
@@ -64,7 +64,7 @@ export default async function Notification(k, player, textDescription, typeNotif
      // Botón "Cerrar"
      const closeButton = notification.add([
         k.rect(220, 40, { radius: 10 }),
-        k.pos(0, + 90), // Posición ajustada
+        k.pos(0, + 100), // Posición ajustada
         k.area(),
         k.opacity(1),
         k.anchor("center"),
