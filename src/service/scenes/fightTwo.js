@@ -25,12 +25,14 @@ export default async function figthTwo(k, backScene) {
                     alert("Felicitaciones, Respondiste bien.")
 
                     store.set(enemiesDefeated, [...enemiesCount, 1])
+                    store.set(playerIsOnDialogue, false);
 
                     backScene();
                 } else {
 
                     alert("Respuesta Incorrecta, Intenta de nuevo");
-
+                    store.set(playerIsOnDialogue, false);
+                    
                     backScene();
                 }
             },

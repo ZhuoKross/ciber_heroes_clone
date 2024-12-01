@@ -27,14 +27,15 @@ export default async function figthOne(k, backScene) {
                     alert("Felicitaciones, Respondiste bien.")
                     
                     store.set(enemiesDefeated, [...enemiesCount, 1])
-                    
+                    store.set(playerIsOnDialogue, false);
+
                     console.log("cantidad de enemigos derrotados: ", store.get(enemiesDefeated));
 
                     backScene();
                    
                 }else{
                     alert("Respuesta Incorrecta, Intenta de nuevo");
-                    
+                    store.set(playerIsOnDialogue, false);
                     backScene();
                 }
             },

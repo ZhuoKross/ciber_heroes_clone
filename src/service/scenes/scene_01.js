@@ -5,7 +5,8 @@ import {
     curretPositionsPlayerAtom,
     isMusicPlaying,
     playerIsOnDialogue,
-    enemiesDefeated
+    enemiesDefeated,
+    hasNotificationDisplayed
 } from "../store";
 import MusicControls from "../../utils/utils";
 import Notification from "../../utils/notification";
@@ -64,7 +65,7 @@ export default async function scene01(
 
     player.currentPosition = store.get(curretPositionsPlayerAtom);
     player.currentLevel = store.get(currentLevelAtom);
-    
+
 
     //player.currentPosition = store.get(curretPositionsPlayerAtom);
     //player.currentLevel = store.get(currentLevelAtom);
@@ -92,6 +93,7 @@ export default async function scene01(
                 }
 
                 store.set(playerIsOnDialogue, false);
+                store.set(hasNotificationDisplayed, true);
                 console.log("the player isn't in dialogue? ", store.get(playerIsOnDialogue));
             },
             () => {
@@ -108,6 +110,7 @@ export default async function scene01(
                 }
 
                 store.set(playerIsOnDialogue, false);
+                store.set(hasNotificationDisplayed, true);
                 console.log("the player is in dialogue? ", store.get(playerIsOnDialogue));
             });
     }
@@ -115,15 +118,17 @@ export default async function scene01(
 
 
 
+
+
     for (const layer of levelData.layers) {
 
-        if (layer.name === "positions") {
-            for (const obj of layer.objects) {
-                if (obj.name === "transition_positions") {
-                    //var dataPositionTransition = obj;
-                }
-            }
-        }
+        // if (layer.name === "positions") {
+        //     for (const obj of layer.objects) {
+        //         if (obj.name === "transition_positions") {
+        //             //var dataPositionTransition = obj;
+        //         }
+        //     }
+        // }
 
         if (layer.name === "limits") {
             for (const obj of layer.objects) {
@@ -140,12 +145,12 @@ export default async function scene01(
                     k.onCollide("player", obj.name, () => {
 
                         console.log("count of enemies: ", enemiesCount.length);
-                        if (store.get(enemiesDefeated).length === 3) {
+                        if (store.get(enemiesDefeated).length >= 3) {
 
                             changeScene();
 
                         } else {
-                            Notification(k, player);
+                            Notification(k, player, "No Puedes Pasar al Siguiente Nivel, Aún te quedan enemigos por derrotar :/", "block");
 
                         }
                         //console.log("Enemies defeated: ", player.enemiesDefeated);
@@ -266,7 +271,17 @@ export default async function scene01(
     }
 
 
-    introDialogue();
+    if (!store.get(hasNotificationDisplayed)) {
+        
+        introDialogue();
+    
+    }
+
+    // FOR THE ANIMATION OF THE DIALOGUE WHEN THE PLAYER COMPLETE THE LEVEL
+    if (store.get(enemiesDefeated).length >= 3) {
+        Notification(k, player, "¡FELICIDADES! Has completado el nivel 01", "success");
+        store.set(hasNotificationDisplayed, true);
+    }
 
     player.play("idle");
 

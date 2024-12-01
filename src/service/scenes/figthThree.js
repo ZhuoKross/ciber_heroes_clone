@@ -23,9 +23,13 @@ export default async function figthThree(k, backScene) {
                 console.log("Opción seleccionada:", selectedOption);
                 if(selectedOption === resp){
                     store.set(enemiesDefeated, [...enemiesCount, 1])
+                    store.set(playerIsOnDialogue, false);
+                    
                     backScene();
                 }else{
-                    alert("lastima sapa");
+                    alert("Respuesta Incorrecta, Intenta de nuevo");
+                    store.set(playerIsOnDialogue, false);
+                    
                     backScene();
                 }
             },
