@@ -153,7 +153,7 @@ export default async function scene01(
                             changeScene();
 
                         } else {
-                            Notification(k, player, "No Puedes Pasar al Siguiente Nivel, Aún te quedan enemigos por derrotar :/", "block");
+                            Notification(k, player, "No Puedes Pasar al Siguiente Nivel, Aún te quedan enemigos por derrotar :/", "block", () => {return});
 
                         }
                         //console.log("Enemies defeated: ", player.enemiesDefeated);
@@ -288,7 +288,7 @@ export default async function scene01(
     if (store.get(enemiesDefeated).length >= 3 &&
         store.get(counterSuccessNotifications) === 0) {
 
-        Notification(k, player, "¡FELICIDADES! Has completado el nivel 01", "success");
+        Notification(k, player, "¡FELICIDADES! Has completado el nivel 01", "success", ()=> {return;});
         store.set(counterSuccessNotifications, 1);
     }
 

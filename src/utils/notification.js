@@ -1,7 +1,7 @@
 
 import { store, playerIsOnDialogue } from "../service/store";
 
-export default async function Notification(k, player, textDescription, typeNotification){
+export default async function Notification(k, player, textDescription, typeNotification, action){
    
 
     const canvasWidth = k.width();
@@ -44,6 +44,8 @@ export default async function Notification(k, player, textDescription, typeNotif
 
         notification.color = k.Color.fromHex("93cd11")
 
+    }else if(typeNotification === "intro"){
+        notification.color = k.Color.fromHex("e225d1");
     }
 
     
@@ -84,8 +86,9 @@ export default async function Notification(k, player, textDescription, typeNotif
     
 
     closeButton.onClick(()=>{
-        k.destroy(notification);
 
+        k.destroy(notification);
+        action();
         store.set(playerIsOnDialogue, false);
     })
 

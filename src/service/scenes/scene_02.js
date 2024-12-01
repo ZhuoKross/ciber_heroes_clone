@@ -4,7 +4,8 @@ import {
     curretPositionsPlayerAtom,
     store,
     playerIsOnDialogue,
-    counterSuccessNotifications
+    counterSuccessNotifications,
+    hasNotificationDisplayed02
 } from "../store";
 
 import dialog from "../dialog";
@@ -54,7 +55,7 @@ export default async function scene02(
     ])
 
 
-    
+
 
     console.log("data of positions", allPositions);
 
@@ -67,6 +68,9 @@ export default async function scene02(
     console.log("data of the level 02: ", levelData);
     console.log("data fo the current level: ", player.currentLevel);
     console.log("current position level 02: ", player.currentPosition);
+
+
+
 
 
 
@@ -94,8 +98,8 @@ export default async function scene02(
                         if (enemiesCount.length >= 6) {
                             changeScene();
                         } else {
-                            Notification(k, player, "No Puedes Pasar al Siguiente Nivel, Aún te quedan enemigos por derrotar :/", "block");
-                            
+                            Notification(k, player, "No Puedes Pasar al Siguiente Nivel, Aún te quedan enemigos por derrotar :/", "block", ()=> {return});
+
                         }
 
                     })
@@ -225,13 +229,25 @@ export default async function scene02(
 
 
 
+    if (!store.get(hasNotificationDisplayed02)) {
+        // CALLING THE FUNCTION OF THE NOTIFICATION FOR CREATE THE INTRO DIALOGUE OF THE LEVEL 02
+        Notification(
+            k,
+            player,
+            "¡BIENVENIDO AL NIVEL 2! En este nivel seguirás encontrandote con más enemigos, Encuentralos!",
+            "intro",
+            () => { store.set(hasNotificationDisplayed02, true) }
+        );
+    }
+
+
 
 
     // FOR THE ANIMATION OF THE DIALOGUE WHEN THE PLAYER COMPLETE THE LEVEL
     if (store.get(enemiesDefeated).length >= 6 &&
         store.get(counterSuccessNotifications) === 1) {
 
-        Notification(k, player, "¡FELICIDADES! Has completado el nivel 02", "success");
+        Notification(k, player, "¡FELICIDADES! Has completado el nivel 02", "success", ()=> {return;});
         store.set(counterSuccessNotifications, 2);
     }
 

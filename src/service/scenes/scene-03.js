@@ -4,7 +4,8 @@ import {
     enemiesDefeated,
     store,
     counterSuccessNotifications,
-    playerIsOnDialogue
+    playerIsOnDialogue,
+    hasNotificationDisplayed03
 } from "../store";
 import dialog from "../dialog";
 import Notification from "../../utils/notification";
@@ -85,7 +86,7 @@ export default async function (
                         if (enemiesCount.length === 9 && store.get(counterSuccessNotifications) === 3) {
                             goToNextScene();
                         } else {
-                            Notification(k, player, "No Puedes Pasar al Nivel anterior, Aún te quedan enemigos por derrotar. Podrás pasar una vez que los derrotes a todos!", "block");
+                            Notification(k, player, "No Puedes Pasar al Nivel anterior, Aún te quedan enemigos por derrotar. Podrás pasar una vez que los derrotes a todos!", "block", ()=> {return});
                         }
 
                     })
@@ -197,11 +198,23 @@ export default async function (
     }
 
 
+    if (!store.get(hasNotificationDisplayed03)) {
+        // CALLING THE FUNCTION OF THE NOTIFICATION FOR CREATE THE INTRO DIALOGUE OF THE LEVEL 02
+        Notification(
+            k,
+            player,
+            "¡BIENVENIDO AL NIVEL 3! Este es el último nivel, encontrarás enemigos más fuertes en este nivel, Encuentralos!",
+            "intro",
+            () => {store.set(hasNotificationDisplayed03, true)}
+        );
+    }
+
+
     // FOR THE ANIMATION OF THE DIALOGUE WHEN THE PLAYER COMPLETE THE LEVEL
     if (store.get(enemiesDefeated).length >= 9 &&
         store.get(counterSuccessNotifications) === 2) {
 
-        Notification(k, player, "¡FELICIDADES! Has Derrotado a todos los Enemigos y completado el nivel 03", "success");
+        Notification(k, player, "¡FELICIDADES! Has Derrotado a todos los Enemigos y completado el nivel 03", "success", ()=> {return;});
         store.set(counterSuccessNotifications, 3);
     }
 
