@@ -105,9 +105,14 @@ export default async function fightTwoLevelTwo(k, goBackScene) {
                     
                 }else{
                     
-                    alert("Respuesta Incorrecta, Intenta de nuevo");
-
-                    goBackScene();
+                    Notification(
+                        k,
+                        player,
+                        k.vec2(canvasWidth / 2, canvasHeight / 2),
+                        "Respuesta Incorrecta, Sigue intentando!",
+                        "lose",
+                        () => { goBackScene(); }
+                    );
                 }
             },
             () => {

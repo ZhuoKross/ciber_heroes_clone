@@ -120,14 +120,18 @@ export default async function fightThreeLevelThree(k, goBackScene) {
                     store.set(enemiesDefeated, [...enemiesCount, 1])
                     
                     
-                    k.setGravity(null)
+                    
                     
                 } else {
                     
-                    alert("Respuesta Incorrecta, Intenta de nuevo");
-                    store.set(playerIsOnDialogue, false);
-
-                    goBackScene();
+                    Notification(
+                        k,
+                        player,
+                        k.vec2(canvasWidth / 2, canvasHeight / 2),
+                        "Respuesta Incorrecta, Sigue intentando!",
+                        "lose",
+                        () => { goBackScene(); }
+                    );
                 }
             },
             () => {

@@ -98,9 +98,14 @@ export default async function figthThree(k, backScene) {
                     store.set(enemiesDefeated, [...enemiesCount, 1])
                     
                 }else{
-                    alert("Respuesta Incorrecta, Intenta de nuevo");
-                    
-                    backScene();
+                    Notification(
+                        k,
+                        player,
+                        k.vec2(canvasWidth / 2, canvasHeight / 2),
+                        "Respuesta Incorrecta, Sigue intentando!",
+                        "lose",
+                        () => { backScene(); }
+                    );
                 }
             },
             () => {
@@ -158,9 +163,6 @@ export default async function figthThree(k, backScene) {
         k.scale(8)
     ])
 
-    const gravity = 200;
-
-    k.setGravity(gravity);
     k.add(player);
     
 

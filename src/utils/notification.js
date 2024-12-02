@@ -49,11 +49,13 @@ export default async function Notification(k, player, position, textDescription,
         notification.color = k.Color.fromHex("e225d1");
     
     }else if(typeNotification === "win"){
-        notification.color = k.Color.fromHex("312c31")
+        notification.color = k.Color.fromHex("312c31");
 
         k.add(explosion)
         explosion.play("explosion");
 
+    }else if (typeNotification === "lose"){
+        notification.color = k.Color.fromHex("ff1873");
     }
 
     

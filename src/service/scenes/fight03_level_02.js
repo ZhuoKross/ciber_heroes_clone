@@ -103,13 +103,18 @@ export default async function fightThreeLevelTwo(k, goBackScene){
                     store.set(enemiesDefeated, [...enemiesCount, 1])
                     
                     
-                    k.setGravity(null)
+                    
                     
 
                 }else{
-                    alert("Respuesta Incorrecta, Intenta de nuevo");
-
-                    goBackScene();
+                    Notification(
+                        k,
+                        player,
+                        k.vec2(canvasWidth / 2, canvasHeight / 2),
+                        "Respuesta Incorrecta, Sigue intentando!",
+                        "lose",
+                        () => { goBackScene(); }
+                    );
                 }
             },
             () => {
@@ -177,7 +182,7 @@ export default async function fightThreeLevelTwo(k, goBackScene){
         goBackScene();
     })
 
-    const gravity = 200;
+    
 
     
     
@@ -189,7 +194,7 @@ export default async function fightThreeLevelTwo(k, goBackScene){
         k.color(k.Color.fromHex(("#2e4053")))
     ])
    // Add the player to the scene
-   k.setGravity(gravity);
+   
    k.add(player);
    enemies_02_two.play("idle")
    player.play("idle");
