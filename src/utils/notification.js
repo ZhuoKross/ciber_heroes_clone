@@ -1,7 +1,7 @@
 
 import { store, playerIsOnDialogue } from "../service/store";
 
-export default async function Notification(k, player, textDescription, typeNotification, action){
+export default async function Notification(k, player, position, textDescription, typeNotification, action){
    
 
     const canvasWidth = k.width();
@@ -9,10 +9,11 @@ export default async function Notification(k, player, textDescription, typeNotif
 
     store.set(playerIsOnDialogue, true);
     
+    //k.vec2(player.pos.x, player.pos.y + 100
     const notification = k.make([
         k.rect(450, 360, { radius: 8 }),
         k.area(),
-        k.pos(k.vec2(player.pos.x, player.pos.y + 100)),
+        k.pos(position),
         k.anchor("center"),
         k.outline(6),
         "notification"
@@ -24,7 +25,7 @@ export default async function Notification(k, player, textDescription, typeNotif
         k.area({
             shape: new k.Rect(k.vec2(0), 20, 20)
         }),
-        k.pos(player.pos.x, player.pos.y + 40),
+        k.pos(position),
         k.anchor("center"),
         k.scale(15),
         {anim: "explosion"}
@@ -36,7 +37,7 @@ export default async function Notification(k, player, textDescription, typeNotif
         
         notification.color = k.Color.fromHex("ed0f41")
 
-    }else if(typeNotification === "success"){
+    }else if(typeNotification === "success" ){
         
         
         k.add(explosion)
@@ -46,6 +47,13 @@ export default async function Notification(k, player, textDescription, typeNotif
 
     }else if(typeNotification === "intro"){
         notification.color = k.Color.fromHex("e225d1");
+    
+    }else if(typeNotification === "win"){
+        notification.color = k.Color.fromHex("312c31")
+
+        k.add(explosion)
+        explosion.play("explosion");
+
     }
 
     
@@ -87,9 +95,9 @@ export default async function Notification(k, player, textDescription, typeNotif
 
     closeButton.onClick(()=>{
 
+        store.set(playerIsOnDialogue, false);
         k.destroy(notification);
         action();
-        store.set(playerIsOnDialogue, false);
     })
 
 }

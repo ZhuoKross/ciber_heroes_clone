@@ -1,5 +1,7 @@
 import dialogFigth from "../dialogFigth";
 import { enemiesDefeated, playerIsOnDialogue, store } from "../store";
+import Notification from "../../utils/notification";
+
 
 export default async function figthThree(k, backScene) {
     
@@ -9,9 +11,9 @@ export default async function figthThree(k, backScene) {
 
     
     function introDialogue() {
-    console.log("aqui estoy")
+    
+    
         store.set(playerIsOnDialogue, true);
-
         console.log("the player is in dialogue? ", store.get(playerIsOnDialogue));
         const resp = "b. Contiene errores de ortografía o caracteres extraños";
         dialogFigth(
@@ -22,13 +24,19 @@ export default async function figthThree(k, backScene) {
             (selectedOption) => {
                 console.log("Opción seleccionada:", selectedOption);
                 if(selectedOption === resp){
-                    store.set(enemiesDefeated, [...enemiesCount, 1])
-                    store.set(playerIsOnDialogue, false);
+                    Notification(
+                        k,
+                        player,
+                        k.vec2(canvasWidth / 2, canvasHeight / 2),
+                        "¡Muy Bien! Has respondido Correctamente y derratodo al último enemigo del primer nivel",
+                        "win",
+                        () => { backScene(); }
+                    );
                     
-                    backScene();
+                    store.set(enemiesDefeated, [...enemiesCount, 1])
+                    
                 }else{
                     alert("Respuesta Incorrecta, Intenta de nuevo");
-                    store.set(playerIsOnDialogue, false);
                     
                     backScene();
                 }

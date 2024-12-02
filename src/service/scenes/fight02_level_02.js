@@ -1,5 +1,6 @@
 import dialogFigth from "../dialogFigth";
 import { store, enemiesDefeated, playerIsOnDialogue } from "../store";
+import Notification from "../../utils/notification";
 
 
 export default async function fightTwoLevelTwo(k, goBackScene) {
@@ -25,14 +26,21 @@ export default async function fightTwoLevelTwo(k, goBackScene) {
                 console.log("Opción seleccionada:", selectedOption);
                 if(selectedOption === resp){
                     
-                    alert("Felicitaciones, Respondiste bien.")
+                    Notification(
+                        k,
+                        player,
+                        k.vec2(canvasWidth / 2, canvasHeight / 2),
+                        "¡Muy Bien! Has respondido Correctamente",
+                        "win",
+                        () => { goBackScene(); }
+                    );
+
                     
                     store.set(enemiesDefeated, [...enemiesCount, 1])
-                    store.set(playerIsOnDialogue, false);
+                    
                     
                     k.setGravity(null)
                     
-                    goBackScene();
                 }else{
                     
                     alert("Respuesta Incorrecta, Intenta de nuevo");

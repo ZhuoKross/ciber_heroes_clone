@@ -1,3 +1,5 @@
+import { store, playerIsOnDialogue } from "./store";
+
 export default async function dialog(k, text, position = k.vec2(200, 200), onClose, close) {
     // Contenedor del diálogo
     const dialogContainer = await k.add([
@@ -65,8 +67,8 @@ export default async function dialog(k, text, position = k.vec2(200, 200), onClo
     ]);
 
     nextButton.onClick(() => {
-        k.destroy(dialogContainer);
-        close(); // Cierra el diálogo
+        k.destroy(dialogContainer); 
+        close(); // Cierra el diálogo   
     });
 
     return dialogContainer;

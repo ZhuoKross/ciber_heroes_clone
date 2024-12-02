@@ -58,6 +58,7 @@ export default async function scene02(
 
 
     console.log("data of positions", allPositions);
+    console.log("the player is in dialog: ", store.get(playerIsOnDialogue));
 
     player.currentPosition = store.get(curretPositionsPlayerAtom);
     player.currentLevel = store.get(currentLevelAtom);
@@ -98,7 +99,7 @@ export default async function scene02(
                         if (enemiesCount.length >= 6) {
                             changeScene();
                         } else {
-                            Notification(k, player, "No Puedes Pasar al Siguiente Nivel, Aún te quedan enemigos por derrotar :/", "block", ()=> {return});
+                            Notification(k, player, k.vec2(player.pos.x, player.pos.y + 100), "No Puedes Pasar al Siguiente Nivel, Aún te quedan enemigos por derrotar :/", "block", ()=> {return});
                             
                         }
 
@@ -234,6 +235,7 @@ export default async function scene02(
         Notification(
             k,
             player,
+            k.vec2(player.pos.x, player.pos.y + 100),
             "¡BIENVENIDO AL NIVEL 2! En este nivel seguirás encontrandote con más enemigos, Encuentralos!",
             "intro",
             () => { store.set(hasNotificationDisplayed02, true) }
@@ -247,7 +249,7 @@ export default async function scene02(
     if (store.get(enemiesDefeated).length >= 6 &&
         store.get(counterSuccessNotifications) === 1) {
 
-        Notification(k, player, "¡FELICIDADES! Has completado el nivel 02", "success", ()=> {return;});
+        Notification(k, player,k.vec2(player.pos.x, player.pos.y + 100), "¡FELICIDADES! Has completado el nivel 02", "success", ()=> {return;});
         store.set(counterSuccessNotifications, 2);
     }
 
@@ -330,5 +332,6 @@ export default async function scene02(
     console.log("value of the level from scene 02: ", valueCurLevel);
     console.log("value of the current position from scene 02: ", valueCurPos);
     console.log("enemies defeated: ", store.get(enemiesDefeated));
+    console.log("the player is in dialog: ", store.get(playerIsOnDialogue));
     console.log("number of times of success notifications: ", store.get(counterSuccessNotifications));
 }

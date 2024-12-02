@@ -80,14 +80,19 @@ export default async function (
 
 
                 if (obj.name === "passage") {
-                    
+
                     k.onCollide("player", obj.name, () => {
                         store.set(playerIsOnDialogue, false);
                         if (enemiesCount.length === 9 && store.get(counterSuccessNotifications) === 3) {
                             goToNextScene();
                         } else {
-                            Notification(k, player, "No Puedes Pasar al Nivel anterior, Aún te quedan enemigos por derrotar. Podrás pasar una vez que los derrotes a todos!", "block", ()=> {return});
-                            
+                            Notification(
+                                k,
+                                player,
+                                k.vec2(player.pos.x, player.pos.y + 100),
+                                "No Puedes Pasar al Nivel anterior, Aún te quedan enemigos por derrotar. Podrás pasar una vez que los derrotes a todos!",
+                                "block", () => { return });
+
                         }
 
                     })
@@ -204,9 +209,10 @@ export default async function (
         Notification(
             k,
             player,
+            k.vec2(player.pos.x, player.pos.y + 100),
             "¡BIENVENIDO AL NIVEL 3! Este es el último nivel, encontrarás enemigos más fuertes en este nivel, Encuentralos!",
             "intro",
-            () => {store.set(hasNotificationDisplayed03, true)}
+            () => { store.set(hasNotificationDisplayed03, true) }
         );
     }
 
@@ -215,7 +221,13 @@ export default async function (
     if (store.get(enemiesDefeated).length >= 9 &&
         store.get(counterSuccessNotifications) === 2) {
 
-        Notification(k, player, "¡FELICIDADES! Has Derrotado a todos los Enemigos y completado el nivel 03", "success", ()=> {return;});
+        Notification(
+            k,
+            player,
+            k.vec2(player.pos.x, player.pos.y + 100),
+            "¡FELICIDADES! Has Derrotado a todos los Enemigos y completado el nivel 03",
+            "success",
+            () => { return; });
         store.set(counterSuccessNotifications, 3);
     }
 

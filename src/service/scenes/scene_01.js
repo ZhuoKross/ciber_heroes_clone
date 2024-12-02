@@ -63,6 +63,7 @@ export default async function scene01(
     ])
 
     console.log("data of positions", allPositions);
+    console.log("The player is in dialog 01: ", store.get(playerIsOnDialogue))
 
     player.currentPosition = store.get(curretPositionsPlayerAtom);
     player.currentLevel = store.get(currentLevelAtom);
@@ -102,7 +103,6 @@ export default async function scene01(
             () => {
 
 
-
                 if (store.get(isMusicPlaying) === false) {
 
                     store.set(isMusicPlaying, true);
@@ -125,13 +125,6 @@ export default async function scene01(
 
     for (const layer of levelData.layers) {
 
-        // if (layer.name === "positions") {
-        //     for (const obj of layer.objects) {
-        //         if (obj.name === "transition_positions") {
-        //             //var dataPositionTransition = obj;
-        //         }
-        //     }
-        // }
 
         if (layer.name === "limits") {
             for (const obj of layer.objects) {
@@ -153,7 +146,13 @@ export default async function scene01(
                             changeScene();
 
                         } else {
-                            Notification(k, player, "No Puedes Pasar al Siguiente Nivel, Aún te quedan enemigos por derrotar :/", "block", () => {return});
+                            Notification(
+                                k,
+                                player,
+                                k.vec2(player.pos.x, player.pos.y + 100),
+                                "No Puedes Pasar al Siguiente Nivel, Aún te quedan enemigos por derrotar :/",
+                                "block",
+                                () => { return });
 
                         }
                         //console.log("Enemies defeated: ", player.enemiesDefeated);
@@ -183,7 +182,7 @@ export default async function scene01(
                             k.vec2(k.camPos()), // Posición basada en la cámara
                             () => {
                                 store.set(playerIsOnDialogue, false);
-                                console.log("the player isn't in dialogue");
+                                console.log("the player is in dialogue?", store.get(playerIsOnDialogue));
                             },
                             () => {
 
@@ -288,7 +287,7 @@ export default async function scene01(
     if (store.get(enemiesDefeated).length >= 3 &&
         store.get(counterSuccessNotifications) === 0) {
 
-        Notification(k, player, "¡FELICIDADES! Has completado el nivel 01", "success", ()=> {return;});
+        Notification(k, player, k.vec2(player.pos.x, player.pos.y + 100), "¡FELICIDADES! Has completado el nivel 01", "success", () => { return; });
         store.set(counterSuccessNotifications, 1);
     }
 
@@ -362,6 +361,7 @@ export default async function scene01(
     });
 
     console.log("enemies Defeated: ", store.get(enemiesDefeated));
+    console.log("The player is in dialog: ", store.get(playerIsOnDialogue))
     console.log("pass all the 001 scene");
 
 }
