@@ -10,10 +10,10 @@ import LandingPage from './landingPage'
 const router = createBrowserRouter([
   {
     path: "/",
-    element: <Root />,
+    element: <LandingPage />,
   },{
-    path: "/landingPage",
-    element: <LandingPage />
+    path: "/game",
+    element: <Root />
   },
 ]);
 

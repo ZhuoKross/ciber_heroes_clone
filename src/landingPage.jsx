@@ -1,4 +1,5 @@
 import React from 'react'
+import { Link } from 'react-router-dom';
 import fondoLanding from "../public/assets/fondo_landing.jpg";
 import players from "../public/assets/players.png";
 import maps from "../public/assets/mapa_landing.png";
@@ -13,7 +14,7 @@ export default function landingPage() {
           <div className="flex items-center justify-between h-16">
             <div className="flex items-center">
               <div className="flex-shrink-0">
-                <span className="text-yellow-400 text-2xl font-pixel">Ciber Heroes</span>
+                <span className="text-yellow-400 text-2xl font-pixel">Cyber Heroes</span>
               </div>
             </div>
             <div className="hidden md:block">
@@ -24,9 +25,9 @@ export default function landingPage() {
                 <a href="#" className="text-gray-300 hover:text-white px-3 py-2 text-sm font-medium">
                   Ciber paz
                 </a>
-                <button className="bg-yellow-400 hover:bg-yellow-500 text-black px-4 py-2 rounded-md text-sm font-medium">
+                <Link to="/game" className="bg-yellow-400 hover:bg-yellow-500 text-black px-4 py-2 rounded-md text-sm font-medium">
                   Iniciemos
-                </button>
+                </Link>
                 
               </div>
             </div>
@@ -49,9 +50,9 @@ export default function landingPage() {
           <p className="text-slate-950 text-xl md:text-2xl max-w-2xl mx-auto">
             Bienvenido a este juego estilo pixel art en 2d donde podras aprender sobre ciber serguridad.⚔️💎
           </p>
-          <button className="bg-yellow-400 hover:bg-yellow-500 text-black px-8 py-6 rounded-lg text-lg font-pixel transform hover:scale-105 transition-transform duration-200">
-            Iniciemos!!
-          </button>
+          <p className="bg-yellow-400 w-64 hover:bg-yellow-500 text-black px-2 py-6 rounded-lg text-lg font-pixel transform hover:scale-105 ml-96 items-center transition-transform duration-200">
+           <Link to="/game">Iniciemos!!</Link> 
+          </p>
         </div>
       </div>
       <div className="min-h-screen bg-[#0a0b1a] flex items-center">
