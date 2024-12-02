@@ -8,6 +8,7 @@ import city2 from "../public/assets/cyberpunk-street.png";
 import robot from "../public/assets/robot.png";
 import { MapPin, Briefcase, Twitter, Github, Mail, Instagram } from 'lucide-react'
 
+
 export default function landingPage() {
   return (
     
@@ -17,15 +18,17 @@ export default function landingPage() {
           <div className="flex items-center justify-between h-16">
             <div className="flex items-center">
               <div className="flex-shrink-0">
-                <span className="text-yellow-400 text-2xl font-pixel">Cyber Heroes</span>
+                <span className="text-yellow-400 text-2xl font-pixel">CyberHeroes</span>
               </div>
             </div>
             <div className="hidden md:block">
               <div className="ml-10 flex items-center space-x-8">
-                <a href="https://ciberpaz.gov.co/portal/" className="text-gray-300 hover:text-white px-3 py-2 text-sm font-medium">
-                  Ciber paz
-                </a>
-                <Link to="/game" className="bg-yellow-400 hover:bg-yellow-500 text-black px-4 py-2 rounded-md text-sm font-medium">
+              <a 
+                href="https://ciberpaz.gov.co/portal/" target="_blank" rel="noopener noreferrer" className="text-gray-300 hover:text-white px-3 py-2 text-sm font-medium"
+              >
+                Ciber paz
+              </a>
+                <Link to="/game" className="bg-yellow-400 hover:bg-yellow-500 text-black px-4 py-2 rounded-md text-sm font-medium ">
                   Iniciemos
                 </Link>
               </div>
@@ -40,27 +43,30 @@ export default function landingPage() {
         className="relative min-h-screen flex items-center justify-center bg-cover bg-center bg-no-repeat"
         style={{ backgroundImage: `url(${robot})` }}
       >
-        <div className="text-center space-y-8 px-4">
+        <div className="text-center space-y-8 px-4 animate-float">
           <h1 className="text-6xl md:text-7xl font-pixel text-slate-950 leading-tight animate-pulse mb-80">
             ¡Bienvenido
             <br />
-            Cyber Heroes!
+            CyberHeroes!
           </h1> 
-          <Link to="/game" className="bg-yellow-400 w-64 hover:bg-yellow-500 text-black px-2 py-6 rounded-lg text-lg font-pixel transform hover:scale-105 m-[500px] items-center transition-transform duration-200">
-           ¡Iniciemos!
-          </Link>
+          <Link 
+          to="/game" 
+          className="bg-yellow-400 w-64 hover:bg-yellow-500 text-black px-2 py-6 rounded-lg text-lg font-pixel hover:scale-105 m-[500px]"
+        >
+          ¡Iniciemos!
+        </Link>
         </div>
       </div>
       <div className="min-h-screen bg-[#0a0b1a] flex items-center">
-      <div className="container mx-auto px-4">
+      <div className="container mx-auto px-4 animate-float">
         <div className="flex flex-col lg:flex-row items-center justify-between gap-12">
           {/* Left content */}
           <div className="max-w-xl ml-12">
             <h2 className="text-4xl md:text-5xl font-pixel text-white mb-6 leading-tight">
-              Conoce nuestro equipo.
+              ¡Conoce nuestro equipo!
             </h2>
             <p className="text-lg text-gray-300">
-              Este es nuestro equipo llamado SENA - CSF DevXperts, los cuales te podemos ayudar durante tu travesía por esta aventura donde conoceras sobre ciber seguridad de una forma interactiva y divertida.
+              Este es nuestro equipo llamado SENA - CSF DevXperts, los cuales te podemos ayudar durante tu travesía por esta aventura donde conoceras sobre ciberseguridad de una forma interactiva y divertida.
             </p>
           </div>
 
@@ -102,7 +108,7 @@ export default function landingPage() {
                     <div className="w-5 h-5 rounded-full bg-purple-100 flex items-center justify-center">
                       <span className="text-purple-600 text-xs">✓</span>
                     </div>
-                    <span className="text-sm">✅ <b>6 Desarrolladores</b> en total.</span>
+                    <span className="text-sm"><b>6 Desarrolladores</b> en total.</span>
                   </div>
                   <div className="flex items-center gap-2">
                     <div className="w-5 h-5 rounded-full bg-blue-400 flex items-center justify-center">
@@ -130,7 +136,7 @@ export default function landingPage() {
         </div>
       </div>
     </div>
-    <div className=" bg-[#0a0b1a] flex items-center">
+    <div className=" bg-[#0a0b1a] flex items-center animate-float">
       <div className="container mx-auto px-4">
         <div className="flex flex-col lg:flex-row items-center justify-between gap-12">
           {/* Left card */}
@@ -213,11 +219,11 @@ export default function landingPage() {
     <hr>
     </hr>
     </div>
-    <div className='text-center'>
+    <div className='text-center '>
         <span className='font-pixel text-4xl mt-32 text-white'>¿Qué te enseñaremos?</span>
     </div>
     <div>
-      <p className="text-white text-center text-xl mt-10 ">
+      <p className="text-white text-center text-xl mt-10">
         Nuestro equipo, Sena DevXperts, busca potenciar la conciencia y preparación de los usuarios frente <br />
         a amenazas cibernéticas a través de CyberHeroes, un videojuego educativo que facilita el <br />
         aprendizaje práctico y el desarrollo de habilidades en ciberseguridad de forma dinámica y <br />
@@ -226,25 +232,25 @@ export default function landingPage() {
       </p>
       <img 
         src="/assets/logoCyber.png"  
-        className="mx-auto w-96"
+        className="mx-auto w-96 animate-float"
       />
     </div>
     <div className='py-4 px-6'>
     <hr>
     </hr>
     </div>
-    <div className="min-h-screen bg-[#0a0b1a] flex items-center">
-      <div className="container mx-auto px-4">
+    <div className="min-h-screen bg-[#0a0b1a] flex items-center animate-float">
+      <div className="container mx-auto px-4 mb-36">
         <div className="flex flex-col lg:flex-row items-center justify-between gap-12">
           
           {/* Left content */}
           <div className="max-w-xl ml-12">
             <h2 className="text-4xl md:text-5xl font-pixel text-white mb-6 leading-tight">
-              ¿Que solucion proponemos?.
+              ¿Que solucion proponemos?
             </h2>
           </div>
           <div className="max-w-2xl mx-auto p-4">
-      <div className="relative">
+        <div className="relative">
 
         {/* Name bubble */}
         <div className="absolute -top-4 left-4 bg-purple-200 px-4 py-1 rounded-full border-2 border-purple-300">
@@ -285,19 +291,20 @@ export default function landingPage() {
       </div>
     </div>
     <div className=" bg-[#0a0b1a] flex items-center">
-      <div className="container mx-auto px-4">
+      <div className="container mx-auto px-4 animate-float">
         <div className="flex flex-col lg:flex-row items-center justify-between gap-16">
         <div className="relative px-16">
         {/* Name bubble */}
-        <div className="absolute -top-4  bg-cyan-100 px-4 py-1 rounded-full border-2 border-cyan-700">
+        <div className="absolute -top-4 bg-cyan-100 px-4 py-1 rounded-full border-2 border-cyan-700">
           <span className="font-mono text-cyan-700">Devs</span>
         </div>
         {/* Main card */}
-        <div className="bg-gradient-to-br from-cyan-100 to-cyan-100 p-6 pt-8 rounded-xl border-2 border-cyan-700 shadow-lg">
+        <div className="bg-gradient-to-br from-cyan-100 to-cyan-100 p-6 pt-8 rounded-xl border-2 border-cyan-700 shadow-lg  ">
           {/* Testimonial text */}
-          <p className="font-mono text-cyan-700 leading-relaxed mb-4 text-lg">
-          Para encontrar mas contenido sobre sensibilizacion de ciber seguridad y muchos temas mas puedes visitar la pagina oficial de ciber paz. <br/> <br/>o puedes dar clic aqui: <a href='https://ciberpaz.gov.co/portal/'>CiberPaz</a> </p>          
-          
+          <p  className="font-mono text-cyan-700 leading-relaxed mb-4 text-lg ">
+          Para encontrar mas contenido sobre sensibilizacion de ciber seguridad y muchos 
+          temas mas puedes visitar la pagina oficial de ciber paz. <br/> <br/>o puedes dar clic aqui: 
+          <a target="_blank" rel="noopener noreferrer" href='https://ciberpaz.gov.co/portal/'>CiberPaz</a> </p>          
           
           {/* Footer */}
           <div className="flex flex-wrap items-center gap-4 text-cyan-700">
@@ -335,7 +342,7 @@ export default function landingPage() {
           <p className="text-center text-gray-400 text-sm mb-8 mt-32 uppercase tracking-wide">
             Nos encuentras aqui
           </p>
-          <div className="flex justify-center text-white items-center space-x-12 opacity-75">
+          <div className="flex justify-center text-white items-center space-x-12 opacity-75 animate-bounce">
             {/* Replace with actual partner logos */}
             <Github className="h-8 w-8" />
             <Mail className="h-8 w-8" />
