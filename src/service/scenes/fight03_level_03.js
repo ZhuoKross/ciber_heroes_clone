@@ -78,7 +78,7 @@ export default async function fightThreeLevelThree(k, goBackScene) {
     const map = k.add([
         k.sprite("back_fight03_level03"),
         k.pos(0),
-        k.scale(1.7, 0.8)
+        k.scale(2, 1)
     ])
 
     k.add([
