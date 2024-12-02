@@ -125,25 +125,25 @@ export default async function figthTwo(k, backScene) {
     k.add([
         k.sprite("01_"),
         k.pos(0),
-        k.scale(2.9, 2.5),
+        k.scale(3.4, 2),
     ])
 
     k.add([
         k.sprite("02_"),
         k.pos(10, 100),
-        k.scale(2.9, 2.5),
+        k.scale(3.4, 2),
     ])
 
     k.add([
         k.sprite("03_"),
         k.pos(0),
-        k.scale(2.9, 2.5),
+        k.scale(3.4, 2),
     ])
 
     k.add([
         k.sprite("04_"),
         k.pos(0),
-        k.scale(2.9, 2.5),
+        k.scale(3.4, 2),
 
     ])
 
