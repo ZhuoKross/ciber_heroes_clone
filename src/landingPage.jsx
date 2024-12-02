@@ -283,11 +283,11 @@ export default function landingPage() {
         <div className="flex flex-col lg:flex-row items-center justify-between gap-16">
         <div className="relative px-16">
         {/* Name bubble */}
-        <div className="absolute -top-4  bg-cyan-100 px-4 py-1 rounded-full border-2 border-purple-300">
+        <div className="absolute -top-4  bg-cyan-100 px-4 py-1 rounded-full border-2 border-cyan-700">
           <span className="font-mono text-cyan-700">Devs</span>
         </div>
         {/* Main card */}
-        <div className="bg-gradient-to-br from-cyan-100 to-cyan-100 p-6 pt-8 rounded-xl border-2 border-purple-300 shadow-lg">
+        <div className="bg-gradient-to-br from-cyan-100 to-cyan-100 p-6 pt-8 rounded-xl border-2 border-cyan-700 shadow-lg">
           {/* Testimonial text */}
           <p className="font-mono text-cyan-700 leading-relaxed mb-4 text-lg">
           Para encontrar mas contenido sobre sensibilizacion de ciber seguridad y muchos temas mas puedes visitar la pagina oficial de ciber paz. <br/> <br/>o puedes dar clic aqui: <a href='#'>CiberPaz</a> </p>          
