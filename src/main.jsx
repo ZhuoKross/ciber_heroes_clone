@@ -4,12 +4,16 @@ import { RouterProvider } from 'react-router-dom'
 import Root from './components/root'
 import './index.css'
 import { Provider } from 'jotai'
+import LandingPage from './landingPage'
 
 
 const router = createBrowserRouter([
   {
     path: "/",
     element: <Root />,
+  },{
+    path: "/landingPage",
+    element: <LandingPage />
   },
 ]);
 
