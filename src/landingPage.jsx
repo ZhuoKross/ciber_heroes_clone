@@ -3,13 +3,16 @@ import { Link } from 'react-router-dom';
 import fondoLanding from "../public/assets/fondo_landing.jpg";
 import players from "../public/assets/players.png";
 import maps from "../public/assets/mapa_landing.png";
+import city from "../public/assets/city.png";
+import city2 from "../public/assets/cyberpunk-street.png";
+import robot from "../public/assets/robot.png";
 import { MapPin, Briefcase, Twitter, Github, Mail, Instagram } from 'lucide-react'
 
 export default function landingPage() {
   return (
-    <div className=" bg-[#0a0b1a]">
-      {/* Navigation */}
-      <nav className="bg-[#0a0b1a] border-b border-gray-800">
+    
+    <div className=" bg-[#0a0b1a]"> 
+      <nav className="bg-[#0a0b1a] border-gray-800 fixed top-0 left-0 right-0 mr-6 ml-6 mt-6 z-50 rounded-xl">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex items-center justify-between h-16">
             <div className="flex items-center">
@@ -19,40 +22,33 @@ export default function landingPage() {
             </div>
             <div className="hidden md:block">
               <div className="ml-10 flex items-center space-x-8">
-                <a href="#" className="text-gray-300 hover:text-white px-3 py-2 text-sm font-medium">
-                  comunidad
-                </a>
-                <a href="#" className="text-gray-300 hover:text-white px-3 py-2 text-sm font-medium">
+                <a href="https://ciberpaz.gov.co/portal/" className="text-gray-300 hover:text-white px-3 py-2 text-sm font-medium">
                   Ciber paz
                 </a>
                 <Link to="/game" className="bg-yellow-400 hover:bg-yellow-500 text-black px-4 py-2 rounded-md text-sm font-medium">
                   Iniciemos
                 </Link>
-                
               </div>
             </div>
           </div>
         </div>
       </nav>
-      
+    <div>
 
       {/* Hero Section */}
       <div 
         className="relative min-h-screen flex items-center justify-center bg-cover bg-center bg-no-repeat"
-        style={{ backgroundImage: `url(${fondoLanding})` }}
+        style={{ backgroundImage: `url(${robot})` }}
       >
         <div className="text-center space-y-8 px-4">
-          <h1 className="text-6xl md:text-7xl font-pixel text-slate-900 leading-tight animate-pulse">
-            ¡¡Bienvenido!!
+          <h1 className="text-6xl md:text-7xl font-pixel text-slate-950 leading-tight animate-pulse mb-80">
+            ¡Bienvenido
             <br />
-            Ciber Heroes
-          </h1>
-          <p className="text-slate-950 text-xl md:text-2xl max-w-2xl mx-auto">
-            Bienvenido a este juego estilo pixel art en 2d donde podras aprender sobre ciber serguridad.⚔️💎
-          </p>
-          <p className="bg-yellow-400 w-64 hover:bg-yellow-500 text-black px-2 py-6 rounded-lg text-lg font-pixel transform hover:scale-105 ml-96 items-center transition-transform duration-200">
-           <Link to="/game">Iniciemos!!</Link> 
-          </p>
+            Cyber Heroes!
+          </h1> 
+          <Link to="/game" className="bg-yellow-400 w-64 hover:bg-yellow-500 text-black px-2 py-6 rounded-lg text-lg font-pixel transform hover:scale-105 m-[500px] items-center transition-transform duration-200">
+           ¡Iniciemos!
+          </Link>
         </div>
       </div>
       <div className="min-h-screen bg-[#0a0b1a] flex items-center">
@@ -64,7 +60,7 @@ export default function landingPage() {
               Conoce nuestro equipo.
             </h2>
             <p className="text-lg text-gray-300">
-              Este es nuestro equipo llamado Sena DevXperts, los cuales te podemos ayudar durante tu travesía por esta aventura donde conoceras sobre ciber seguridad de una forma interactiva y divertida.
+              Este es nuestro equipo llamado SENA - CSF DevXperts, los cuales te podemos ayudar durante tu travesía por esta aventura donde conoceras sobre ciber seguridad de una forma interactiva y divertida.
             </p>
           </div>
 
@@ -218,16 +214,21 @@ export default function landingPage() {
     </hr>
     </div>
     <div className='text-center'>
-        <span className='font-pixel text-2xl mt-32 text-white'>¿Que te enseñaremos?</span>
+        <span className='font-pixel text-4xl mt-32 text-white'>¿Qué te enseñaremos?</span>
     </div>
     <div>
-        <p className='text-white text-center text-xl py-4 mb-32'>Nuestro equipo, Sena DevXperts, busca potenciar la conciencia y preparación de los usuarios frente <br/>
-        a amenazas cibernéticas a través de CyberHeroes, un videojuego educativo que facilita el <br/>
-        aprendizaje práctico y el desarrollo de habilidades en ciberseguridad de forma dinámica y<br/>
-         envolvente. Este proyecto, alineado con la estrategia de Ciber Paz, promueve una cultura digital <br/>
-         segura, ética y responsable, fortaleciendo el conocimiento y la protección en línea.</p>
+      <p className="text-white text-center text-xl mt-10 ">
+        Nuestro equipo, Sena DevXperts, busca potenciar la conciencia y preparación de los usuarios frente <br />
+        a amenazas cibernéticas a través de CyberHeroes, un videojuego educativo que facilita el <br />
+        aprendizaje práctico y el desarrollo de habilidades en ciberseguridad de forma dinámica y <br />
+        envolvente. Este proyecto, alineado con la estrategia de Ciber Paz, promueve una cultura digital <br />
+        segura, ética y responsable, fortaleciendo el conocimiento y la protección en línea.
+      </p>
+      <img 
+        src="/assets/logoCyber.png"  
+        className="mx-auto w-96"
+      />
     </div>
-    
     <div className='py-4 px-6'>
     <hr>
     </hr>
@@ -235,6 +236,7 @@ export default function landingPage() {
     <div className="min-h-screen bg-[#0a0b1a] flex items-center">
       <div className="container mx-auto px-4">
         <div className="flex flex-col lg:flex-row items-center justify-between gap-12">
+          
           {/* Left content */}
           <div className="max-w-xl ml-12">
             <h2 className="text-4xl md:text-5xl font-pixel text-white mb-6 leading-tight">
@@ -243,12 +245,15 @@ export default function landingPage() {
           </div>
           <div className="max-w-2xl mx-auto p-4">
       <div className="relative">
+
         {/* Name bubble */}
         <div className="absolute -top-4 left-4 bg-purple-200 px-4 py-1 rounded-full border-2 border-purple-300">
           <span className="font-mono text-purple-900">Devs</span>
         </div>
+
         {/* Main card */}
         <div className="bg-gradient-to-br from-purple-100 to-purple-200 p-6 pt-8 rounded-xl border-2 border-purple-300 shadow-lg">
+
           {/* Testimonial text */}
           <p className="font-mono text-purple-900 leading-relaxed mb-4 text-lg">
           CyberHeroes es un videojuego educativo diseñado para enseñar ciberseguridad de manera divertida y accesible para todos. Ambientado en un mundo de estilo pixel art, los jugadores asumen el rol de un Héroe que debe enfrentarse a monstruos representativos de diversas amenazas digitales que les harán preguntas sobre ciberseguridad en linea. </p>
@@ -291,7 +296,9 @@ export default function landingPage() {
         <div className="bg-gradient-to-br from-cyan-100 to-cyan-100 p-6 pt-8 rounded-xl border-2 border-cyan-700 shadow-lg">
           {/* Testimonial text */}
           <p className="font-mono text-cyan-700 leading-relaxed mb-4 text-lg">
-          Para encontrar mas contenido sobre sensibilizacion de ciber seguridad y muchos temas mas puedes visitar la pagina oficial de ciber paz. <br/> <br/>o puedes dar clic aqui: <a href='#'>CiberPaz</a> </p>          
+          Para encontrar mas contenido sobre sensibilizacion de ciber seguridad y muchos temas mas puedes visitar la pagina oficial de ciber paz. <br/> <br/>o puedes dar clic aqui: <a href='https://ciberpaz.gov.co/portal/'>CiberPaz</a> </p>          
+          
+          
           {/* Footer */}
           <div className="flex flex-wrap items-center gap-4 text-cyan-700">
             <a 
@@ -336,6 +343,7 @@ export default function landingPage() {
           </div>
         </div>
       </div>
+    </div>
     </div>
   )
 }
