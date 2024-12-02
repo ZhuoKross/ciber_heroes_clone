@@ -117,8 +117,7 @@ export default async function figthOne(k, backScene) {
 
     const background = k.add([
         k.sprite("background_level_02"),
-        k.scale(1, 0.9),
-        k.pos(-150, 0)
+        k.pos(0, 0),
     ])
 
 

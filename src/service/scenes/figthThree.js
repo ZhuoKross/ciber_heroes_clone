@@ -118,7 +118,7 @@ export default async function figthThree(k, backScene) {
 
     const background = k.add ([
         k.sprite("background_figthThree"),
-        k.scale(4.2, 4.2),
+        k.scale(5, 5),
         k.pos(0, 0)
     ])
    
