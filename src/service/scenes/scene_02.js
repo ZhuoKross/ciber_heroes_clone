@@ -94,12 +94,12 @@ export default async function scene02(
 
                 if (obj.name === "passage") {
                     k.onCollide("player", obj.name, () => {
-                        store.set(playerIsOnDialogue, true);
+                        store.set(playerIsOnDialogue, false);
                         if (enemiesCount.length >= 6) {
                             changeScene();
                         } else {
                             Notification(k, player, "No Puedes Pasar al Siguiente Nivel, Aún te quedan enemigos por derrotar :/", "block", ()=> {return});
-
+                            
                         }
 
                     })

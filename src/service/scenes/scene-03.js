@@ -80,13 +80,14 @@ export default async function (
 
 
                 if (obj.name === "passage") {
-                    console.log("enter")
+                    
                     k.onCollide("player", obj.name, () => {
-                        store.set(playerIsOnDialogue, true);
+                        store.set(playerIsOnDialogue, false);
                         if (enemiesCount.length === 9 && store.get(counterSuccessNotifications) === 3) {
                             goToNextScene();
                         } else {
                             Notification(k, player, "No Puedes Pasar al Nivel anterior, Aún te quedan enemigos por derrotar. Podrás pasar una vez que los derrotes a todos!", "block", ()=> {return});
+                            
                         }
 
                     })
@@ -224,6 +225,11 @@ export default async function (
     player.play("idle");
 
 
+
+    // test function 
+    k.onKeyPress("u", () => {
+        goToNextScene();
+    })
 
     k.onUpdate(() => {
         k.camPos(player.pos.x, player.pos.y + 100);
