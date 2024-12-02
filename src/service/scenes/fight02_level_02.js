@@ -125,7 +125,7 @@ export default async function fightTwoLevelTwo(k, goBackScene) {
     k.add([
         k.sprite("background_figth_02_Three"),
         k.pos(0),
-        k.scale(3.2, 2.9),
+        k.scale(3.8, 6.4),
     ])
 
     const player = k.make([

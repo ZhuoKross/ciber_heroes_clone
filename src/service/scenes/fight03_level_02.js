@@ -148,22 +148,19 @@ export default async function fightThreeLevelTwo(k, goBackScene){
     k.add([
         k.sprite("02_back_palm_orange_sunset"),
         k.pos(0),
-        k.scale(6.65 ,5.5),
+        k.scale(8 , 12),
     ])
 
     k.add([
         k.sprite("03_back_palm_orange_sunset"),
         k.pos(0),
-        k.scale(6.65, 5.5),
+        k.scale(8, 12),
     ])
 
     k.add([
         k.sprite("04_back_palm_orange_sunset"),
         k.pos(0),
-        k.scale(5, 4.6),
-        k.area({
-            shape: new k.Rect(k.vec2(0, 130 ), canvasWidth, 10)
-        })
+        k.scale(8, 12),
     ])
     
     const enemies_02_two = k.add([
