@@ -1,6 +1,8 @@
 import dialogFigth from "../dialogFigth";
 import { store, enemiesDefeated, playerIsOnDialogue } from "../store";
 import Notification from "../../utils/notification";
+import { GoogleGenerativeAI } from "@google/generative-ai";
+
 
 
 
@@ -18,7 +20,65 @@ export default async function fightTwoLevelThree(k, goBackScene) {
 
 
 
-    function introDialogue() {
+    // Inicializar Gemini con tu API key
+    const genAI = new GoogleGenerativeAI(import.meta.env.VITE_GEMINI_API_KEY);
+
+    // Función para procesar y limpiar la respuesta
+    function cleanAndFilterResponse(text) {
+       // Eliminar el prompt si está presente
+       const cleanText = text.replace(/^.?Reformula.?:\s*"/i, '').replace(/"$/, '').trim();
+       
+       // Dividir en líneas y limpiar
+       const lines = cleanText.split(/[\n.!?]+/)
+           .map(line => line.trim())
+           .filter(line => line.length > 0);
+       
+       // Seleccionar la versión más corta y clara
+       const processedLines = lines.filter(line => 
+           line.length >= 10 && 
+           line.length <= 50 && 
+           line.split(' ').length >= 3 &&
+           line.split(' ').length <= 10
+       );
+
+       // Devolver la primera línea válida o la línea original si no hay coincidencias
+       return processedLines.length > 0 
+           ? processedLines[0] + '?' 
+           : cleanText.split(/[\n.!?]+/)[0] + '?';
+   }
+
+   // Función de transformación de preguntas con Gemini
+   async function transformQuestionWithGemini(originalQuestion) {
+       try {
+           const model = genAI.getGenerativeModel({ 
+               model: "gemini-pro",
+               generationConfig: {
+                   maxOutputTokens: 40,  // Limitar la longitud de salida
+                   temperature: 0.7,     // Añadir algo de creatividad
+               }
+           });
+           
+           const prompt = `Reformula esta pregunta sobre ciberseguridad de manera concisa: "${originalQuestion}"`;
+
+           const result = await model.generateContent(prompt);
+           const response = await result.response;
+           let text = response.text();
+
+           // Limpiar y procesar la respuesta
+           const transformedQuestion = cleanAndFilterResponse(text);
+
+           return transformedQuestion || originalQuestion;
+       } catch (error) {
+           console.error("Error en transformación de Gemini:", error);
+           return originalQuestion;
+       }
+   }
+   
+
+
+
+
+    async function introDialogue() {
 
 
 
@@ -28,10 +88,13 @@ export default async function fightTwoLevelThree(k, goBackScene) {
         console.log("the player is in dialogue? ", store.get(playerIsOnDialogue));
         
         const resp = "d. Un tipo de estafa donde se engaña a la persona para que revele información personal";
+        const originalQuestion = "¿Que es phising?";
+
+        const transformedQuestion = await transformQuestionWithGemini(originalQuestion);
         
         dialogFigth(
             k,
-            "¿Que es phising?",
+            transformedQuestion,
             ["a. Una técnica para crear contraseñas seguras", "b. Un sistema de cifrado de datos", "c. Un software que ayuda a proteger la información", "d. Un tipo de estafa donde se engaña a la persona para que revele información personal"],
             k.vec2(canvasWidth / 2, canvasHeight / 2),
             (selectedOption) => {

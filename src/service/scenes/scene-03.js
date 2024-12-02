@@ -83,7 +83,7 @@ export default async function (
 
                     k.onCollide("player", obj.name, () => {
                         store.set(playerIsOnDialogue, false);
-                        if (enemiesCount.length === 9 && store.get(counterSuccessNotifications) === 3) {
+                        if (enemiesCount.length >= 9 && store.get(counterSuccessNotifications) === 3) {
                             goToNextScene();
                         } else {
                             Notification(
