@@ -1,3 +1,5 @@
+import { playerIsOnDialogue, store } from "./store";
+
 export default async function dialogFigth(k, text, options = [], position = k.vec2(200, 200), onSubmit) {
     // Contenedor del diálogo
     const dialogContainer = await k.add([
@@ -86,6 +88,7 @@ export default async function dialogFigth(k, text, options = [], position = k.ve
     // Evento de clic en "Enviar"
     submitButton.onClick(() => {
         if (selectedButton) {
+            store.set(playerIsOnDialogue, false);   
             const selectedOption = options[optionButtons.indexOf(selectedButton)];
             k.destroy(dialogContainer); // Cierra el diálogo
             onSubmit(selectedOption); // Enviar la respuesta seleccionada

@@ -1,4 +1,12 @@
-import { currentLevelAtom, curretPositionsPlayerAtom, enemiesDefeated, store } from "../store";
+import {
+    currentLevelAtom,
+    curretPositionsPlayerAtom,
+    enemiesDefeated,
+    store,
+    counterSuccessNotifications,
+    playerIsOnDialogue,
+    hasNotificationDisplayed03
+} from "../store";
 import dialog from "../dialog";
 import Notification from "../../utils/notification";
 
@@ -72,14 +80,21 @@ export default async function (
 
 
                 if (obj.name === "passage") {
-                    console.log("enter")
+
                     k.onCollide("player", obj.name, () => {
-                        if (enemiesCount.length === 9) {
+                        store.set(playerIsOnDialogue, false);
+                        if (enemiesCount.length === 9 && store.get(counterSuccessNotifications) === 3) {
                             goToNextScene();
-                        }else{
-                            Notification(k, player);
+                        } else {
+                            Notification(
+                                k,
+                                player,
+                                k.vec2(player.pos.x, player.pos.y + 100),
+                                "No Puedes Pasar al Nivel anterior, Aún te quedan enemigos por derrotar. Podrás pasar una vez que los derrotes a todos!",
+                                "block", () => { return });
+
                         }
-                        
+
                     })
                 }
             }
@@ -96,63 +111,66 @@ export default async function (
 
                 if (obj.name === "fight_01") {
                     k.onCollide("player", obj.name, () => {
-                       const PreguntaUno = "No todas las redes Wi-Fi públicas son confiables. Una señal clave de que una red puede no ser segura es que no requiere contraseña para conectarse. Esto significa que la red probablemente no utiliza cifrado para proteger los datos que se transmiten, lo que deja tu información personal vulnerable a ser interceptada."
-                            dialog(
-                                k,
-                                PreguntaUno, // Texto del diálogo
-                                k.vec2(k.camPos()), // Posición basada en la cámara
-                                () => {
-                                    player.isOnDialogue = false;
-                                    console.log("the player isn't in dialogue");
-                                },
-                                () => {
-                                    firstFightLevelThree(); // Ir a la siguiente escena
-                                }
-                            );                        
+                        store.set(playerIsOnDialogue, true);
+                        const PreguntaUno = "No todas las redes Wi-Fi públicas son confiables. Una señal clave de que una red puede no ser segura es que no requiere contraseña para conectarse. Esto significa que la red probablemente no utiliza cifrado para proteger los datos que se transmiten, lo que deja tu información personal vulnerable a ser interceptada."
+                        dialog(
+                            k,
+                            PreguntaUno, // Texto del diálogo
+                            k.vec2(k.camPos()), // Posición basada en la cámara
+                            () => {
+                                store.set(playerIsOnDialogue, false);
+                                console.log("the player isn't in dialogue");
+                            },
+                            () => {
+                                firstFightLevelThree(); // Ir a la siguiente escena
+                            }
+                        );
                     })
                 }
-    
-                if(obj.name === "fight_02"){
+
+                if (obj.name === "fight_02") {
                     k.onCollide("player", obj.name, () => {
+                        store.set(playerIsOnDialogue, true);
                         const PreguntaUno = "El phishing es una técnica de estafa en la que los ciberdelincuentes engañan a las personas para que revelen información personal, como contraseñas, datos bancarios o números de tarjetas de crédito. Normalmente, esto se logra mediante correos electrónicos, mensajes de texto o sitios web falsos que imitan a entidades."
                         dialog(
                             k,
                             PreguntaUno, // Texto del diálogo
                             k.vec2(k.camPos()), // Posición basada en la cámara
                             () => {
-                                player.isOnDialogue = false;
+                                store.set(playerIsOnDialogue, false);
                                 console.log("the player isn't in dialogue");
                             },
                             () => {
-                              secondFightLevelThree();   // Ir a la siguiente escena
+                                secondFightLevelThree();   // Ir a la siguiente escena
                             }
-                        );     
-                        
-                        
+                        );
+
+
                     })
                 }
 
-                if(obj.name === "fight_03"){
+                if (obj.name === "fight_03") {
                     k.onCollide("player", obj.name, () => {
+                        store.set(playerIsOnDialogue, true);
                         const PreguntaUno = "El malware (software malicioso) es cualquier programa o archivo diseñado para dañar, interrumpir o robar información de un dispositivo. Ejemplos comunes de malware incluyen virus, gusanos, troyanos, spyware y ransomware."
                         dialog(
                             k,
                             PreguntaUno, // Texto del diálogo
                             k.vec2(k.camPos()), // Posición basada en la cámara
                             () => {
-                                player.isOnDialogue = false;
+                                store.set(playerIsOnDialogue, false);
                                 console.log("the player isn't in dialogue");
                             },
                             () => {
-                             thirdFightLevelOThree();    // Ir a la siguiente escena
+                                thirdFightLevelOThree();    // Ir a la siguiente escena
                             }
-                        );     
-                       
+                        );
+
                     })
                 }
             }
 
-            
+
         }
     }
 
@@ -186,6 +204,33 @@ export default async function (
     }
 
 
+    if (!store.get(hasNotificationDisplayed03)) {
+        // CALLING THE FUNCTION OF THE NOTIFICATION FOR CREATE THE INTRO DIALOGUE OF THE LEVEL 02
+        Notification(
+            k,
+            player,
+            k.vec2(player.pos.x, player.pos.y + 100),
+            "¡BIENVENIDO AL NIVEL 3! Este es el último nivel, encontrarás enemigos más fuertes en este nivel, Encuentralos!",
+            "intro",
+            () => { store.set(hasNotificationDisplayed03, true) }
+        );
+    }
+
+
+    // FOR THE ANIMATION OF THE DIALOGUE WHEN THE PLAYER COMPLETE THE LEVEL
+    if (store.get(enemiesDefeated).length >= 9 &&
+        store.get(counterSuccessNotifications) === 2) {
+
+        Notification(
+            k,
+            player,
+            k.vec2(player.pos.x, player.pos.y + 100),
+            "¡FELICIDADES! Has Derrotado a todos los Enemigos y completado el nivel 03",
+            "success",
+            () => { return; });
+        store.set(counterSuccessNotifications, 3);
+    }
+
 
 
 
@@ -193,47 +238,58 @@ export default async function (
 
 
 
+    // test function 
+    k.onKeyPress("u", () => {
+        goToNextScene();
+    })
+
     k.onUpdate(() => {
         k.camPos(player.pos.x, player.pos.y + 100);
     })
 
     k.onKeyDown("a", () => {
-        player.move(-SPEED, 0)
-        if (player.getCurAnim().name !== "walk-left") {
-            //console.log("name of the current animation:", player.getCurAnim().name)
-            player.play("walk-left")
+        if (!store.get(playerIsOnDialogue)) {
+            player.move(-SPEED, 0)
+            if (player.getCurAnim().name !== "walk-left") {
+                //console.log("name of the current animation:", player.getCurAnim().name)
+                player.play("walk-left")
+            }
         }
     })
 
     k.onKeyDown("w", () => {
-        player.move(0, -SPEED)
 
-        if (player.getCurAnim().name !== "walk-up") {
-            //console.log("name of the current animation:", player.getCurAnim().name)
-            player.play("walk-up")
+        if (!store.get(playerIsOnDialogue)) {
+            player.move(0, -SPEED)
+            if (player.getCurAnim().name !== "walk-up") {
+                //console.log("name of the current animation:", player.getCurAnim().name)
+                player.play("walk-up")
+            }
         }
     });
 
     k.onKeyDown("s", () => {
-        player.move(0, SPEED)
 
-        if (player.getCurAnim().name !== "walk-down") {
-            //console.log("name of the current animation:", player.getCurAnim().name)
-            player.play("walk-down")
+        if (!store.get(playerIsOnDialogue)) {
+            player.move(0, SPEED)
+            if (player.getCurAnim().name !== "walk-down") {
+                //console.log("name of the current animation:", player.getCurAnim().name)
+                player.play("walk-down")
+            }
         }
     })
 
     k.onKeyDown("d", () => {
-        player.move(SPEED, 0)
 
-        if (player.getCurAnim().name !== "walk-right") {
-            //console.log("name of the current animation:", player.getCurAnim().name)
-            player.play("walk-right")
+        if (!store.get(playerIsOnDialogue)) {
+            player.move(SPEED, 0)
+
+            if (player.getCurAnim().name !== "walk-right") {
+                //console.log("name of the current animation:", player.getCurAnim().name)
+                player.play("walk-right")
+            }
         }
     })
-
-
-
 
     const keys = ["w", "a", "s", "d"];
 

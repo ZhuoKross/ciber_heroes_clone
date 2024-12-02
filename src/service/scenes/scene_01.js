@@ -5,7 +5,9 @@ import {
     curretPositionsPlayerAtom,
     isMusicPlaying,
     playerIsOnDialogue,
-    enemiesDefeated
+    enemiesDefeated,
+    hasNotificationDisplayed,
+    counterSuccessNotifications
 } from "../store";
 import MusicControls from "../../utils/utils";
 import Notification from "../../utils/notification";
@@ -61,10 +63,11 @@ export default async function scene01(
     ])
 
     console.log("data of positions", allPositions);
+    console.log("The player is in dialog 01: ", store.get(playerIsOnDialogue))
 
     player.currentPosition = store.get(curretPositionsPlayerAtom);
     player.currentLevel = store.get(currentLevelAtom);
-    
+
 
     //player.currentPosition = store.get(curretPositionsPlayerAtom);
     //player.currentLevel = store.get(currentLevelAtom);
@@ -77,6 +80,8 @@ export default async function scene01(
     const SPEED = 250;
 
     function introDialogue() {
+
+        store.set(playerIsOnDialogue, true);
 
         dialog(k,
             "Tu misión comienza aqui, aprendiendo de los errores básicos de ciberseguridad. Tendrás que demostrar que sabes cómo proteger tu información personal. Cada respuesta correcta te acerca a la victoria. ¡Prepárate para proteger tus datos y vencer en tu primer combate!", // Texto del diálogo
@@ -92,10 +97,10 @@ export default async function scene01(
                 }
 
                 store.set(playerIsOnDialogue, false);
+                store.set(hasNotificationDisplayed, true);
                 console.log("the player isn't in dialogue? ", store.get(playerIsOnDialogue));
             },
             () => {
-
 
 
                 if (store.get(isMusicPlaying) === false) {
@@ -108,6 +113,7 @@ export default async function scene01(
                 }
 
                 store.set(playerIsOnDialogue, false);
+                store.set(hasNotificationDisplayed, true);
                 console.log("the player is in dialogue? ", store.get(playerIsOnDialogue));
             });
     }
@@ -115,15 +121,10 @@ export default async function scene01(
 
 
 
+
+
     for (const layer of levelData.layers) {
 
-        if (layer.name === "positions") {
-            for (const obj of layer.objects) {
-                if (obj.name === "transition_positions") {
-                    //var dataPositionTransition = obj;
-                }
-            }
-        }
 
         if (layer.name === "limits") {
             for (const obj of layer.objects) {
@@ -140,12 +141,18 @@ export default async function scene01(
                     k.onCollide("player", obj.name, () => {
 
                         console.log("count of enemies: ", enemiesCount.length);
-                        if (store.get(enemiesDefeated).length === 3) {
+                        if (store.get(enemiesDefeated).length >= 3) {
 
                             changeScene();
 
                         } else {
-                            Notification(k, player);
+                            Notification(
+                                k,
+                                player,
+                                k.vec2(player.pos.x, player.pos.y + 100),
+                                "No Puedes Pasar al Siguiente Nivel, Aún te quedan enemigos por derrotar :/",
+                                "block",
+                                () => { return });
 
                         }
                         //console.log("Enemies defeated: ", player.enemiesDefeated);
@@ -167,15 +174,15 @@ export default async function scene01(
                 if (obj.name === "fight_01") {
                     k.onCollide("player", obj.name, () => {
                         //console.log("collision with object: ", obj.name);
-
+                        store.set(playerIsOnDialogue, true);
                         const PreguntaUno = "Mantener tus contraseñas seguras es clave para proteger tu información personal y cuentas en línea. Cambiar tus contraseñas regularmente, especialmente cada 3 a 6 meses, ayuda a minimizar riesgos como accesos no autorizados. Además, es importante usar contraseñas únicas para cada cuenta y evitar compartirlas."
                         dialog(
                             k,
                             PreguntaUno, // Texto del diálogo
                             k.vec2(k.camPos()), // Posición basada en la cámara
                             () => {
-                                player.isOnDialogue = false;
-                                console.log("the player isn't in dialogue");
+                                store.set(playerIsOnDialogue, false);
+                                console.log("the player is in dialogue?", store.get(playerIsOnDialogue));
                             },
                             () => {
 
@@ -189,12 +196,13 @@ export default async function scene01(
                 if (obj.name === "fight_02") {
                     k.onCollide("player", obj.name, () => {
                         const PreguntaUno = "En el mundo digital, tu información personal es valiosa. Para mantenerla segura, es importante usar contraseñas fuertes y difíciles de adivinar, combinando letras, números y símbolos, Cambiar tus contraseñas regularmente es una buena práctica, incluso si no crees que han sido descubiertas."
+                        store.set(playerIsOnDialogue, true);
                         dialog(
                             k,
                             PreguntaUno, // Texto del diálogo
                             k.vec2(k.camPos()), // Posición basada en la cámara
                             () => {
-                                player.isOnDialogue = false;
+                                store.set(playerIsOnDialogue, false);
                                 console.log("the player isn't in dialogue");
                             },
                             () => {
@@ -207,12 +215,13 @@ export default async function scene01(
                 if (obj.name === "fight_03") {
                     k.onCollide("player", obj.name, () => {
                         const PreguntaUno = "Los ciberdelincuentes suelen utilizar enlaces falsos para engañar y robar información personal o instalar software malicioso. Una señal común de un enlace sospechoso es que contenga errores de ortografía, caracteres extraños o un dominio que no coincide con la organización legítima (Ej: “amaz0n.com” en lugar de “amazon.com”). "
+                        store.set(playerIsOnDialogue, true);
                         dialog(
                             k,
                             PreguntaUno, // Texto del diálogo
                             k.vec2(k.camPos()), // Posición basada en la cámara
                             () => {
-                                player.isOnDialogue = false;
+                                store.set(playerIsOnDialogue, false);
                                 console.log("the player isn't in dialogue");
                             },
                             () => {
@@ -266,14 +275,29 @@ export default async function scene01(
     }
 
 
-    introDialogue();
+    if (!store.get(hasNotificationDisplayed)) {
+
+        introDialogue();
+
+
+    }
+
+
+    // FOR THE ANIMATION OF THE DIALOGUE WHEN THE PLAYER COMPLETE THE LEVEL
+    if (store.get(enemiesDefeated).length >= 3 &&
+        store.get(counterSuccessNotifications) === 0) {
+
+        Notification(k, player, k.vec2(player.pos.x, player.pos.y + 100), "¡FELICIDADES! Has completado el nivel 01", "success", () => { return; });
+        store.set(counterSuccessNotifications, 1);
+    }
+
 
     player.play("idle");
 
     // test function 
-    // k.onKeyPress("u", () => {
-    //     changeScene();
-    // })
+    k.onKeyPress("u", () => {
+        changeScene();
+    })
 
 
 
@@ -337,6 +361,7 @@ export default async function scene01(
     });
 
     console.log("enemies Defeated: ", store.get(enemiesDefeated));
+    console.log("The player is in dialog: ", store.get(playerIsOnDialogue))
     console.log("pass all the 001 scene");
 
 }

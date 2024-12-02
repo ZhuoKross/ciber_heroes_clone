@@ -354,6 +354,22 @@ export default async function main() {
 
         await k.loadSound("level_01_back_boss_fight", "assets/the-wizard-loop2.wav");
 
+
+        // FOR THE EXPLOSIONS ANIMATIONS 
+        await k.loadSprite("explosion_01", "assets/spritesheet_explosion_06.png",{
+            sliceX: 7,
+            sliceY: 1,
+            anims: {
+                "explosion": {
+                    from: 0,
+                    to: 6,
+                    loop:false
+                }
+            }
+        });
+
+        
+
     } catch (error) {
         console.log("Error uploading sprites and assets: ", error);
     }

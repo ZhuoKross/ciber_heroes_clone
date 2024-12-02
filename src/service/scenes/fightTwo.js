@@ -1,5 +1,7 @@
 import dialogFigth from "../dialogFigth";
 import { enemiesDefeated, playerIsOnDialogue, store } from "../store";
+import Notification from "../../utils/notification";
+
 
 export default async function figthTwo(k, backScene) {
 
@@ -22,15 +24,22 @@ export default async function figthTwo(k, backScene) {
                 console.log("Opción seleccionada:", selectedOption);
                 if (selectedOption === resp) {
 
-                    alert("Felicitaciones, Respondiste bien.")
+                    Notification(
+                        k,
+                        player,
+                        k.vec2(canvasWidth / 2, canvasHeight / 2),
+                        "¡Muy Bien! Has respondido Correctamente",
+                        "win",
+                        () => { backScene(); }
+                    );
 
                     store.set(enemiesDefeated, [...enemiesCount, 1])
+                    
 
-                    backScene();
                 } else {
 
                     alert("Respuesta Incorrecta, Intenta de nuevo");
-
+                    
                     backScene();
                 }
             },
