@@ -5,6 +5,7 @@ import Root from './components/root'
 import './index.css'
 import { Provider } from 'jotai'
 import LandingPage from './landingPage'
+import Game from './components/Game'
 
 
 const router = createBrowserRouter([
@@ -13,7 +14,7 @@ const router = createBrowserRouter([
     element: <LandingPage />,
   },{
     path: "/game",
-    element: <Root />
+    element: <Game />
   },
 ]);
 
