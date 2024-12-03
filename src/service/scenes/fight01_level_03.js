@@ -1,6 +1,7 @@
 import dialogFigth from "../dialogFigth";
 import { enemiesDefeated, playerIsOnDialogue, store } from "../store";
 import Notification from "../../utils/notification";
+import { GoogleGenerativeAI } from "@google/generative-ai";
 
 
 
@@ -20,7 +21,64 @@ export default async function fightOneLevelThree(k, goBackScene){
     const enemiesCount = store.get(enemiesDefeated);
 
 
-    function introDialogue() {
+      
+    // Inicializar Gemini con tu API key
+    const genAI = new GoogleGenerativeAI(import.meta.env.VITE_GEMINI_API_KEY);
+
+    // Función para procesar y limpiar la respuesta
+    function cleanAndFilterResponse(text) {
+       // Eliminar el prompt si está presente
+       const cleanText = text.replace(/^.?Reformula.?:\s*"/i, '').replace(/"$/, '').trim();
+       
+       // Dividir en líneas y limpiar
+       const lines = cleanText.split(/[\n.!?]+/)
+           .map(line => line.trim())
+           .filter(line => line.length > 0);
+       
+       // Seleccionar la versión más corta y clara
+       const processedLines = lines.filter(line => 
+           line.length >= 10 && 
+           line.length <= 50 && 
+           line.split(' ').length >= 3 &&
+           line.split(' ').length <= 10
+       );
+
+       // Devolver la primera línea válida o la línea original si no hay coincidencias
+       return processedLines.length > 0 
+           ? processedLines[0] + '?' 
+           : cleanText.split(/[\n.!?]+/)[0] + '?';
+   }
+
+   // Función de transformación de preguntas con Gemini
+   async function transformQuestionWithGemini(originalQuestion) {
+       try {
+           const model = genAI.getGenerativeModel({ 
+               model: "gemini-pro",
+               generationConfig: {
+                   maxOutputTokens: 40,  // Limitar la longitud de salida
+                   temperature: 0.7,     // Añadir algo de creatividad
+               }
+           });
+           
+           const prompt = `Reformula esta pregunta sobre ciberseguridad de manera concisa: "${originalQuestion}"`;
+
+           const result = await model.generateContent(prompt);
+           const response = await result.response;
+           let text = response.text();
+
+           // Limpiar y procesar la respuesta
+           const transformedQuestion = cleanAndFilterResponse(text);
+
+           return transformedQuestion || originalQuestion;
+       } catch (error) {
+           console.error("Error en transformación de Gemini:", error);
+           return originalQuestion;
+       }
+   }
+   
+
+
+    async function introDialogue() {
         
         
 
@@ -29,10 +87,13 @@ export default async function fightOneLevelThree(k, goBackScene){
         console.log("the player is in dialogue? ", store.get(playerIsOnDialogue));
 
         const resp = "c. No requiere contraseña para conectarse";
+        const originalQuestion = "¿Cuál es una señal de que una red Wi-Fi pública puede no ser segura?";
+
+        const transformedQuestion = await transformQuestionWithGemini(originalQuestion);
         
         dialogFigth(
             k,
-            "¿Cuál es una señal de que una red Wi-Fi pública puede no ser segura?",
+            transformedQuestion,
             ["a. Tiene una señal fuerte", "b. Es de un lugar popular", "c. No requiere contraseña para conectarse", "d.	Es accesible en varios dispositivos"],
             k.vec2(canvasWidth / 2, canvasHeight / 2),
             (selectedOption) => {
@@ -50,13 +111,17 @@ export default async function fightOneLevelThree(k, goBackScene){
                     store.set(enemiesDefeated, [...enemiesCount, 1])
                     
                     
-                    k.setGravity(null)
+                    
                     
                 }else{
-                    alert("Respuesta Incorrecta, Intenta de nuevo");
-                    store.set(playerIsOnDialogue, false);
-
-                    goBackScene();
+                    Notification(
+                        k,
+                        player,
+                        k.vec2(canvasWidth / 2, canvasHeight / 2),
+                        "Respuesta Incorrecta, Sigue intentando!",
+                        "lose",
+                        () => { goBackScene(); }
+                    );
                 }
             },
             () => {
@@ -69,8 +134,8 @@ export default async function fightOneLevelThree(k, goBackScene){
 
     const map = k.add([
         k.sprite("background_figthTwo"),
-        k.pos(0, -320),
-        k.scale(1.7, 1.5),
+        k.pos(0, -1050),
+        k.scale(2, 2.2),
     ])
 
     
@@ -79,13 +144,13 @@ export default async function fightOneLevelThree(k, goBackScene){
         k.pos(0, canvasHeight - 50),
         k.area(),
         k.body({ isStatic: true }),
-        k.color(k.Color.fromHex(("#020232")))
+        k.color(k.Color.fromHex(("#080e15")))
     ]);
     
 
     const boss01 = k.add([
         k.sprite("first_boss_level_03"),
-        k.pos(200, canvasHeight - 50),
+        k.pos(200, canvasHeight - 240),
         k.body(),
         k.area({shape: new k.Rect(k.vec2(0), 25, 40)}),
         k.anchor("center"),
@@ -101,7 +166,7 @@ export default async function fightOneLevelThree(k, goBackScene){
         }),
         k.body(),
         k.anchor("center"),
-        k.pos(canvasWidth - 130, canvasHeight - 50),
+        k.pos(canvasWidth - 130, canvasHeight - 140),
         k.scale(6),
         {
             speed: 200,

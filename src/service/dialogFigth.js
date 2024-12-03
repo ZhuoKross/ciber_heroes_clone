@@ -29,6 +29,9 @@ export default async function dialogFigth(k, text, options = [], position = k.ve
     // Variable para guardar la opción seleccionada
     let selectedButton = null;
 
+    console.log("options of question: ", options);
+
+
     // Crear botones de opciones
     const optionButtons = options.map((option, index) => {
         // Botón base

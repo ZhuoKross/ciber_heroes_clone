@@ -1,6 +1,7 @@
 import dialogFigth from "../dialogFigth";
 import { enemiesDefeated, playerIsOnDialogue, store } from "../store";
 import Notification from "../../utils/notification";
+import { GoogleGenerativeAI } from "@google/generative-ai";
 
 
 export default async function figthThree(k, backScene) {
@@ -9,16 +10,77 @@ export default async function figthThree(k, backScene) {
     const canvasHeight = k.height();
     const enemiesCount = store.get(enemiesDefeated);
 
+    // Inicializar Gemini con tu API key
+    const genAI = new GoogleGenerativeAI(import.meta.env.VITE_GEMINI_API_KEY);
+
     
-    function introDialogue() {
+      // Función para procesar y limpiar la respuesta
+      function cleanAndFilterResponse(text) {
+        // Eliminar el prompt si está presente
+        const cleanText = text.replace(/^.?Reformula.?:\s*"/i, '').replace(/"$/, '').trim();
+        
+        // Dividir en líneas y limpiar
+        const lines = cleanText.split(/[\n.!?]+/)
+            .map(line => line.trim())
+            .filter(line => line.length > 0);
+        
+        // Seleccionar la versión más corta y clara
+        const processedLines = lines.filter(line => 
+            line.length >= 10 && 
+            line.length <= 50 && 
+            line.split(' ').length >= 3 &&
+            line.split(' ').length <= 10
+        );
+
+        // Devolver la primera línea válida o la línea original si no hay coincidencias
+        return processedLines.length > 0 
+            ? processedLines[0] + '?' 
+            : cleanText.split(/[\n.!?]+/)[0] + '?';
+    }
+
+    // Función de transformación de preguntas con Gemini
+    async function transformQuestionWithGemini(originalQuestion) {
+        try {
+            const model = genAI.getGenerativeModel({ 
+                model: "gemini-pro",
+                generationConfig: {
+                    maxOutputTokens: 40,  // Limitar la longitud de salida
+                    temperature: 0.7,     // Añadir algo de creatividad
+                }
+            });
+            
+            const prompt = `Reformula esta pregunta sobre ciberseguridad de manera concisa: "${originalQuestion}"`;
+
+            const result = await model.generateContent(prompt);
+            const response = await result.response;
+            let text = response.text();
+
+            // Limpiar y procesar la respuesta
+            const transformedQuestion = cleanAndFilterResponse(text);
+
+            return transformedQuestion || originalQuestion;
+        } catch (error) {
+            console.error("Error en transformación de Gemini:", error);
+            return originalQuestion;
+        }
+    }
+
+    
+    async function introDialogue() {
     
     
         store.set(playerIsOnDialogue, true);
         console.log("the player is in dialogue? ", store.get(playerIsOnDialogue));
+        
         const resp = "b. Contiene errores de ortografía o caracteres extraños";
+        const originalQuestion = "¿Cuál es una señal de que un enlace podría ser falso o peligroso?";
+
+        // Transformar la pregunta usando Gemini
+        let transformedQuestion = await transformQuestionWithGemini(originalQuestion);
+        
         dialogFigth(
             k,
-            "¿Cuál es una señal de que un enlace podría ser falso o peligroso?",
+            transformedQuestion,
             ["a. Tiene un nombre largo ", "b. Contiene errores de ortografía o caracteres extraños", "c.	No tiene imágenes", "d.	Es compartido por un amigo"],
             k.vec2(canvasWidth / 2, canvasHeight / 2),
             (selectedOption) => {
@@ -36,9 +98,14 @@ export default async function figthThree(k, backScene) {
                     store.set(enemiesDefeated, [...enemiesCount, 1])
                     
                 }else{
-                    alert("Respuesta Incorrecta, Intenta de nuevo");
-                    
-                    backScene();
+                    Notification(
+                        k,
+                        player,
+                        k.vec2(canvasWidth / 2, canvasHeight / 2),
+                        "Respuesta Incorrecta, Sigue intentando!",
+                        "lose",
+                        () => { backScene(); }
+                    );
                 }
             },
             () => {
@@ -51,7 +118,7 @@ export default async function figthThree(k, backScene) {
 
     const background = k.add ([
         k.sprite("background_figthThree"),
-        k.scale(4.2, 4.2),
+        k.scale(5, 5),
         k.pos(0, 0)
     ])
    
@@ -96,9 +163,6 @@ export default async function figthThree(k, backScene) {
         k.scale(8)
     ])
 
-    const gravity = 200;
-
-    k.setGravity(gravity);
     k.add(player);
     
 
