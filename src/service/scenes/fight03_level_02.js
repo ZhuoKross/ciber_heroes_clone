@@ -147,19 +147,19 @@ export default async function fightThreeLevelTwo(k, goBackScene){
 
     k.add([
         k.sprite("02_back_palm_orange_sunset"),
-        k.pos(0),
+        k.pos(0, -1000),
         k.scale(8 , 12),
     ])
 
     k.add([
         k.sprite("03_back_palm_orange_sunset"),
-        k.pos(0),
+        k.pos(0, -1000),
         k.scale(8, 12),
     ])
 
     k.add([
         k.sprite("04_back_palm_orange_sunset"),
-        k.pos(0),
+        k.pos(0, -1000),
         k.scale(8, 12),
     ])
     

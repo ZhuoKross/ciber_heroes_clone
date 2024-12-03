@@ -134,7 +134,7 @@ export default async function fight02(k, goBackScene){
 
     const monster = k.add([
         k.sprite("monster"),
-        k.pos(180, + 550),
+        k.pos(200, canvasHeight - 200),
         k.area({
             shape: new k.Rect(k.vec2(0), 30, 40)
         }),

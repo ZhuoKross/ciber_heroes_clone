@@ -78,7 +78,7 @@ export default async function fightThreeLevelThree(k, goBackScene) {
     const map = k.add([
         k.sprite("back_fight03_level03"),
         k.pos(0),
-        k.scale(2, 1)
+        k.scale(1.9, 1.6)
     ])
 
     k.add([
@@ -144,7 +144,7 @@ export default async function fightThreeLevelThree(k, goBackScene) {
 
     const boss03 = k.add([
         k.sprite("third_boss_level_03"),
-        k.pos(200, canvasHeight - 300),
+        k.pos(270, canvasHeight - 400),
         k.body(),
         k.area({ shape: new k.Rect(k.vec2(0), 25, 180) }),
         k.anchor("center"),
@@ -160,7 +160,7 @@ export default async function fightThreeLevelThree(k, goBackScene) {
         }),
         k.body(),
         k.anchor("center"),
-        k.pos(canvasWidth - 100, canvasHeight - 50),
+        k.pos(canvasWidth - 100, canvasHeight - 140),
         k.scale(6),
         {
             speed: 200,

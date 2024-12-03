@@ -134,8 +134,8 @@ export default async function fightOneLevelThree(k, goBackScene){
 
     const map = k.add([
         k.sprite("background_figthTwo"),
-        k.pos(0, -320),
-        k.scale(1.7, 1.5),
+        k.pos(0, -1050),
+        k.scale(2, 2.2),
     ])
 
     
@@ -144,13 +144,13 @@ export default async function fightOneLevelThree(k, goBackScene){
         k.pos(0, canvasHeight - 50),
         k.area(),
         k.body({ isStatic: true }),
-        k.color(k.Color.fromHex(("#020232")))
+        k.color(k.Color.fromHex(("#080e15")))
     ]);
     
 
     const boss01 = k.add([
         k.sprite("first_boss_level_03"),
-        k.pos(200, canvasHeight - 50),
+        k.pos(200, canvasHeight - 240),
         k.body(),
         k.area({shape: new k.Rect(k.vec2(0), 25, 40)}),
         k.anchor("center"),
@@ -166,7 +166,7 @@ export default async function fightOneLevelThree(k, goBackScene){
         }),
         k.body(),
         k.anchor("center"),
-        k.pos(canvasWidth - 130, canvasHeight - 50),
+        k.pos(canvasWidth - 130, canvasHeight - 140),
         k.scale(6),
         {
             speed: 200,
