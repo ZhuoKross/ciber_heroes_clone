@@ -4,18 +4,13 @@ import main from '../service/main';
 
 export default function Root() {
 
-  useEffect( () => {
-       
-        
-       
+  useEffect( () => {       
     main();
 
     
 }, [])
 
   return (
-    <div className='w-full h-screen'>
-      
-    </div>
+   <></>
   )
 }
