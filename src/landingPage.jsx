@@ -22,17 +22,23 @@ export default function landingPage() {
               </div>
             </div>
             <div className="hidden md:block">
-              <div className="ml-10 flex items-center space-x-8">
-              <a 
-                href="https://ciberpaz.gov.co/portal/" target="_blank" rel="noopener noreferrer" className="text-gray-300 hover:text-white px-3 py-2 text-sm font-medium"
-              >
-                Ciber paz
-              </a>
-                <Link to="/game" className="bg-yellow-400 hover:bg-yellow-500 text-black px-4 py-2 rounded-md text-sm font-medium ">
-                  Iniciemos
-                </Link>
-              </div>
-            </div>
+          <div className="ml-10 flex items-center space-x-8">
+            <a
+              href="https://sensibilizacion.ciberpaz.gov.co/#/data-ciberpaz/response/64?type=public"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500 text-white px-4 py-2 text-sm font-bold rounded-md shadow-lg  duration-300 hover:scale-105 hover:shadow-xl"
+            >
+              ¡CiberPaz!
+            </a>
+            <Link
+              to="/game"
+              className="bg-yellow-400 hover:bg-yellow-500 text-black px-4 py-2 rounded-md text-sm font-medium duration-300"
+            >
+              Iniciemos
+            </Link>
+          </div>
+        </div>
           </div>
         </div>
       </nav>
