@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import fondoLanding from "../public/assets/fondo_landing.jpg";
 import players from "../public/assets/players.png";
@@ -10,9 +10,36 @@ import { MapPin, Briefcase, Twitter, Github, Mail, Instagram } from 'lucide-reac
 
 
 export default function landingPage() {
+  const [isModalVisible, setIsModalVisible] = useState(true);
+
+  const closeModal = () => {
+    setIsModalVisible(false);
+  };
+
   return (
-    
     <div className=" bg-[#0a0b1a]"> 
+     {/* Modal */}
+     {isModalVisible && (
+        <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
+          <div className="bg-white rounded-lg p-6 shadow-lg max-w-md text-center">
+            <h2 className="text-2xl font-pixel  ">¡Advertencia!</h2>
+            <img 
+              src="assets/robotbb.gif"  
+              className="mb-2 mx-auto w-40 h-auto animate-float"
+            />
+            <p className="text-sm mb-4">
+              ¡Hola, querido héroe digital! Por ahora, CyberHeroes está disponible únicamente para jugar en computadoras.  
+              ¡Te invitamos a disfrutar esta experiencia épica desde tu equipo de cómputo!
+            </p>
+            <button
+              onClick={closeModal}
+              className="bg-yellow-400 hover:bg-yellow-500 text-black px-4 py-2 rounded-lg font-medium"
+            >
+              Cerrar
+            </button>
+          </div>
+        </div>
+      )}
       <nav className="bg-[#0a0b1a] border-gray-800 fixed top-0 left-0 right-0 mr-6 ml-6 mt-6 z-50 rounded-xl">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex items-center justify-between h-16">
