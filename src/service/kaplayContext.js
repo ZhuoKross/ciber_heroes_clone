@@ -8,7 +8,8 @@ export default function context(){
     debug: true,
     //letterbox: true,
     debugKey: "c",
-    backgroundAudio: true
+    backgroundAudio: true,
+    clearColor: [0,0,0],
 });
 }
 

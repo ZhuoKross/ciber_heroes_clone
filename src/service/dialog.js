@@ -1,8 +1,14 @@
-import { store, playerIsOnDialogue } from "./store";
+import { store, playerIsOnDialogue, canvasGame } from "./store";
 
 export default async function dialog(k, text, position = k.vec2(200, 200), onClose, close) {
+    
+
+    const isCanvasPresent = store.get(canvasGame)
+
+
+    
     // Contenedor del diálogo
-    const dialogContainer = await k.add([
+    const dialogContainer = await k.make([
         k.rect(450, 460, { radius: 8 }),
         k.pos(position),
         k.area(),
@@ -12,9 +18,8 @@ export default async function dialog(k, text, position = k.vec2(200, 200), onClo
         k.animate(),
         "dialog",
     ]);
-
     // Texto del diálogo
-    dialogContainer.add([
+    const Maintext = k.make([
         k.text(text, {
             size: 30, // Tamaño del texto
             width: 400, // Limitar ancho
@@ -25,7 +30,22 @@ export default async function dialog(k, text, position = k.vec2(200, 200), onClo
         k.anchor("center"),
         k.color(0, 0, 0), // Color del texto en negro
     ]);
+
+    if(!isCanvasPresent){
+        k.add(dialogContainer);
+        dialogContainer.add(Maintext);
+    }
     
+
+    if(isCanvasPresent){
+        k.destroy(Maintext);
+        k.destroy(dialogContainer);
+        console.log("se eliminó el texto");
+
+        k.add(dialogContainer);
+        k.add(Maintext);
+        console.log("Se agregó el dialogo");
+    }
     
 
     // Botón "Cerrar"

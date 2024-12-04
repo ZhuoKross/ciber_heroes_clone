@@ -15,33 +15,35 @@ import fightThreeLevelThree from "./scenes/fight03_level_03";
 
 
 
-export default async function main() {
 
 
 
-    
+
+
+export default async function main(canvas) {
+
+    console.log("is there a canvas?:", canvas);
+
+
     // GETTING THE CONTEXT OF KAPLAY
     const k = context();
-    
-    
-    
 
 
-
+    
 
     k.setBackground(k.Color.fromHex("424050"));
     // FUNTION TO PASS THROUGHT FIGTH
     function changeFight(nextScene) {
         k.go(nextScene); // Cambia directamente a la escena de la pelea
-    }    
-     
+    }
+
     function changeTwoFight(nextScene) {
         k.go(nextScene); // Cambia directamente a la escena de la pelea
-    }  
+    }
 
     function changeThreeFight(nextScene) {
         k.go(nextScene); // Cambia directamente a la escena de la pelea
-    } 
+    }
 
 
     // FUNTION TO PASS THROUGHT SCENES 
@@ -61,35 +63,35 @@ export default async function main() {
         k.go(scene);
     }
 
-    function returnBackLevelScene(scene){
+    function returnBackLevelScene(scene) {
         k.go(scene)
     }
 
 
     //FUNCTIONS OF CHANGE FIGHT SCENES OF LEVEL 02
-    function change01Fight(scene){
+    function change01Fight(scene) {
         k.go(scene);
     }
 
-    function change02Fight(scene){
+    function change02Fight(scene) {
         k.go(scene);
     }
 
-    function change03Fight(scene){
+    function change03Fight(scene) {
         k.go(scene);
     }
 
 
     //FUNCTIONS OF CHANGE FIGHT SCENES OF LEVEL 03
-    function Fight01LevelThree(scene){
+    function Fight01LevelThree(scene) {
         k.go(scene);
     }
 
-    function Fight02LevelThree(scene){
+    function Fight02LevelThree(scene) {
         k.go(scene);
     }
 
-    function Fight03LevelThree(scene){
+    function Fight03LevelThree(scene) {
         k.go(scene);
     }
 
@@ -235,16 +237,16 @@ export default async function main() {
             sliceX: 4,
             sliceY: 0,
             anims: {
-                "idle": {from: 0, to: 3, loop: true}
+                "idle": { from: 0, to: 3, loop: true }
             }
         });
 
         await k.loadSprite("monster02_level02", "assets/monster02_level02_Idle.png", {
-            "anims":{
+            "anims": {
                 "idle": {
                     from: 0,
-                    to:3,
-                    loop:true
+                    to: 3,
+                    loop: true
                 }
             }
         })
@@ -252,26 +254,26 @@ export default async function main() {
 
         // SPRITES OF THE MONSTER ENEMIES FOR THE third LEVEL 
 
-        await k.loadSprite("first_boss_level_03", "assets/boss_01_level_03_Idle.png",{
+        await k.loadSprite("first_boss_level_03", "assets/boss_01_level_03_Idle.png", {
             sliceX: 8,
             sliceY: 0,
             anims: {
                 "idle": {
                     from: 0,
                     to: 7,
-                    loop:true
+                    loop: true
                 }
             }
         })
 
-        await k.loadSprite("second_boss_level_03", "assets/boss_02_level_03_Idle.png",{
+        await k.loadSprite("second_boss_level_03", "assets/boss_02_level_03_Idle.png", {
             sliceX: 8,
             sliceY: 0,
-            anims:{
+            anims: {
                 "idle": {
                     from: 0,
                     to: 7,
-                    loop:true
+                    loop: true
                 }
             }
         })
@@ -283,7 +285,7 @@ export default async function main() {
                 "idle": {
                     from: 0,
                     to: 14,
-                    loop:true
+                    loop: true
                 }
             }
         })
@@ -294,31 +296,31 @@ export default async function main() {
         await k.loadSprite("enemies_one", "/assets/Idle.png", {
             sliceX: 8,
             sliceY: 1,
-            anims: {"idle": {from: 0, to: 7, loop: true, speed: 5}}
+            anims: { "idle": { from: 0, to: 7, loop: true, speed: 5 } }
         });
         await k.loadSprite("enemies_two", "/assets/AnimationSheet_Character.png", {
             sliceX: 8,
             sliceY: 9,
-            anims: {"idle": {from: 0, to: 1, loop: true, speed: 5}}
+            anims: { "idle": { from: 0, to: 1, loop: true, speed: 5 } }
         });
 
 
         await k.loadSprite("enemies_02_three", "/assets/Idle_fire.png", {
             sliceX: 9,
             sliceY: 1,
-            anims: {"idle": {from: 0, to: 7, loop: true, speed: 5}}
+            anims: { "idle": { from: 0, to: 7, loop: true, speed: 5 } }
         });
 
         await k.loadSprite("enemies_02_two", "/assets/Idle_Martial.png", {
             sliceX: 11,
             sliceY: 1,
-            anims: {"idle": {from: 0, to: 10, loop: true}}
+            anims: { "idle": { from: 0, to: 10, loop: true } }
         });
 
         await k.loadSprite("enemies_01_three", "/assets/Flight.png", {
             sliceX: 8,
             sliceY: 1,
-            anims: {"idle": {from: 0, to: 7, loop: true, speed: 5}}
+            anims: { "idle": { from: 0, to: 7, loop: true, speed: 5 } }
         });
 
         await k.loadSprite("background_figth_02_Three", "assets/Hills_Free.png");
@@ -356,19 +358,19 @@ export default async function main() {
 
 
         // FOR THE EXPLOSIONS ANIMATIONS 
-        await k.loadSprite("explosion_01", "assets/spritesheet_explosion_06.png",{
+        await k.loadSprite("explosion_01", "assets/spritesheet_explosion_06.png", {
             sliceX: 7,
             sliceY: 1,
             anims: {
                 "explosion": {
                     from: 0,
                     to: 6,
-                    loop:false
+                    loop: false
                 }
             }
         });
 
-        
+
 
     } catch (error) {
         console.log("Error uploading sprites and assets: ", error);
@@ -380,8 +382,8 @@ export default async function main() {
 
 
     // DEFINING THE SCENES OF THE GAME    
-    
-    
+
+
     // Define la escena de la pelea
     k.scene("fightOne", () => {
         figthOne(k, () => { returnBackLevelScene("scene01") })
@@ -394,39 +396,39 @@ export default async function main() {
     k.scene("fightThree", () => {
         figthThree(k, () => { returnBackLevelScene("scene01") })
     });
-    
+
 
     // SCENES OF FIGHTS OF THE LEVEL 02
 
-    k.scene("fight_01_level_02", ()=>{
-        fight02(k, ()=> {returnBackLevelScene("scene02")});
+    k.scene("fight_01_level_02", () => {
+        fight02(k, () => { returnBackLevelScene("scene02") });
     })
 
-    k.scene("fight_02_level_02", ()=> {
-        fightTwoLevelTwo(k, ()=> {returnBackLevelScene("scene02")});
+    k.scene("fight_02_level_02", () => {
+        fightTwoLevelTwo(k, () => { returnBackLevelScene("scene02") });
     })
 
-    k.scene("fight_03_level_02", ()=>{
-        fightThreeLevelTwo(k, ()=> {returnBackLevelScene("scene02")})
+    k.scene("fight_03_level_02", () => {
+        fightThreeLevelTwo(k, () => { returnBackLevelScene("scene02") })
     })
 
 
 
     // SCENES OF FIGHTS OF THE LEVEL 03
 
-    k.scene("fight_01_level_03", ()=>{
-        fightOneLevelThree(k, ()=> {returnBackLevelScene("scene03")});
+    k.scene("fight_01_level_03", () => {
+        fightOneLevelThree(k, () => { returnBackLevelScene("scene03") });
     })
 
-    k.scene("fight_02_level_03", ()=> {
-        fightTwoLevelThree(k, ()=> {returnBackLevelScene("scene03")});
+    k.scene("fight_02_level_03", () => {
+        fightTwoLevelThree(k, () => { returnBackLevelScene("scene03") });
     })
 
-    k.scene("fight_03_level_03", ()=>{
-        fightThreeLevelThree(k, ()=> {returnBackLevelScene("scene03")})
+    k.scene("fight_03_level_03", () => {
+        fightThreeLevelThree(k, () => { returnBackLevelScene("scene03") })
     })
 
-    
+
     // MAIN SCENES (LEVELS)
 
     k.scene("scene01", () => {
@@ -447,9 +449,9 @@ export default async function main() {
             () => { changeScene("scene02", "level_02", allPositions.positions_level_02.level_02_from_level_03) },
             level03,
             allPositions,
-            () => { Fight01LevelThree("fight_01_level_03")},
-            () =>{Fight02LevelThree("fight_02_level_03")},
-            () => {Fight03LevelThree("fight_03_level_03")}
+            () => { Fight01LevelThree("fight_01_level_03") },
+            () => { Fight02LevelThree("fight_02_level_03") },
+            () => { Fight03LevelThree("fight_03_level_03") }
         );
     })
 
@@ -460,19 +462,27 @@ export default async function main() {
             () => { changeScene("scene03", "level_03", allPositions.positions_level_03.level_03_from_level_02) },
             () => { backScene("scene01", "level_01", allPositions.positions_level_01.level_01_from_level_02) },
             level02, allPositions,
-            ()=>{change01Fight("fight_01_level_02")},
-            () => {change02Fight("fight_02_level_02")},
-            () => {change03Fight("fight_03_level_02")}
+            () => { change01Fight("fight_01_level_02") },
+            () => { change02Fight("fight_02_level_02") },
+            () => { change03Fight("fight_03_level_02") }
         );
     })
 
     k.scene("fight02", () => {
         fight02(k);
     })
-
-
-
-    k.go("scene01")
-
     
+    
+    if (!canvas) {    
+
+        k.go("scene01")
+    }
+
+    if(canvas){
+        k.go("scene01");
+        //k.go("scene01");
+    }
+
+
+
 }

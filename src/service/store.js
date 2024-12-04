@@ -1,5 +1,8 @@
 import { atom, createStore } from "jotai";
 
+export const canvasGame = atom(null);
+
+
 export const playerIsOnDialogue = atom(false);
 export const hasNotificationDisplayed = atom(false);
 export const hasNotificationDisplayed02 = atom(false);

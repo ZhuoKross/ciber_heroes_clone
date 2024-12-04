@@ -5,8 +5,7 @@ import main from '../service/main';
 export default function Root() {
 
   useEffect( () => {       
-    main();
-
+  
     
 }, [])
 

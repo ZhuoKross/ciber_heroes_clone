@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import fondoLanding from "../public/assets/fondo_landing.jpg";
 import players from "../public/assets/players.png";
@@ -7,9 +7,23 @@ import city from "../public/assets/city.png";
 import city2 from "../public/assets/cyberpunk-street.png";
 import robot from "../public/assets/robot.png";
 import { MapPin, Briefcase, Twitter, Github, Mail, Instagram } from 'lucide-react'
+import controllerCanvas from './service/controllerCanvas';
 
 
 export default function landingPage() {
+
+  useEffect(()=> {
+    const landingPage = document.getElementById("container_landing");
+    const bodyElement = document.getElementsByTagName("body");
+
+    if(landingPage){
+      console.log("Landing page element: ", landingPage);
+    }
+
+    controllerCanvas(bodyElement, landingPage);
+  }, [])
+
+
   const [isModalVisible, setIsModalVisible] = useState(true);
 
   const closeModal = () => {
@@ -17,7 +31,7 @@ export default function landingPage() {
   };
 
   return (
-    <div className=" bg-[#0a0b1a]"> 
+    <div className=" bg-[#0a0b1a]" id='container_landing'> 
      {/* Modal */}
      {isModalVisible && (
         <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">

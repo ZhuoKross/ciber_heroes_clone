@@ -38,7 +38,7 @@ export default async function scene01(
 
     const controls = MusicControls(k);
     const enemiesCount = store.get(enemiesDefeated);
-
+    
 
 
 
