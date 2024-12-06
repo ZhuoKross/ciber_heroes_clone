@@ -5,7 +5,8 @@ import {
     store,
     counterSuccessNotifications,
     playerIsOnDialogue,
-    hasNotificationDisplayed03
+    hasNotificationDisplayed03,
+    formDialogue
 } from "../store";
 import dialog from "../dialog";
 import Notification from "../../utils/notification";
@@ -215,6 +216,11 @@ export default async function (
     }
 
 
+
+    
+
+
+
     // FOR THE ANIMATION OF THE DIALOGUE WHEN THE PLAYER COMPLETE THE LEVEL
     if (store.get(enemiesDefeated).length >= 9 &&
         store.get(counterSuccessNotifications) === 2) {
@@ -224,7 +230,24 @@ export default async function (
             k.vec2(player.pos.x, player.pos.y + 100),
             "¡FELICIDADES! Has Derrotado a todos los Enemigos y completado el nivel 03",
             "success",
-            () => { return; });
+            () => { 
+                if (store.get(enemiesDefeated).length >= 9 && !store.get(formDialogue)) {
+                    Notification(
+                        k,
+                        k.vec2(player.pos.x, player.pos.y + 100),
+                        "¡Hola, ciberhéroe! 🎮 Esperamos que estés disfrutando el juego. Somos un equipo comprometido en crear una experiencia divertida para aprender sobre ciberseguridad básica, como parte de la iniciativa Ciber Paz. Estamos compitiendo para ganar y necesitamos tu apoyo. Si crees que nuestra propuesta es útil, haz clic en Ir al formulario. Allí, completa los campos y al final escribe el nombre de nuestro equipo: SENA-CSF DevXperts en el apartado Nombre del Equipo. ¡Eso es todo! 🙌 Con tu ayuda, estaremos más cerca de la victoria.¡Gracias por ser parte de este proyecto! 💙 — Equipo CiberHeroes.",
+                        "form",
+                        () => { 
+                            window.open("https://sensibilizacion.ciberpaz.gov.co/#/data-ciberpaz/response/64?type=public", "_blank") 
+            
+                            store.set(playerIsOnDialogue, false);
+                            store.set(formDialogue, true);
+            
+                        }
+            
+                        )
+                }
+            });
         store.set(counterSuccessNotifications, 3);
     }
 

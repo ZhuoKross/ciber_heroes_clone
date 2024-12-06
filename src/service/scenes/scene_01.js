@@ -85,7 +85,7 @@ export default async function scene01(
         store.set(playerIsOnDialogue, true);
 
         dialog(k,
-            "Tu misión comienza aqui, aprendiendo de los errores básicos de ciberseguridad. Tendrás que demostrar que sabes cómo proteger tu información personal. Cada respuesta correcta te acerca a la victoria. ¡Prepárate para proteger tus datos y vencer en tu primer combate!", // Texto del diálogo
+            "Tu misión comienza aqui, aprendiendo de los errores básicos de ciberseguridad. Tendrás que demostrar que sabes cómo proteger tu información personal. Cada respuesta correcta te acerca a la victoria. ¡Prepárate para proteger tus datos y vencer en tu primer combate! Recuerda que para moverte utilizas las teclas W/A/S/D", // Texto del diálogo
             k.vec2(player.pos.x, player.pos.y + 100), // Posición basada en la cámara
             () => {
                 if (store.get(isMusicPlaying) === false) {
@@ -284,22 +284,7 @@ export default async function scene01(
 
     }
 
-    if (store.get(enemiesDefeated).length >= 1 && !store.get(formDialogue)) {
-        Notification(
-            k,
-            k.vec2(player.pos.x, player.pos.y + 100),
-            "¡Hola, ciberhéroe! 🎮 Esperamos que estés disfrutando el juego. Somos un equipo comprometido en crear una experiencia divertida para aprender sobre ciberseguridad básica, como parte de la iniciativa Ciber Paz. Estamos compitiendo para ganar y necesitamos tu apoyo. Si crees que nuestra propuesta es útil, haz clic en Ir al formulario. Allí, completa los campos y al final escribe el nombre de nuestro equipo: SENA-CSF DevXperts en el apartado Nombre del Equipo. ¡Eso es todo! 🙌 Con tu ayuda, estaremos más cerca de la victoria.¡Gracias por ser parte de este proyecto! 💙 — Equipo CiberHeroes.",
-            "form",
-            () => { 
-                window.open("https://sensibilizacion.ciberpaz.gov.co/#/data-ciberpaz/response/64?type=public", "_blank") 
-
-                store.set(playerIsOnDialogue, false);
-                store.set(formDialogue, true);
-
-            }
-
-            )
-    }
+    
 
 
 
