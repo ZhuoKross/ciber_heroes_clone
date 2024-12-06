@@ -88,7 +88,6 @@ export default async function figthThree(k, backScene) {
                 if(selectedOption === resp){
                     Notification(
                         k,
-                        player,
                         k.vec2(canvasWidth / 2, canvasHeight / 2),
                         "¡Muy Bien! Has respondido Correctamente y derratodo al último enemigo del primer nivel",
                         "win",
@@ -100,7 +99,6 @@ export default async function figthThree(k, backScene) {
                 }else{
                     Notification(
                         k,
-                        player,
                         k.vec2(canvasWidth / 2, canvasHeight / 2),
                         "Respuesta Incorrecta, Sigue intentando!",
                         "lose",

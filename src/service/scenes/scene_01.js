@@ -38,7 +38,7 @@ export default async function scene01(
 
     const controls = MusicControls(k);
     const enemiesCount = store.get(enemiesDefeated);
-    
+
 
 
 
@@ -148,7 +148,6 @@ export default async function scene01(
                         } else {
                             Notification(
                                 k,
-                                player,
                                 k.vec2(player.pos.x, player.pos.y + 100),
                                 "No Puedes Pasar al Siguiente Nivel, Aún te quedan enemigos por derrotar :/",
                                 "block",
@@ -236,6 +235,8 @@ export default async function scene01(
     }
 
 
+
+
     //console.log("cantidad de enemigos derrotados: ", store.get(emeniesDefeated));
 
 
@@ -282,12 +283,30 @@ export default async function scene01(
 
     }
 
+    if (store.get(enemiesDefeated).length >= 1) {
+        Notification(
+            k,
+            k.vec2(player.pos.x, player.pos.y + 100),
+            "¡Hola, ciberhéroe! 🎮 Esperamos que estés disfrutando el juego. Somos un equipo comprometido en crear una experiencia divertida para aprender sobre ciberseguridad básica, como parte de la iniciativa Ciber Paz. Estamos compitiendo para ganar y necesitamos tu apoyo. Si crees que nuestra propuesta es útil, haz clic en Ir al formulario. Allí, completa los campos y al final escribe el nombre de nuestro equipo: SENA-CSF DevXperts en el apartado Nombre del Equipo. ¡Eso es todo! 🙌 Con tu ayuda, estaremos más cerca de la victoria.¡Gracias por ser parte de este proyecto! 💙 — Equipo CiberHeroes.",
+            "form",
+            () => { window.open("https://sensibilizacion.ciberpaz.gov.co/#/data-ciberpaz/response/64?type=public", "_blank") }
+
+            )
+    }
+
+
 
     // FOR THE ANIMATION OF THE DIALOGUE WHEN THE PLAYER COMPLETE THE LEVEL
     if (store.get(enemiesDefeated).length >= 3 &&
         store.get(counterSuccessNotifications) === 0) {
 
-        Notification(k, player, k.vec2(player.pos.x, player.pos.y + 100), "¡FELICIDADES! Has completado el nivel 01", "success", () => { return; });
+        Notification(
+            k,
+            k.vec2(player.pos.x, player.pos.y + 100),
+            "¡FELICIDADES! Has completado el nivel 01",
+            "success",
+            () => { return; });
+
         store.set(counterSuccessNotifications, 1);
     }
 

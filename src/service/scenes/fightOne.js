@@ -87,7 +87,6 @@ export default async function figthOne(k, backScene) {
 
                     Notification(
                         k,
-                        player,
                         k.vec2(canvasWidth / 2, canvasHeight / 2),
                         "¡Muy Bien! Has respondido Correctamente y derratodo al primer enemigo",
                         "win",
@@ -99,7 +98,6 @@ export default async function figthOne(k, backScene) {
                 } else {
                     Notification(
                         k,
-                        player,
                         k.vec2(canvasWidth / 2, canvasHeight / 2),
                         "Respuesta Incorrecta, Sigue intentando!",
                         "lose",

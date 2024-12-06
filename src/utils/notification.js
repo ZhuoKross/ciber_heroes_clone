@@ -1,7 +1,7 @@
 
-import { store, playerIsOnDialogue } from "../service/store";
+import { store, playerIsOnDialogue, formDialogue } from "../service/store";
 
-export default async function Notification(k, player, position, textDescription, typeNotification, action){
+export default async function Notification(k, position, textDescription, typeNotification, action){
    
 
     const canvasWidth = k.width();
@@ -32,6 +32,39 @@ export default async function Notification(k, player, position, textDescription,
     ])
 
 
+    const text = notification.add([
+        k.text(`${textDescription}`, {
+            size: 40, // Tamaño del texto
+            width: notification.width, // Limitar ancho
+            align: "center",
+            font: "monogram",
+            lineSpacing: 3
+        }),
+        k.pos(0, -20),
+        k.anchor("center"),
+    ])
+
+
+     // Botón "Cerrar"
+     const closeButton = notification.add([
+        k.rect(200, 40, { radius: 10 }),
+        k.pos(0, 110), // Posición ajustadass
+        k.area(),
+        k.opacity(1),
+        k.anchor("center"),
+        k.color(255, 255, 255), // Blanco
+        "close-btn",
+    ]);
+
+    const textCloseBtn = closeButton.add([
+        k.text("Cerrar", { size: 18, align: "center" }),
+        k.anchor("center"),
+        k.color(0, 0, 0), // Texto blanco
+    ]);
+    
+
+    k.add(notification);
+
 
     if(typeNotification === "block"){
         
@@ -46,52 +79,76 @@ export default async function Notification(k, player, position, textDescription,
         notification.color = k.Color.fromHex("93cd11")
 
     }else if(typeNotification === "intro"){
+
         notification.color = k.Color.fromHex("e225d1");
     
     }else if(typeNotification === "win"){
+
+
         notification.color = k.Color.fromHex("312c31");
 
         k.add(explosion)
         explosion.play("explosion");
 
     }else if (typeNotification === "lose"){
+    
         notification.color = k.Color.fromHex("ff1873");
+    
+    }else if( typeNotification === "form"){
+
+        notification.color = k.Color.fromHex("323d49");
+
+        k.destroy(closeButton)
+
+        notification.width = 800;
+        notification.height = 700;
+
+
+
+        text.width = notification.width;
+        text.height = notification.height;        
+
+        
+
+        const formButton = notification.add([
+            k.rect(260, 70, { radius: 10 }),
+            k.pos(0, 300),
+            k.area(),
+            k.anchor("center"),
+            "goToForm"
+        ]);
+
+        formButton.color = k.Color.fromHex("#FFC300");
+
+
+        formButton.add([
+            k.text("Ir al formulario", {
+                font: "monogram",
+                align: "center",
+                size: 40
+            }),
+            k.anchor("center"),
+            k.color(0,0,0)
+        ]);
+
+
+
+        formButton.onClick(()=> {
+            
+            store.set(formDialogue, true);
+
+            action();
+
+            k.destroy(notification);
+
+        })
+
     }
 
     
 
 
-    notification.add([
-        k.text(`${textDescription}`, {
-            size: 40, // Tamaño del texto
-            width: notification.width, // Limitar ancho
-            align: "center",
-            font: "monogram"
-        }),
-        k.pos(0, -20),
-        k.anchor("center"),
-    ])
-
-
-     // Botón "Cerrar"
-     const closeButton = notification.add([
-        k.rect(220, 40, { radius: 10 }),
-        k.pos(0, + 100), // Posición ajustada
-        k.area(),
-        k.opacity(1),
-        k.anchor("center"),
-        k.color(255, 255, 255), // Blanco
-        "close-btn",
-    ]);
-
-    closeButton.add([
-        k.text("Cerrar", { size: 18, align: "center" }),
-        k.anchor("center"),
-        k.color(0, 0, 0), // Texto blanco
-    ]);
     
-
-    k.add(notification);
     //k.destroy(explosion);
     
 
