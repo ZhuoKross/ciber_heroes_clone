@@ -38,7 +38,7 @@ export default async function Notification(k, position, textDescription, typeNot
             width: notification.width, // Limitar ancho
             align: "center",
             font: "monogram",
-            lineSpacing: 3
+            lineSpacing: 8
         }),
         k.pos(0, -20),
         k.anchor("center"),
@@ -100,19 +100,19 @@ export default async function Notification(k, position, textDescription, typeNot
 
         k.destroy(closeButton)
 
-        notification.width = 800;
-        notification.height = 700;
+        notification.width = 700;
+        notification.height = 600;
 
 
 
         text.width = notification.width;
-        text.height = notification.height;        
+        text.textSize = 30;        
 
         
 
         const formButton = notification.add([
             k.rect(260, 70, { radius: 10 }),
-            k.pos(0, 300),
+            k.pos(0, 200),
             k.area(),
             k.anchor("center"),
             "goToForm"
