@@ -112,7 +112,7 @@ export default async function Notification(k, position, textDescription, typeNot
 
         const formButton = notification.add([
             k.rect(260, 70, { radius: 10 }),
-            k.pos(0, 200),
+            k.pos(0, 250),
             k.area(),
             k.anchor("center"),
             "goToForm"
@@ -135,7 +135,6 @@ export default async function Notification(k, position, textDescription, typeNot
 
         formButton.onClick(()=> {
             
-            store.set(formDialogue, true);
 
             action();
 

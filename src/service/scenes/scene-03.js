@@ -88,7 +88,6 @@ export default async function (
                         } else {
                             Notification(
                                 k,
-                                player,
                                 k.vec2(player.pos.x, player.pos.y + 100),
                                 "No Puedes Pasar al Nivel anterior, Aún te quedan enemigos por derrotar. Podrás pasar una vez que los derrotes a todos!",
                                 "block", () => { return });
@@ -208,7 +207,6 @@ export default async function (
         // CALLING THE FUNCTION OF THE NOTIFICATION FOR CREATE THE INTRO DIALOGUE OF THE LEVEL 02
         Notification(
             k,
-            player,
             k.vec2(player.pos.x, player.pos.y + 100),
             "¡BIENVENIDO AL NIVEL 3! Este es el último nivel, encontrarás enemigos más fuertes en este nivel, Encuentralos!",
             "intro",
@@ -223,7 +221,6 @@ export default async function (
 
         Notification(
             k,
-            player,
             k.vec2(player.pos.x, player.pos.y + 100),
             "¡FELICIDADES! Has Derrotado a todos los Enemigos y completado el nivel 03",
             "success",

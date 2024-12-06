@@ -93,7 +93,6 @@ export default async function fight02(k, goBackScene){
                 if(selectedOption === resp){
                     Notification(
                         k,
-                        player,
                         k.vec2(canvasWidth / 2, canvasHeight / 2),
                         "¡Muy Bien! Has respondido Correctamente",
                         "win",
@@ -108,7 +107,6 @@ export default async function fight02(k, goBackScene){
                 }else{
                     Notification(
                         k,
-                        player,
                         k.vec2(canvasWidth / 2, canvasHeight / 2),
                         "Respuesta Incorrecta, Sigue intentando!",
                         "lose",

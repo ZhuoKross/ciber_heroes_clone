@@ -99,7 +99,7 @@ export default async function scene02(
                         if (enemiesCount.length >= 6) {
                             changeScene();
                         } else {
-                            Notification(k, player, k.vec2(player.pos.x, player.pos.y + 100), "No Puedes Pasar al Siguiente Nivel, Aún te quedan enemigos por derrotar :/", "block", ()=> {return});
+                            Notification(k, k.vec2(player.pos.x, player.pos.y + 100), "No Puedes Pasar al Siguiente Nivel, Aún te quedan enemigos por derrotar :/", "block", ()=> {return});
                             
                         }
 
@@ -234,7 +234,6 @@ export default async function scene02(
         // CALLING THE FUNCTION OF THE NOTIFICATION FOR CREATE THE INTRO DIALOGUE OF THE LEVEL 02
         Notification(
             k,
-            player,
             k.vec2(player.pos.x, player.pos.y + 100),
             "¡BIENVENIDO AL NIVEL 2! En este nivel seguirás encontrandote con más enemigos, Encuentralos!",
             "intro",
@@ -249,7 +248,7 @@ export default async function scene02(
     if (store.get(enemiesDefeated).length >= 6 &&
         store.get(counterSuccessNotifications) === 1) {
 
-        Notification(k, player,k.vec2(player.pos.x, player.pos.y + 100), "¡FELICIDADES! Has completado el nivel 02", "success", ()=> {return;});
+        Notification(k, k.vec2(player.pos.x, player.pos.y + 100), "¡FELICIDADES! Has completado el nivel 02", "success", ()=> {return;});
         store.set(counterSuccessNotifications, 2);
     }
 
