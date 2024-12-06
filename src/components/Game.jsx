@@ -1,6 +1,5 @@
 import { useEffect } from "react";
 import main from "../service/main";
-import controllerCanvasGame from "../service/controllerCanvasGame";
 import {store, canvasGame} from "../service/store";
 
 
@@ -8,10 +7,10 @@ import {store, canvasGame} from "../service/store";
 export default function Game() {
   useEffect(() => {
 
-    const canvasElement = store.get(canvasGame);
+    
     const body = document.getElementsByTagName("body");
     
-    main(canvasElement);
+    main();
     
     //const listOfCanvas = document.getElementsByTagName("canvas");
     

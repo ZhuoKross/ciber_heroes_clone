@@ -20,9 +20,9 @@ import fightThreeLevelThree from "./scenes/fight03_level_03";
 
 
 
-export default async function main(canvas) {
+export default async function main() {
 
-    console.log("is there a canvas?:", canvas);
+    
 
 
     // GETTING THE CONTEXT OF KAPLAY
@@ -473,16 +473,8 @@ export default async function main(canvas) {
     })
     
     
-    if (!canvas) {    
-
-        k.go("scene01")
-    }
-
-    if(canvas){
-        k.go("scene01");
-        //k.go("scene01");
-    }
-
+    
+    k.go("scene01");
 
 
 }
